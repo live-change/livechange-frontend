@@ -21,7 +21,8 @@
 
         <div class="p-field mb-3">
           <label for="password" class="block text-900 font-medium mb-2">Password (optional)</label>
-          <InputText id="password" type="password" class="w-full p-invalid" />
+          <Password id="password" class="w-full p-invalid" inputClass="w-full" toggleMask />
+
           <small id="password-help" class="p-error">password-error.</small>
         </div>
 
@@ -51,10 +52,15 @@
 </template>
 
 <script setup>
+  import { ref } from 'vue'
+
   import InputText from "primevue/inputtext"
   import Checkbox from "primevue/checkbox"
   import Button from "primevue/button"
   import Divider from "primevue/divider"
+  import Password from "primevue/password"
+
+
 
 </script>
 

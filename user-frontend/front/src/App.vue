@@ -39,6 +39,10 @@ const { meta } = useMeta({
   }
 })
 
+import { onMounted } from 'vue'
+import isClientSide from "./isClientSide.js"
+onMounted(() => isClientSide.value = true)
+
 </script>
 
 <style>

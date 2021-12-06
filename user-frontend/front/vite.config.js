@@ -2,6 +2,7 @@ const path = require('path')
 const vuePlugin = require('@vitejs/plugin-vue')
 import { defineConfig } from 'vite'
 import findFreePorts from "find-free-ports"
+import { visualizer } from 'rollup-plugin-visualizer'
 
 const ssrTransformCustomDir = () => {
   return {
@@ -30,6 +31,9 @@ export default defineConfig(async ({ command, mode }) => {
             }
           }
         },
+      }),
+      visualizer({
+        filename: '../stats.html'
       })
     ],
     build: {
@@ -76,12 +80,12 @@ export default defineConfig(async ({ command, mode }) => {
       fileToRequest(filePath) {
         console.log('@@@', filePath);
         if (filePath.startsWith(srcPath)) {
-          return `/@/${path.relative(srcPath, filePath)}`;
+          return `/@/${path.relative(srcPath, filePath)}`
         }
       },
       requestToFile(publicPath) {
         if (publicPath.startsWith('/@/')) {
-          return path.join(srcPath, publicPath.replace(/^\/@\//, ''));
+          return path.join(srcPath, publicPath.replace(/^\/@\//, ''))
         }
       },
     }],

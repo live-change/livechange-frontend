@@ -43,8 +43,8 @@ export function createApp(api) {
   app.provide(PrimeVueToastSymbol, app.config.globalProperties.$toast)
 
   app.directive('styleclass', StyleClass)
-  app.directive('ripple', Ripple);
-  app.directive('badge', BadgeDirective);
+  app.directive('ripple', Ripple)
+  app.directive('badge', BadgeDirective)
 
   const meta = createMetaManager({
     isSSR: import.meta.env.SSR
