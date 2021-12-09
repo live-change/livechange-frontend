@@ -3,6 +3,8 @@ const vuePlugin = require('@vitejs/plugin-vue')
 import { defineConfig } from 'vite'
 import findFreePorts from "find-free-ports"
 import { visualizer } from 'rollup-plugin-visualizer'
+import viteImages from 'vite-plugin-vue-images'
+import viteCompression from 'vite-plugin-compression'
 
 const ssrTransformCustomDir = () => {
   return {
@@ -32,9 +34,13 @@ export default defineConfig(async ({ command, mode }) => {
           }
         },
       }),
+      viteImages({ extensions: ['jpg', 'jpeg', 'png', 'svg', 'webp'] }),
+      viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),
+      viteCompression({ algorithm: 'gzip', ext: '.gz' }),
+      viteCompression({ algorithm: 'deflate', ext: '.zz' }),
       visualizer({
         filename: '../stats.html'
-      })
+      }),
     ],
     build: {
       minify: false,
@@ -71,9 +77,11 @@ export default defineConfig(async ({ command, mode }) => {
 
     resolve: {
       alias: [
-        {find: 'debug', replacement: 'debug/src/browser.js'},
-        {find: 'universal-websocket-client', replacement: 'universal-websocket-client/browser.js'},
-        {find: 'sockjs-client', replacement: 'sockjs-client/dist/sockjs.min.js'}
+        { find: 'debug', replacement: 'debug/src/browser.js' },
+        { find: 'universal-websocket-client', replacement: 'universal-websocket-client/browser.js' },
+        { find: 'sockjs-client', replacement: 'sockjs-client/dist/sockjs.min.js' },
+        { find: '@', replacement: path.resolve(__dirname, './src') },
+        { find: '#user', replacement: path.resolve(__dirname, '.') }
       ],
     },
     resolvers: [{

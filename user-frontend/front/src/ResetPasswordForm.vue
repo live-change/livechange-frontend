@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full lg:w-6" v-shared-element:form="{ duration: '300ms', includeChildren: true }">
+  <div class="w-full lg:w-6 md:w-9" v-shared-element:form="{ duration: '300ms', includeChildren: true }">
     <div class="surface-card p-4 shadow-2 border-round" v-shared-element:form>
       <div class="text-center mb-5">
         <div class="text-900 text-3xl font-medium mb-3">Reset password</div>
@@ -51,6 +51,6 @@
   }
 </script>
 
-<style>}
+<style>
 
 </style>

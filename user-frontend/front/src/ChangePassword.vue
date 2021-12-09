@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full lg:w-6" v-shared-element:form="{ duration: '300ms', includeChildren: true }">
+  <div class="w-full lg:w-6 md:w-9" v-shared-element:form="{ duration: '300ms', includeChildren: true }">
     <SettingsTabs />
 
     <div class="surface-card p-4 shadow-2 border-round">
@@ -42,7 +42,6 @@
 
       </div>
     </div>
-
 
   </div>
 </template>
