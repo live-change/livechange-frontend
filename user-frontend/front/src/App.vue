@@ -1,6 +1,9 @@
 <template>
   <router-view v-slot="{ route, Component }">
-    <loading-zone v-if="!route?.meta?.raw" suspense>
+    <template v-if="route?.meta?.raw">
+      <component :is="Component" />
+    </template>
+    <loading-zone v-else suspense>
       <template v-slot:loading>
         <div class="loading">Loading! Please wait!</div>
       </template>

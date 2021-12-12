@@ -13,6 +13,8 @@ export function routes(config = {}) {
     route({ name: 'user:link', path: prefix + '/link/:key', props: true,
       component: () => import("./MessageLink.vue") }),
 
+    route({ name: 'user:email', path: prefix + '/_email/:action/:contact/:data', props: true, meta: { raw: true },
+      component: () => import("./MessageEmail.vue") }),
 
     route({ name: 'user:signIn', path: prefix + '/sign-in',
       component: () => import("./SignIn.vue") }),
@@ -49,7 +51,6 @@ export function routes(config = {}) {
       component: () => import("./DeleteAccountFinished.vue") }),
     route({ name: 'user:deleteAccountFeedbackSent', path: prefix + '/account-deleted-feedback-sent',
       component: () => import("./DeleteAccountFeedbackSent.vue") }),
-
 
   ]
 }

@@ -5,19 +5,21 @@
         <div class="text-900 text-3xl font-medium mb-3">Sign Up</div>
       </div>
 
-      <div>
+      <command-form service="message-authentication" action="signUpEmail" v-slot="{ data, submit }">
 
         <div class="p-field mb-3">
           <label for="email" class="block text-900 font-medium mb-2">
             Email address
           </label>
-          <InputText id="email" type="text" class="w-full p-invalid" aria-describedby="email-help" />
-          <small id="email-help" class="p-error">email not found.</small>
+          <InputText id="email" type="text" class="w-full" aria-describedby="email-help"
+                     :class="{ 'p-invalid': data.emailError}"
+                     v-model="data.email" />
+          <small v-if="data.emailError" id="email-help" class="p-error">{{ data.emailError }}</small>
         </div>
 
-        <Button label="Connect Email" icon="pi pi-user" class="w-full"></Button>
+        <Button label="Connect Email" icon="pi pi-user" class="w-full" @click="submit"></Button>
 
-      </div>
+      </command-form>
     </div>
   </div>
 </template>
@@ -27,6 +29,7 @@
   import Checkbox from "primevue/checkbox"
   import Button from "primevue/button"
   import Divider from "primevue/divider"
+
 
 </script>
 

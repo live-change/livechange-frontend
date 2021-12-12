@@ -26,7 +26,7 @@
 
         <div class="p-field mb-3">
           <label for="reenterPassword" class="block text-900 font-medium mb-2">Re-enter password</label>
-          <Password  id="reenterPassword" class="w-full p-invalid" inputClass="w-full"
+          <Password id="reenterPassword" class="w-full p-invalid" inputClass="w-full"
                      :feedback="false" toggleMask />
           <small id="reenterPassword-help" class="p-error">password-error.</small>
         </div>

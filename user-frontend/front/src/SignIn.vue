@@ -9,11 +9,11 @@
           Create today!</router-link>
       </div>
 
-      <div>
+      <div v-if="isClientSide">
 
         <div class="p-field mb-3">
           <label for="email" class="block text-900 font-medium mb-2">
-            >Email address<
+            Email address
           </label>
           <InputText id="email" type="text" class="w-full p-invalid" aria-describedby="email-help" />
           <small id="email-help" class="p-error">email not found.</small>
@@ -52,7 +52,7 @@
 </template>
 
 <script setup>
-  import { ref } from 'vue'
+  import isClientSide from "./isClientSide.js"
 
   import InputText from "primevue/inputtext"
   import Checkbox from "primevue/checkbox"
