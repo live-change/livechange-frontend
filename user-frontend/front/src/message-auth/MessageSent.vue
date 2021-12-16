@@ -22,7 +22,7 @@
   import Button from "primevue/button"
 
   const { message } = defineProps({
-    message: {
+    authentication: {
       type: String,
       required: true
     },

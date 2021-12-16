@@ -2,14 +2,16 @@
   <pre data-headers>{{ JSON.stringify(metadata, null, '  ') }}</pre>
   <div data-html class="message m-6">
     <p class="text-lg">
-      Hello username!
+      Hello!
     </p>
     <p>
       We are glad to see you have just signed up for DEMO with your email.
       In order to confirm that, please click the button below:
     </p>
     <div>
-      <Button label="Confirm email" class="p-button-lg" />
+      <a :href="linkAddress" class="no-underline">
+        <Button label="Confirm email" class="p-button-lg" />
+      </a>
     </div>
     <p>
       Or copy this address to your browser address bar:<br>
@@ -44,7 +46,7 @@
 <script setup>
   import Button from "primevue/button"
 
-  const { action, contact, data } = defineProps({
+  const { action, contact, json } = defineProps({
     action: {
       type: String,
       required: true
@@ -53,11 +55,17 @@
       type: String,
       required: true
     },
-    data: {
+    json: {
       type: String,
       required: true
     }
   })
+
+  const data = JSON.parse(json)
+  const secrets = data.secrets
+
+  const secretLink = secrets.find(secret => secret.type == 'link')
+
 
   const metadata = {
     from: 'admin@flipchart.live',
@@ -65,7 +73,7 @@
     to: contact
   }
 
-  const linkAddress = 'https://example.com/link/key'
+  const linkAddress = ENV_BASE_HREF + '/link/' + secretLink.secret.secretCode
 
 </script>
 

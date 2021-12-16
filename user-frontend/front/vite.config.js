@@ -15,6 +15,9 @@ const ssrTransformCustomDir = () => {
 
 export default defineConfig(async ({ command, mode }) => {
   return {
+    define: {
+      ENV_BASE_HREF: JSON.stringify(process.env.BASE_HREF || 'http://localhost:8001')
+    },
     server: {
       hmr: {
         port: (await findFreePorts())[0]

@@ -9,15 +9,18 @@ module.exports = {
       path: '@live-change/email-service'
     },
     {
-      name: 'secret-link',
+      name: 'secretLink',
       path: '@live-change/secret-link-service'
     },
     //  { path: '@live-change/secret-code-service' },
     //  { path: '@live-change/smsapi-service' },
     {
-      name: 'message-authentication',
+      name: 'messageAuthentication',
       path: '@live-change/message-authentication-service',
-      contactTypes: ['email']
+      contactTypes: ['email'],
+      signUp: true,
+      signIn: true,
+      connect: true
     },
     //  { path: '@live-change/password-authentication-service' },
     //  { path: '@live-change/google-account-service' },

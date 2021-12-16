@@ -5,7 +5,8 @@
         <div class="text-900 text-3xl font-medium mb-3">Sign Up</div>
       </div>
 
-      <command-form service="message-authentication" action="signUpEmail" v-slot="{ data, submit }">
+      <command-form service="messageAuthentication" action="signUpEmail" v-slot="{ data, submit }"
+                    @done="handleSent" keepOnDone>
 
         <div class="p-field mb-3">
           <label for="email" class="block text-900 font-medium mb-2">
@@ -17,7 +18,7 @@
           <small v-if="data.emailError" id="email-help" class="p-error">{{ data.emailError }}</small>
         </div>
 
-        <Button label="Connect Email" icon="pi pi-user" class="w-full" @click="submit"></Button>
+        <Button label="Connect Email" icon="pi pi-user" class="w-full" type="submit"></Button>
 
       </command-form>
     </div>
@@ -30,7 +31,24 @@
   import Button from "primevue/button"
   import Divider from "primevue/divider"
 
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
 
+  function handleSent({ parameters, result }) {
+    const { authentication } = result
+    router.push({
+      name: 'user:sent',
+      params: {
+        authentication
+      }
+    })
+  }
+
+  // import { inject } from 'vue'
+  // import isClientSide from './isClientSide.js'
+  // const workingZone = inject('workingZone')
+  // if(isClientSide) setTimeout(
+  //     s=> workingZone.addPromise('test', new Promise(r=>setTimeout(r, 5000))), 500)
 </script>
 
 <style>

@@ -15,6 +15,7 @@ const { app, router } = createApp(api)
 
 app.use(createSharedElementDirective())
 router.beforeEach(SharedElementRouteGuard)
+window.process = window.process || null
 
 // wait until router is ready before mounting to ensure hydration match
 router.isReady().then(() => {

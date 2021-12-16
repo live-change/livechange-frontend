@@ -4,17 +4,13 @@ import {
   createWebHistory
 } from 'vue-router'
 
+import messageAuthRoutes from "./message-auth/router.js"
+
 export function routes(config = {}) {
   const { prefix = '', route = (r) => r } = config
   return [
-    /// Message based authentication
-    route({ name: 'user:sent', path: prefix + '/sent/:message', props: true,
-      component: () => import("./MessageSent.vue") }),
-    route({ name: 'user:link', path: prefix + '/link/:key', props: true,
-      component: () => import("./MessageLink.vue") }),
 
-    route({ name: 'user:email', path: prefix + '/_email/:action/:contact/:data', props: true, meta: { raw: true },
-      component: () => import("./MessageEmail.vue") }),
+    ...messageAuthRoutes(config),
 
     route({ name: 'user:signIn', path: prefix + '/sign-in',
       component: () => import("./SignIn.vue") }),
