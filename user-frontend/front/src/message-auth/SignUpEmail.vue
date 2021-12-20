@@ -6,7 +6,11 @@
     </p>
     <p>
       We are glad to see you have just signed up for DEMO with your email.
-      In order to confirm that, please click the button below:
+      In order to confirm that, please enter secret code:
+    </p>
+    <p class="text-3xl font-medium">{{ code }}</p>
+    <p>
+      Or click the button below:
     </p>
     <div>
       <a :href="linkAddress" class="no-underline">
@@ -32,7 +36,10 @@
     Hello username!
 
     We are glad to see you have just signed up for DEMO with your email.
-    In order to confirm that, please click link below or copy address to your browser address bar:
+    In order to confirm that, please enter secret code:
+    {{ code }}
+
+    Or please click link below or copy address to your browser address bar:
 
     {{ linkAddress }}
 
@@ -66,6 +73,8 @@
 
   const secretLink = secrets.find(secret => secret.type == 'link')
 
+  const secretCode = secrets.find(secret => secret.type == 'code')
+
 
   const metadata = {
     from: 'admin@flipchart.live',
@@ -74,6 +83,8 @@
   }
 
   const linkAddress = ENV_BASE_HREF + '/link/' + secretLink.secret.secretCode
+
+  const code = secretCode.secret.secretCode
 
 </script>
 

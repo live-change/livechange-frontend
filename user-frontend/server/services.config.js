@@ -5,6 +5,10 @@ module.exports = {
       path: '@live-change/session-service'
     },
     {
+      name: 'user',
+      path: '@live-change/user-service'
+    },
+    {
       name: 'email',
       path: '@live-change/email-service'
     },
@@ -12,8 +16,10 @@ module.exports = {
       name: 'secretLink',
       path: '@live-change/secret-link-service'
     },
-    //  { path: '@live-change/secret-code-service' },
-    //  { path: '@live-change/smsapi-service' },
+    {
+      name: 'secretCode',
+      path: '@live-change/secret-code-service'
+    },
     {
       name: 'messageAuthentication',
       path: '@live-change/message-authentication-service',

@@ -7,7 +7,7 @@ const happyPath = false
 
 Feature('write')
 
-Scenario('post message', async ({ I }) => {
+Scenario('sign up with email link', async ({ I }) => {
 
   I.amOnPage('/sign-up')
   I.fillField('input#email', user.email)
@@ -18,6 +18,7 @@ Scenario('post message', async ({ I }) => {
   const authentication = url.split('/').pop()
 
   const authenticationData = await I.grabObject('messageAuthentication', 'Authentication', authentication)
+  console.log("AUTHENTICATION DATA", authenticationData)
   I.assert(!!authenticationData, true, 'authentication created')
   const Link = await I.haveModel('secretLink', 'Link')
   let linkData = await Link.indexObjectGet('byAuthentication', authentication)
@@ -49,6 +50,14 @@ Scenario('post message', async ({ I }) => {
 
   I.amOnPage('/link/'+linkData.secretCode)
   I.seeInCurrentUrl('/sign-up-finished')
+  const clientSession = await I.executeScript(() => api.metadata.client.session)
+  const AuthenticatedUser = await I.haveModel('user', 'AuthenticatedUser')
+  const authenticatedUserData = await AuthenticatedUser.get(clientSession)
+  I.assert(!!authenticationData, true, 'user authenticated server-side')
+  const clientUser = await I.executeScript(() => api.metadata.client.user)
+  console.log("CLIENT USER", clientUser)
+  console.log("SERVER AUTHENTICATION", authenticatedUserData)
+  I.assert(clientUser, authenticatedUserData.user, 'user authenticated')
 
   if(!happyPath) {
     I.amOnPage('/link/' + linkData.secretCode)

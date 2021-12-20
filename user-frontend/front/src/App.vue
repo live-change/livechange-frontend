@@ -5,22 +5,26 @@
     </template>
     <loading-zone v-else suspense @isLoading="l => loading = l">
       <template v-slot:loading>
-        <div class="loading">Loading! Please wait!</div>
+        <div class="fixed w-full h-full flex align-items-center justify-content-center top-0 left-0">
+          <ProgressSpinner animationDuration=".5s"/>
+        </div>
       </template>
-      <page :loading="loading" :working="working">
-        <working-zone @isWorking="w => working = w">
-          <template v-slot:working>
-            <div class="fixed w-full h-full flex align-items-center justify-content-center top-0 left-0">
-              <ProgressSpinner animationDuration=".5s"/>
-            </div>
-          </template>
-          <template v-slot:default="{ isWorking }">
-            <component :is="Component"
-                       :style="isWorking ? 'filter: blur(4px)' : ''"
-                       class="working-blur" />
-          </template>
-        </working-zone>
-      </page>
+      <template v-slot:default="{ isLoading }">
+        <page :loading="loading" :working="working">
+          <working-zone @isWorking="w => working = w">
+            <template v-slot:working>
+              <div class="fixed w-full h-full flex align-items-center justify-content-center top-0 left-0">
+                <ProgressSpinner animationDuration=".5s"/>
+              </div>
+            </template>
+            <template v-slot:default="{ isWorking }">
+              <component :is="Component"
+                         :style="isWorking || isLoading ? 'filter: blur(4px)' : ''"
+                         class="working-blur" />
+            </template>
+          </working-zone>
+        </page>
+      </template>
     </loading-zone>
   </router-view>
 </template>

@@ -12,13 +12,13 @@
           <label for="email" class="block text-900 font-medium mb-2">
             Email address
           </label>
-          <InputText id="email" type="text" class="w-full" aria-describedby="email-help"
-                     :class="{ 'p-invalid': data.emailError}"
+          <InputText id="email" type="text" class="w-full"
+                     aria-describedby="email-help" :class="{ 'p-invalid': data.emailError}"
                      v-model="data.email" />
           <small v-if="data.emailError" id="email-help" class="p-error">{{ data.emailError }}</small>
         </div>
 
-        <Button label="Connect Email" icon="pi pi-user" class="w-full" type="submit"></Button>
+        <Button label="Sign Up with email" icon="pi pi-user" class="w-full" type="submit"></Button>
 
       </command-form>
     </div>
@@ -44,11 +44,6 @@
     })
   }
 
-  // import { inject } from 'vue'
-  // import isClientSide from './isClientSide.js'
-  // const workingZone = inject('workingZone')
-  // if(isClientSide) setTimeout(
-  //     s=> workingZone.addPromise('test', new Promise(r=>setTimeout(r, 5000))), 500)
 </script>
 
 <style>

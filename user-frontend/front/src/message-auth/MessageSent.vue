@@ -1,34 +1,85 @@
 <template>
   <div class="w-full lg:w-6 md:w-9" v-shared-element:form="{ duration: '300ms', includeChildren: true }">
-    <div class="surface-card border-round shadow-2 p-4">
+    <div class="surface-card border-round shadow-2 p-4" v-if="authenticationData?.state == 'used'">
+      <div class="text-900 font-medium mb-3 text-xl">Authentication done</div>
+      <p class="mt-0 mb-1 p-0 line-height-3">You authenticated in a different tab.</p>
+    </div>
+    <div class="surface-card border-round shadow-2 p-4" v-else>
       <div class="text-900 font-medium mb-3 text-xl">Message sent</div>
       <p class="mt-0 mb-1 p-0 line-height-3">We sent special secret message to your email.</p>
       <p class="mt-0 mb-4 p-0 line-height-3">Click on the link or enter the code you found in that message.</p>
-      <div class="flex justify-content-center">
-        <div class="p-field mr-1">
-          <label for="code" class="p-sr-only">Code</label>
-          <InputMask id="code"  class="p-inputtext-lg" mask="999999" slotChar="######" placeholder="Enter code"
-                     v-model="code" />
+      <command-form service="messageAuthentication" action="finishMessageAuthentication"
+                    :parameters="{ secretType: 'code', authentication }" @done="handleAuthenticated"
+                    v-slot="{ data }">
+        <div class="flex justify-content-center">
+          <div class="p-field mr-1 flex flex-column">
+            <label for="code" class="p-sr-only">Code</label>
+            <InputMask id="code" class="p-inputtext-lg" mask="999999" slotChar="######" placeholder="Enter code"
+                       v-model="data.secret"
+                       aria-describedby="code-help" :class="{ 'p-invalid': data.secretError }" />
+            <span v-if="data.secretError" id="code-help" class="p-error">{{ data.secretError }}</span>
+          </div>
+          <div class="flex flex-column">
+            <Button label="OK" type="submit" class="p-button-lg flex-grow-0"></Button>
+          </div>
         </div>
-        <Button label="OK" class="p-button-lg"></Button>
-      </div>
+        <div v-if="data.secretError == 'codeExpired'">
+          <p class="mt-0 mb-4 p-0 line-height-3">To send another code click button below.</p>
+          <Button label="Resend" class="p-button-lg" @click="resend"></Button>
+        </div>
+      </command-form>
     </div>
   </div>
 </template>
 
 <script setup>
-  import { ref } from "vue"
   import InputMask from "primevue/inputmask"
   import Button from "primevue/button"
 
-  const { message } = defineProps({
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
+
+  const { authentication } = defineProps({
     authentication: {
       type: String,
       required: true
-    },
+    }
   })
 
-  const code = ref("")
+  function handleAuthenticated({ parameters, result }) {
+    const { targetPage } = result
+    router.push(targetPage)
+  }
+
+  import { inject } from 'vue'
+  import { actions } from '@live-change/vue3-ssr'
+  const workingZone = inject('workingZone')
+  const { resendMessageAuthentication } = actions().messageAuthentication
+  function resend() {
+    workingZone.addPromise('resendMessageAuthentication', (async () => {
+      const { authentication: newAuthentication } = await resendMessageAuthentication({
+        authentication
+      })
+      router.push({
+        name: 'user:sent',
+        params: {
+          authentication: newAuthentication
+        }
+      })
+    })())
+  }
+
+  import { live, path } from '@live-change/vue3-ssr'
+  const [ authenticationData ] = await Promise.all([
+    live(
+      path().messageAuthentication.authentication({
+        authentication
+      })
+    )
+  ])
+  if(authenticationData.value?.state == 'used') {
+    router.push(authenticationData.value.targetPage)
+  }
 </script>
 
 <style>
