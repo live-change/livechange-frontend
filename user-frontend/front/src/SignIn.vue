@@ -9,21 +9,25 @@
           Create today!</router-link>
       </div>
 
-      <div v-if="isClientSide">
+      <command-form service="passwordAuthentication" action="signInEmail" v-slot="{ data }"
+                    @done="handleDone" keepOnDone v-if="isClientSide">
 
         <div class="p-field mb-3">
           <label for="email" class="block text-900 font-medium mb-2">
             Email address
           </label>
-          <InputText id="email" type="text" class="w-full p-invalid" aria-describedby="email-help" />
-          <small id="email-help" class="p-error">email not found.</small>
+          <InputText id="email" type="text" class="w-full"
+                     aria-describedby="email-help" :class="{ 'p-invalid': data.emailError }"
+                     v-model="data.email" />
+          <small id="email-help" class="p-error">{{ data.emailError }}</small>
         </div>
 
         <div class="p-field mb-3">
           <label for="password" class="block text-900 font-medium mb-2">Password (optional)</label>
-          <Password id="password" class="w-full p-invalid" inputClass="w-full" toggleMask />
-
-          <small id="password-help" class="p-error">password-error.</small>
+          <Password id="password" class="w-full" inputClass="w-full" toggleMask
+                    aria-describedby="password-help" :class="{ 'p-invalid': data.passwordHashError }"
+                    v-model="data.passwordHash"/>
+          <small id="password-help" class="p-error">{{ data.passwordHashError }}</small>
         </div>
 
         <div class="flex align-items-center justify-content-between mb-6">
@@ -37,7 +41,7 @@
           </router-link>
         </div>
 
-        <Button label="Sign In" icon="pi pi-user" class="w-full"></Button>
+        <Button label="Sign In" icon="pi pi-user" class="w-full" type="submit"></Button>
 
         <Divider align="center" class="my-4">
           <span class="text-600 font-normal text-sm">OR</span>
@@ -46,7 +50,7 @@
         <Button label="Sign In with GitHub" icon="pi pi-github" class="w-full p-button-secondary mb-2"></Button>
         <Button label="Sign In with Google" icon="pi pi-google" class="w-full p-button-secondary mb-1"></Button>
 
-      </div>
+      </command-form>
     </div>
   </div>
 </template>
@@ -61,6 +65,25 @@
   import Password from "primevue/password"
 
 
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
+
+  function handleDone({ parameters, result }) {
+    console.log("DONE RESULT", result)
+    if(result.type == 'sent') {
+      const { authentication } = result
+      router.push({
+        name: 'user:sent',
+        params: {
+          authentication
+        }
+      })
+    } else {
+      router.push({
+        name: 'user:signInFinished',
+      })
+    }
+  }
 
 </script>
 

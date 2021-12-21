@@ -28,6 +28,12 @@ module.exports = {
       signIn: true,
       connect: true
     },
+    {
+      name: 'passwordAuthentication',
+      path: '@live-change/password-authentication-service',
+      contactTypes: ['email'],
+      signInWithoutPassword: true
+    },
     //  { path: '@live-change/password-authentication-service' },
     //  { path: '@live-change/google-account-service' },
     //  {

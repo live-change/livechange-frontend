@@ -5,7 +5,7 @@
       Hello!
     </p>
     <p>
-      We are glad to see you have just signed up for DEMO with your email.
+      We are glad to see you have just signed in for DEMO with your email.
       In order to confirm that, please enter secret code:
     </p>
     <p class="text-3xl font-medium">{{ code }}</p>
@@ -35,7 +35,7 @@
   <pre class="message" data-text>
     Hello!
 
-    We are glad to see you have just signed up for DEMO with your email.
+    We are glad to see you have just signed in for DEMO with your email.
     In order to confirm that, please enter secret code:
     {{ code }}
 
