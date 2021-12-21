@@ -34,18 +34,18 @@ export function routes(config = {}) {
     route({ name: 'user:changePasswordFinished', path: prefix + '/change-password-finished',
       component: () => import("./ChangePassword.vue") }),
 
-    route({ name: 'user:connectedAccounts', path: prefix + '/connected-accounts',
-      component: () => import("./ConnectedAccounts.vue") }),
-    route({ name: 'user:connectAccount', path: prefix + '/connect-account',
-      component: () => import("./ConnectAccount.vue") }),
-    route({ name: 'user:connectAccountFinished', path: prefix + '/account-connected',
-      component: () => import("./ConnectAccountFinished.vue") }),
+    route({ name: 'user:connected', path: prefix + '/connected',
+      component: () => import("./Connected.vue") }),
+    route({ name: 'user:connect', path: prefix + '/connect',
+      component: () => import("./Connect.vue") }),
+    route({ name: 'user:connectFinished', path: prefix + '/connect-finished',
+      component: () => import("./ConnectFinished.vue") }),
 
-    route({ name: 'user:deleteAccount', path: prefix + '/delete-account',
+    route({ name: 'user:delete', path: prefix + '/delete-account',
       component: () => import("./DeleteAccount.vue") }),
-    route({ name: 'user:deleteAccountFinished', path: prefix + '/account-deleted',
+    route({ name: 'user:deleteFinished', path: prefix + '/account-deleted',
       component: () => import("./DeleteAccountFinished.vue") }),
-    route({ name: 'user:deleteAccountFeedbackSent', path: prefix + '/account-deleted-feedback-sent',
+    route({ name: 'user:deleteFeedbackSent', path: prefix + '/account-deleted-feedback-sent',
       component: () => import("./DeleteAccountFeedbackSent.vue") }),
 
   ]

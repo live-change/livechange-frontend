@@ -21,7 +21,7 @@ const router = useRouter()
 
 const tabs = [{
   title: "Connected accounts",
-  route: 'user:connectedAccounts',
+  route: 'user:connected',
   icon: 'pi-user'
 }, {
   title: "Change password",

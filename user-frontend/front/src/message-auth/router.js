@@ -14,6 +14,8 @@ export function routes(config = {}) {
       meta: { raw: true }, component: () => import("./SignUpEmail.vue") }),
     route({ name: 'user:email:signInWithMessage', path: '/_email/signInWithMessage/:contact/:json', props: true,
       meta: { raw: true }, component: () => import("./SignInEmail.vue") }),
+    route({ name: 'user:email:connectWithMessage', path: '/_email/connectWithMessage/:contact/:json', props: true,
+      meta: { raw: true }, component: () => import("./ConnectEmail.vue") }),
 
   ]
 }
