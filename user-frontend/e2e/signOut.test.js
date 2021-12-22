@@ -3,7 +3,6 @@ const randomProfile = require('random-profile-generator')
 
 const name = randomProfile.profile().firstName.toLowerCase()
 const email = name + '@test.com' // test domain - emails not sent
-const email2 = name + '2@test.com' // test domain - emails not sent
 
 const happyPath = false
 
@@ -19,24 +18,24 @@ Scenario('disconnect email', async ({ I }) => {
 
   await User.create({ id: user, roles: [] })
   await Email.create({ id: email, email, user })
-  await Email.create({ id: email2, email: email2, user })
   I.amOnPage('/')
   const session = await I.executeScript(() => api.client.value.session)
   await AuthenticatedUser.create({ id: session, user, session })
 
-  I.amOnPage('/connected')
-  I.see(email)
-  I.see(email2)
+  await I.wait(0.2)
+  const clientUser = await I.executeScript(() => api.client.value.user)
+  I.assert(user, clientUser, 'client logged in')
 
-  I.click('span.pi-times') // delete button
-  I.click('Yes')
+  I.amOnPage('/sign-out')
+  I.seeInCurrentUrl('/sign-out-finished')
 
-  I.dontSee(email2)
+  await I.wait(1.0)
+  const clientUser2 = await I.executeScript(() => api.client.value.user)
+  console.log("CLIENT USER2", clientUser2)
+  const authenticatedUserData = await AuthenticatedUser.get(session)
+  console.log("AUTHENTICATED USER", authenticatedUserData)
 
-  if(!happyPath) {
-    I.click('span.pi-times') // delete button
-    I.click('Yes')
-    I.see(email)
-  }
+  I.assert(!!authenticatedUserData, false, 'no server user')
+  I.assert(!!clientUser2, false, 'no client user')
 
 })

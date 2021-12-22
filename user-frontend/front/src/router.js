@@ -5,22 +5,15 @@ import {
 } from 'vue-router'
 
 import messageAuthRoutes from "./message-auth/router.js"
+import signRoutes from "./sign/router.js"
 
 export function routes(config = {}) {
   const { prefix = '', route = (r) => r } = config
   return [
 
     ...messageAuthRoutes(config),
+    ...signRoutes(config),
 
-    route({ name: 'user:signIn', path: prefix + '/sign-in',
-      component: () => import("./SignIn.vue") }),
-    route({ name: 'user:signInFinished', path: prefix + '/sign-in-finished',
-      component: () => import("./SignInFinished.vue") }),
-
-    route({ name: 'user:signUp', path: prefix + '/sign-up',
-      component: () => import("./SignUp.vue") }),
-    route({ name: 'user:signUpFinished', path: prefix + '/sign-up-finished',
-      component: () => import("./SignUpFinished.vue") }),
 
     route({ name: 'user:resetPassword', path: prefix + '/reset-password',
       component: () => import("./ResetPassword.vue") }),

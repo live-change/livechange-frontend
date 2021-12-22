@@ -50,11 +50,11 @@ Scenario('sign up with email link', async ({ I }) => {
 
   I.amOnPage('/link/'+linkData.secretCode)
   I.seeInCurrentUrl('/sign-up-finished')
-  const clientSession = await I.executeScript(() => api.metadata.client.session)
+  const clientSession = await I.executeScript(() => api.client.value.session)
   const AuthenticatedUser = await I.haveModel('user', 'AuthenticatedUser')
   const authenticatedUserData = await AuthenticatedUser.get(clientSession)
   I.assert(!!authenticationData, true, 'user authenticated server-side')
-  const clientUser = await I.executeScript(() => api.metadata.client.user)
+  const clientUser = await I.executeScript(() => api.client.value.user)
   console.log("CLIENT USER", clientUser)
   console.log("SERVER AUTHENTICATION", authenticatedUserData)
   I.assert(clientUser, authenticatedUserData.user, 'user authenticated')

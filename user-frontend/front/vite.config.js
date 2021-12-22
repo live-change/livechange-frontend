@@ -56,6 +56,9 @@ export default defineConfig(async ({ command, mode }) => {
         '@live-change/dao',
         '@live-change/vue-api',
         '@live-change/vue-api-session',
+        '@live-change/uid',
+        '@live-change/framework',
+        '@live-change/framework/lib/utils/validators.js',
         'debug',
         'vite'
       ],
@@ -74,6 +77,9 @@ export default defineConfig(async ({ command, mode }) => {
         '@live-change/dao',
         '@live-change/dao-sockjs',
         '@live-change/dao-websocket',
+        '@live-change/uid',
+        '@live-change/framework',
+        '@live-change/framework/lib/utils/validators.js',
         'debug'
       ]
     },

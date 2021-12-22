@@ -50,7 +50,7 @@
   function resend() {
     workingZone.addPromise('resendMessageAuthentication', (async () => {
       const { authentication } = await resendMessageAuthentication({
-        authentication: link?.value?.authentication?.id
+        authentication: link?.value?.authenticationData?.id
       })
       router.push({
         name: 'user:sent',
@@ -66,12 +66,12 @@
       path().secretLink.link({ secretCode })
           .with(link => path().messageAuthentication.authentication({
             authentication: link.authentication.$nonEmpty()
-          }).bind('authentication')
+          }).bind('authenticationData')
       )
     )
   ])
 
-  const authenticationState = computed(() => link?.value?.authentication?.state )
+  const authenticationState = computed(() => link?.value?.authenticationData?.state )
 
   const isUnknown = computed(() => link.value === null)
   const isExpired = computed(() => link.value ? (now.value.toISOString() > link.value.expire) : false )
@@ -81,6 +81,7 @@
   //const targetPage = computed(() => link.value?.authentication?.targetPage )
 
   if(isReady.value && typeof window != 'undefined') {
+    console.log("LINK STATE", link.value)
     workingZone.addPromise('finishMessageAuthentication', (async () => {
       const { result, targetPage } = await finishMessageAuthentication({ secretType: 'link', secret: secretCode })
       router.push(targetPage)

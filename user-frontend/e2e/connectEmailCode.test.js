@@ -19,7 +19,7 @@ Scenario('connect email with code', async ({ I }) => {
   await User.create({ id: user, roles: [] })
   await Email.create({ id: email, email, user })
   I.amOnPage('/')
-  const session = await I.executeScript(() => api.metadata.client.session)
+  const session = await I.executeScript(() => api.client.value.session)
   await AuthenticatedUser.create({ id: session, user, session })
 
   I.amOnPage('/connected')
