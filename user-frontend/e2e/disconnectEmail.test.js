@@ -7,7 +7,7 @@ const email2 = name + '2@test.com' // test domain - emails not sent
 
 const happyPath = false
 
-Feature('write')
+Feature('user')
 
 Scenario('disconnect email', async ({ I }) => {
 
@@ -34,9 +34,9 @@ Scenario('disconnect email', async ({ I }) => {
   I.dontSee(email2)
 
   if(!happyPath) {
-    I.click('span.pi-times') // delete button
-    I.click('Yes')
-    I.see(email)
+    I.dontSeeElement('span.pi-times') // delete button
+    //I.click('Yes')
+    //I.see(email)
   }
 
 })

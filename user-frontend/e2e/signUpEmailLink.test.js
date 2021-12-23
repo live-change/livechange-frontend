@@ -5,7 +5,7 @@ user.email = user.firstName.toLowerCase() + '@test.com' // test domain - emails 
 
 const happyPath = false
 
-Feature('write')
+Feature('user')
 
 Scenario('sign up with email link', async ({ I }) => {
 

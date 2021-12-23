@@ -6,7 +6,7 @@ const email2 = randomProfile.profile().firstName.toLowerCase() + '2@test.com' //
 
 const happyPath = false
 
-Feature('write')
+Feature('user')
 
 Scenario('connect email with code', async ({ I }) => {
 

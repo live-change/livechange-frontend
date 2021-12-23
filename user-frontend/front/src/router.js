@@ -6,6 +6,8 @@ import {
 
 import messageAuthRoutes from "./message-auth/router.js"
 import signRoutes from "./sign/router.js"
+import connectedRoutes from "./connected/router.js"
+import deleteRoutes from "./delete/router.js"
 
 export function routes(config = {}) {
   const { prefix = '', route = (r) => r } = config
@@ -13,7 +15,8 @@ export function routes(config = {}) {
 
     ...messageAuthRoutes(config),
     ...signRoutes(config),
-
+    ...connectedRoutes(config),
+    ...deleteRoutes(config),
 
     route({ name: 'user:resetPassword', path: prefix + '/reset-password',
       component: () => import("./ResetPassword.vue") }),
@@ -26,20 +29,6 @@ export function routes(config = {}) {
       component: () => import("./ChangePassword.vue") }),
     route({ name: 'user:changePasswordFinished', path: prefix + '/change-password-finished',
       component: () => import("./ChangePassword.vue") }),
-
-    route({ name: 'user:connected', path: prefix + '/connected',
-      component: () => import("./Connected.vue") }),
-    route({ name: 'user:connect', path: prefix + '/connect',
-      component: () => import("./Connect.vue") }),
-    route({ name: 'user:connectFinished', path: prefix + '/connect-finished',
-      component: () => import("./ConnectFinished.vue") }),
-
-    route({ name: 'user:delete', path: prefix + '/delete-account',
-      component: () => import("./DeleteAccount.vue") }),
-    route({ name: 'user:deleteFinished', path: prefix + '/account-deleted',
-      component: () => import("./DeleteAccountFinished.vue") }),
-    route({ name: 'user:deleteFeedbackSent', path: prefix + '/account-deleted-feedback-sent',
-      component: () => import("./DeleteAccountFeedbackSent.vue") }),
 
   ]
 }

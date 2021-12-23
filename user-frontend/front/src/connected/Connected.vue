@@ -17,6 +17,7 @@
             <span class="block text-900 font-medium text-lg">{{ connection.email }}</span>
           </div>
           <Button class="p-button-text p-button-plain p-button-rounded mr-1" icon="pi pi-times"
+                  v-if="canDelete"
                   @click="event => disconnect(event, 'email', connection.email)" />
         </li>
 
@@ -34,10 +35,10 @@
 
 <script setup>
 import Button from "primevue/button"
-import isClientSide from "./isClientSide.js"
-import SettingsTabs from "./SettingsTabs.vue"
+import isClientSide from "../isClientSide.js"
+import SettingsTabs from "../SettingsTabs.vue"
 
-import { ref, onMounted, onUnmounted, inject } from 'vue'
+import { ref, onMounted, onUnmounted, inject, computed } from 'vue'
 import ConfirmPopup from 'primevue/confirmpopup'
 import Toast from 'primevue/toast'
 import { useConfirm } from 'primevue/useconfirm'
@@ -74,6 +75,9 @@ function disconnect(event, contactType, contact) {
 }
 
 const emails = await live(path().email.myUserEmails({}))
+
+const allAccountsCount = computed(() => emails.value.length )
+const canDelete = computed(() => allAccountsCount.value > 1 )
 
 </script>
 

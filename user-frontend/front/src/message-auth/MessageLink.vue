@@ -81,7 +81,6 @@
   //const targetPage = computed(() => link.value?.authentication?.targetPage )
 
   if(isReady.value && typeof window != 'undefined') {
-    console.log("LINK STATE", link.value)
     workingZone.addPromise('finishMessageAuthentication', (async () => {
       const { result, targetPage } = await finishMessageAuthentication({ secretType: 'link', secret: secretCode })
       router.push(targetPage)

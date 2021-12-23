@@ -8,7 +8,7 @@ const happyPath = false
 
 Feature('user')
 
-Scenario('disconnect email', async ({ I }) => {
+Scenario('delete account', async ({ I }) => {
 
   const user = app.generateUid()
 
@@ -26,16 +26,19 @@ Scenario('disconnect email', async ({ I }) => {
   const clientUser = await I.executeScript(() => api.client.value.user)
   I.assert(user, clientUser, 'client logged in')
 
-  I.amOnPage('/sign-out')
-  I.seeInCurrentUrl('/sign-out-finished')
+  I.amOnPage('/delete')
+  I.click('.p-checkbox-box')
+  I.click('button#delete')
 
-  await I.wait(1.0)
-  const clientUser2 = await I.executeScript(() => api.client.value.user)
-  console.log("CLIENT USER2", clientUser2)
-  const authenticatedUserData = await AuthenticatedUser.get(session)
-  console.log("AUTHENTICATED USER", authenticatedUserData)
+  I.seeInCurrentUrl('/delete-finished')
 
-  I.assert(!!authenticatedUserData, false, 'no server user')
-  I.assert(!!clientUser2, false, 'no client user')
+  await I.wait(0.3)
+  const clientUserAfterDelete = await I.executeScript(() => api.client.value.user)
+  I.assert(!!clientUserAfterDelete, false, 'user logged out')
 
+  const deletedUser = await User.get(user)
+  I.assert(!!deletedUser, false, 'user deleted')
+
+  const deletedEmail = await Email.get(email)
+  I.assert(!!deletedEmail, false, 'email deleted')
 })
