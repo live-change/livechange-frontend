@@ -2,7 +2,8 @@ module.exports = {
   services: [
     {
       name: 'session',
-      path: '@live-change/session-service'
+      path: '@live-change/session-service',
+      createSessionOnUpdate: true
     },
     {
       name: 'user',

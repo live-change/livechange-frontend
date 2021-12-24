@@ -8,7 +8,7 @@ const happyPath = false
 
 Feature('user')
 
-Scenario('disconnect email', async ({ I }) => {
+Scenario('sign out', async ({ I }) => {
 
   const user = app.generateUid()
 

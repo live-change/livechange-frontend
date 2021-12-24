@@ -15,19 +15,27 @@
 
 <script setup>
 import { useRouter, useRoute } from 'vue-router'
+import { live, path } from '@live-change/vue3-ssr'
+import { computed } from 'vue'
 
 const route = useRoute()
 const router = useRouter()
 
-const tabs = [{
+const passwordExists = await live(path().passwordAuthentication.myUserPasswordAuthenticationExists())
+
+const tabs = computed(() => ([{
   title: "Connected accounts",
   route: 'user:connected',
   icon: 'pi-user'
-}, {
+}, passwordExists.value ? {
   title: "Change password",
   route: 'user:changePassword',
   icon: 'pi-key'
-}]
+} : {
+  title: "Set password",
+  route: 'user:changePassword',
+  icon: 'pi-key'
+}]))
 
 function isActive(tab) {
   return route.name == tab.route

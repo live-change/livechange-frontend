@@ -79,6 +79,7 @@ const emails = await live(path().email.myUserEmails({}))
 const allAccountsCount = computed(() => emails.value.length )
 const canDelete = computed(() => allAccountsCount.value > 1 )
 
+
 </script>
 
 <style>

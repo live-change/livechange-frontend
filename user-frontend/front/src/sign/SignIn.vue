@@ -26,7 +26,7 @@
           <label for="password" class="block text-900 font-medium mb-2">Password (optional)</label>
           <Password id="password" class="w-full" inputClass="w-full" toggleMask
                     aria-describedby="password-help" :class="{ 'p-invalid': data.passwordHashError }"
-                    v-model="data.passwordHash"/>
+                    v-model="data.passwordHash" />
           <small id="password-help" class="p-error">{{ data.passwordHashError }}</small>
         </div>
 

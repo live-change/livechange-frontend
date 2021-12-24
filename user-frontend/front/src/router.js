@@ -28,7 +28,7 @@ export function routes(config = {}) {
     route({ name: 'user:changePassword', path: prefix + '/change-password',
       component: () => import("./ChangePassword.vue") }),
     route({ name: 'user:changePasswordFinished', path: prefix + '/change-password-finished',
-      component: () => import("./ChangePassword.vue") }),
+      component: () => import("./ChangePasswordFinished.vue") })
 
   ]
 }

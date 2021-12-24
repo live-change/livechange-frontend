@@ -64,6 +64,7 @@
     "playwright": "^1.16.3",
     "random-profile-generator": "^2.3.0",
     "txtgen": "^2.2.8",
+    "generate-password": "1.7.0",
     "webdriverio": "^7.16.4"
   },
   "author": "",
