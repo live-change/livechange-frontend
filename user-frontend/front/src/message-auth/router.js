@@ -16,6 +16,8 @@ export function routes(config = {}) {
       meta: { raw: true }, component: () => import("./SignInEmail.vue") }),
     route({ name: 'user:email:connectWithMessage', path: '/_email/connectWithMessage/:contact/:json', props: true,
       meta: { raw: true }, component: () => import("./ConnectEmail.vue") }),
+    route({ name: 'user:email:startResetPasswordWithMessage', path: '/_email/startResetPasswordWithMessage/:contact/:json',
+      props: true, meta: { raw: true }, component: () => import("./ResetPasswordEmail.vue") }),
 
   ]
 }

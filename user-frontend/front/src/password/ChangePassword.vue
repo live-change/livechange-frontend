@@ -62,19 +62,19 @@
 </template>
 
 <script setup>
-import isClientSide from "./isClientSide.js"
+import isClientSide from "../isClientSide.js"
 
 import InputText from "primevue/inputtext"
 import Checkbox from "primevue/checkbox"
 import Button from "primevue/button"
 import Divider from "primevue/divider"
 import Password from "primevue/password"
-import SettingsTabs from "./SettingsTabs.vue"
+import SettingsTabs from "../SettingsTabs.vue"
 
 import { live, path } from '@live-change/vue3-ssr'
 import { computed, ref, onMounted } from 'vue'
-import { useRouter } from 'vue-router'
 
+import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const isMounted = ref(false)
@@ -87,7 +87,7 @@ onMounted(() => {
   form.value.addValidator('passwordHash', () => {
     const value = form.value.getFieldValue('passwordHash')
     console.log("PASSWORDS MATCH?", secondPassword.value, value)
-    if(value != secondPassword.value) return "notMatch"
+    if(value != secondPassword.value) return "passwordsNotMatch"
   })
 })
 

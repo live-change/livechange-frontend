@@ -32,40 +32,13 @@ Scenario('sign in with email link', async ({ I }) => {
   I.assert(!!authenticationData, true, 'authentication created')
   I.assert(authenticationData?.messageData?.user, user, 'authentication contains user')
 
-  const Link = await I.haveModel('secretLink', 'Link')
-  let linkData = await Link.indexObjectGet('byAuthentication', authentication)
-  console.log("LINK DATA", linkData)
-  I.assert(!!linkData, true, 'link created')
+  const linkData = await I.useSecretLink(authentication, happyPath)
 
-  if(!happyPath) {
-    I.amOnPage('/link/[badSecret]')
-    I.see('Unknown link')
-  }
-
-  if(!happyPath) {
-    await I.wait(0.2)
-    await Link.update(linkData.id, { expire: new Date() }) // expire now
-    I.amOnPage('/link/' + linkData.secretCode)
-    I.see('Link expired')
-
-    I.click('Resend')
-    I.seeInCurrentUrl('/sent/')
-
-    await I.wait(0.2)
-    const newLinksData = await Link.indexRangeGet('byAuthentication', authentication)
-    newLinksData.sort((a,b) => new Date(b.expire).getTime() - new Date(a.expire).getTime())
-    const oldLinkData = linkData
-    linkData = newLinksData[0]
-    I.assert(!!linkData, true, 'link exists')
-    I.assert(oldLinkData.id != linkData.id, true, 'link is different from previous link')
-  }
-
-  I.amOnPage('/link/'+linkData.secretCode)
   I.seeInCurrentUrl('/sign-in-finished')
   const clientSession = await I.executeScript(() => api.client.value.session)
   const AuthenticatedUser = await I.haveModel('user', 'AuthenticatedUser')
   const authenticatedUserData = await AuthenticatedUser.get(clientSession)
-  I.assert(!!authenticationData, true, 'user authenticated server-side')
+  I.assert(!!authenticatedUserData, true, 'user authenticated server-side')
   const clientUser = await I.executeScript(() => api.client.value.user)
   console.log("CLIENT USER", clientUser)
   console.log("SERVER AUTHENTICATION", authenticatedUserData)

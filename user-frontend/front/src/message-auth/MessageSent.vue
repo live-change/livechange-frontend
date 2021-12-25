@@ -49,6 +49,7 @@
 
   function handleAuthenticated({ parameters, result }) {
     const { targetPage } = result
+    console.log("TARGET ROUTE", targetPage)
     router.push(targetPage)
   }
 

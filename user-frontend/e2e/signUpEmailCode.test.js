@@ -20,48 +20,14 @@ Scenario('sign up with email code', async ({ I }) => {
   const authenticationData = await I.grabObject('messageAuthentication', 'Authentication', authentication)
   console.log("AUTHENTICATION DATA", authenticationData)
   I.assert(!!authenticationData, true, 'authentication created')
-  const Code = await I.haveModel('secretCode', 'Code')
-  let codeData = await Code.indexObjectGet('byAuthentication', authentication)
-  console.log("CODE DATA", codeData)
-  I.assert(!!codeData, true, 'code created')
 
-  if(!happyPath) {
-    const wrongCode = codeData.secretCode == '123456' ? '654321' : '123456'
-    I.fillField('input#code', wrongCode)
-    I.fillField('input#code', wrongCode) /// twice because it can fail once with this type of field
-    I.click('button[type=submit]')
-    I.seeElement('#code-help.p-error')
-  }
+  await I.useSecretCode(authentication, happyPath)
 
-  if(!happyPath) {
-    await I.wait(0.2)
-    await Code.update(codeData.id, { expire: new Date() }) // expire now
-    I.fillField('input#code', codeData.secretCode)
-    I.fillField('input#code', codeData.secretCode) /// twice because it can fail once with this type of field
-    I.click('button[type=submit]')
-    I.seeElement('#code-help.p-error')
-
-    I.click('Resend')
-    I.seeInCurrentUrl('/sent/')
-
-    await I.wait(0.2)
-    const newCodeData = await Code.indexRangeGet('byAuthentication', authentication)
-    newCodeData.sort((a,b) => new Date(b.expire).getTime() - new Date(a.expire).getTime())
-    const oldCodeData = codeData
-    codeData = newCodeData[0]
-    I.assert(!!codeData, true, 'code exists')
-    I.assert(oldCodeData.id != codeData.id, true, 'code is different from previous code')
-  }
-
-  I.fillField('input#code', codeData.secretCode)
-  I.fillField('input#code', codeData.secretCode) /// twice because it can fail once with this type of field
-  I.click('button[type=submit]')
-  I.wait(0.1)
   I.seeInCurrentUrl('/sign-up-finished')
   const clientSession = await I.executeScript(() => api.client.value.session)
   const AuthenticatedUser = await I.haveModel('user', 'AuthenticatedUser')
   const authenticatedUserData = await AuthenticatedUser.get(clientSession)
-  I.assert(!!authenticationData, true, 'user authenticated server-side')
+  I.assert(!!authenticatedUserData, true, 'user authenticated server-side')
   const clientUser = await I.executeScript(() => api.client.value.user)
   console.log("CLIENT USER", clientUser)
   console.log("SERVER AUTHENTICATION", authenticatedUserData)

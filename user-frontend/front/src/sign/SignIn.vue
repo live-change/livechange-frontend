@@ -56,14 +56,13 @@
 </template>
 
 <script setup>
-  import isClientSide from "../isClientSide.js"
-
   import InputText from "primevue/inputtext"
   import Checkbox from "primevue/checkbox"
   import Button from "primevue/button"
   import Divider from "primevue/divider"
   import Password from "primevue/password"
 
+  import isClientSide from "../isClientSide.js"
 
   import { useRouter } from 'vue-router'
   const router = useRouter()

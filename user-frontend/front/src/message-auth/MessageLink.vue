@@ -46,7 +46,6 @@
 
   const { finishMessageAuthentication, resendMessageAuthentication } = actions().messageAuthentication
 
-
   function resend() {
     workingZone.addPromise('resendMessageAuthentication', (async () => {
       const { authentication } = await resendMessageAuthentication({
@@ -80,12 +79,14 @@
 
   //const targetPage = computed(() => link.value?.authentication?.targetPage )
 
-  if(isReady.value && typeof window != 'undefined') {
-    workingZone.addPromise('finishMessageAuthentication', (async () => {
-      const { result, targetPage } = await finishMessageAuthentication({ secretType: 'link', secret: secretCode })
-      router.push(targetPage)
-    })())
-  }
+  if(typeof window != 'undefined') setTimeout(() => { /// timeout "fixes" suspense bug
+    if(isReady.value) {
+      workingZone.addPromise('finishMessageAuthentication', (async () => {
+        const { result, targetPage } = await finishMessageAuthentication({ secretType: 'link', secret: secretCode })
+        router.push(targetPage)
+      })())
+    }
+  }, 10)
 
 </script>
 
