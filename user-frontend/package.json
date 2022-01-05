@@ -4,6 +4,8 @@
   "version": "0.0.3",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js",
+    "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
+    "localDev": "lcli localDev --enableSessions",
     "dev": "lcli dev --enableSessions",
     "ssrDev": "lcli ssrDev --enableSessions",
     "serveAllMem": "cross-env NODE_ENV=production lcli ssrServer --withApi --withServices --updateServices --enableSessions --withDb --dbBackend mem --createDb",
@@ -24,8 +26,6 @@
     "@live-change/dao": "^0.3.9",
     "@live-change/dao-vue3": "^0.1.20",
     "@live-change/dao-websocket": "^0.3.1",
-    "@live-change/vue-api": "^0.1.11",
-    "@live-change/vue-api-session": "^0.1.2",
     "@live-change/vue3-ssr": "^0.1.6",
     "@live-change/vue3-components": "^0.1.11",
     "@live-change/session-service": "^0.2.4",

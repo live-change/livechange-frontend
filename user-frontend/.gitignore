@@ -4,3 +4,4 @@ node_modules
 front/dist
 e2e/output
 stats.html
+*.db
