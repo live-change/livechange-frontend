@@ -35,11 +35,12 @@ module.exports = {
       contactTypes: ['email'],
       signInWithoutPassword: true
     },
-    //  { path: '@live-change/password-authentication-service' },
+    {
+      name: 'security',
+      path: '@live-change/security-service',
+      ...require('./security.config.js')
+    }
+
     //  { path: '@live-change/google-account-service' },
-    //  {
-    //    path: '@live-change/user-service',
-    //    identifiers
-    //  },
   ]
 }

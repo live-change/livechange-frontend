@@ -29,6 +29,7 @@
         </div>
       </command-form>
     </div>
+    <pre>{{ JSON.stringify(countersState, null, '  ') }}</pre>
   </div>
 </template>
 
@@ -38,6 +39,7 @@
   import isClientSide from "../isClientSide.js"
 
   import { useRouter } from 'vue-router'
+
   const router = useRouter()
 
   const { authentication } = defineProps({
@@ -72,11 +74,14 @@
   }
 
   import { live, path } from '@live-change/vue3-ssr'
-  const [ authenticationData ] = await Promise.all([
+  const [ authenticationData, countersState ] = await Promise.all([
     live(
       path().messageAuthentication.authentication({
         authentication
       })
+    ),
+    live(
+      path().security.myCountersState({ eventType: 'wrong-secret-code' })
     )
   ])
   if(authenticationData.value?.state == 'used') {
