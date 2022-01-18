@@ -35,6 +35,7 @@ const counters = [
   },
   {
     id: 'wrong-codes-ban',
+    visible: true,
     match: ['wrong-secret-code'],
     keys: ['ip'],
     max: 5,

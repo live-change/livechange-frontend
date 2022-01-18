@@ -8,34 +8,38 @@
       <div class="text-900 font-medium mb-3 text-xl">Message sent</div>
       <p class="mt-0 mb-1 p-0 line-height-3">We sent special secret message to your email.</p>
       <p class="mt-0 mb-4 p-0 line-height-3">Click on the link or enter the code you found in that message.</p>
-      <command-form service="messageAuthentication" action="finishMessageAuthentication"
-                    :parameters="{ secretType: 'code', authentication }" @done="handleAuthenticated"
-                    v-slot="{ data }">
-        <div class="flex justify-content-center">
-          <div class="p-field mr-1 flex flex-column">
-            <label for="code" class="p-sr-only">Code</label>
-            <InputMask id="code" class="p-inputtext-lg" mask="999999" slotChar="######" placeholder="Enter code"
-                       v-model="data.secret"
-                       aria-describedby="code-help" :class="{ 'p-invalid': data.secretError }" />
-            <span v-if="data.secretError" id="code-help" class="p-error">{{ data.secretError }}</span>
+      <Secured :events="['wrong-secret-code']" :actions="['checkSecretCode']">
+        <command-form service="messageAuthentication" action="finishMessageAuthentication"
+                      :parameters="{ secretType: 'code', authentication }" @done="handleAuthenticated"
+                      v-slot="{ data }">
+          <div class="flex justify-content-center">
+            <div class="p-field mr-1 flex flex-column">
+              <label for="code" class="p-sr-only">Code</label>
+              <InputMask id="code" class="p-inputtext-lg" mask="999999" slotChar="######" placeholder="Enter code"
+                         v-model="data.secret"
+                         aria-describedby="code-help" :class="{ 'p-invalid': data.secretError }" />
+              <span v-if="data.secretError" id="code-help" class="p-error">{{ data.secretError }}</span>
+            </div>
+            <div class="flex flex-column">
+              <Button label="OK" type="submit" class="p-button-lg flex-grow-0"></Button>
+            </div>
           </div>
-          <div class="flex flex-column">
-            <Button label="OK" type="submit" class="p-button-lg flex-grow-0"></Button>
+          <div v-if="data.secretError == 'codeExpired'">
+            <p class="mt-0 mb-4 p-0 line-height-3">To send another code click button below.</p>
+            <Button label="Resend" class="p-button-lg" @click="resend"></Button>
           </div>
-        </div>
-        <div v-if="data.secretError == 'codeExpired'">
-          <p class="mt-0 mb-4 p-0 line-height-3">To send another code click button below.</p>
-          <Button label="Resend" class="p-button-lg" @click="resend"></Button>
-        </div>
-      </command-form>
+        </command-form>
+      </Secured>
     </div>
-    <pre>{{ JSON.stringify(countersState, null, '  ') }}</pre>
   </div>
 </template>
 
 <script setup>
   import InputMask from "primevue/inputmask"
   import Button from "primevue/button"
+
+  import { Secured } from "security-frontend"
+
   import isClientSide from "../isClientSide.js"
 
   import { useRouter } from 'vue-router'
@@ -74,17 +78,12 @@
   }
 
   import { live, path } from '@live-change/vue3-ssr'
-  const [ authenticationData, countersState ] = await Promise.all([
+  const [ authenticationData ] = await Promise.all([
     live(
-      path().messageAuthentication.authentication({
-        authentication
-      })
-    ),
-    live(
-      path().security.myCountersState({ eventType: 'wrong-secret-code' })
+      path().messageAuthentication.authentication({ authentication })
     )
   ])
-  if(authenticationData.value?.state == 'used') {
+  if(authenticationData?.value?.state == 'used') {
     router.push(authenticationData.value.targetPage)
   }
 </script>
