@@ -6,24 +6,9 @@
           <div class="p-3 text-500 font-medium">SETTINGS</div>
         </li>
 
-        <li class="hidden md:block">
-          <router-link :to="{ name: 'user:settings' }"
-                       :class="route.name == 'user:settings' ? 'text-blue-500' : 'text-700'"
-                       v-ripple
-                       class="flex align-items-center cursor-pointer p-3 hover:surface-100
-                          border-round transition-colors transition-duration-150 p-ripple no-underline">
-            <i class="pi pi-id-card mr-2"></i>
-            <span class="font-medium">General Settings</span>
-          </router-link>
-        </li>
+        <SettingsMenuItem name="user:settings" icon="id-card" label="General Settings" class="hidden md:block" />
 
-        <li>
-          <a v-ripple class="flex align-items-center cursor-pointer p-3 hover:surface-100
-                  border-round transition-colors transition-duration-150 p-ripple">
-            <i class="pi pi-exclamation-circle mr-2"></i>
-            <span class="font-medium">Notifications</span>
-          </a>
-        </li>
+        <SettingsMenuItem name="user:notificationsSettings" icon="exclamation-circle" label="Notifications" />
 
       </ul>
 
@@ -31,39 +16,17 @@
         <li>
           <div class="p-3 text-500 font-medium">AUTHORIZATION</div>
         </li>
-        <li>
-          <router-link :to="{ name: 'user:connected' }"
-                       :class="route.name == 'user:connected' ? 'text-blue-500' : 'text-700'"
-                       v-ripple
-                       class="flex align-items-center cursor-pointer p-3 text-700 hover:surface-100
-                         border-round transition-colors transition-duration-150 p-ripple  no-underline">
-            <i class="pi pi-user mr-2"></i>
-            <span class="font-medium">Connected Accounts</span>
-          </router-link>
-        </li>
-        <li>
-          <router-link :to="{ name: 'user:changePassword' }"
-                       :class="route.name == 'user:changePassword' ? 'text-blue-500' : 'text-700'"
-                       v-ripple
-                       class="flex align-items-center cursor-pointer p-3 text-700 hover:surface-100
-                         border-round transition-colors transition-duration-150 p-ripple no-underline">
-            <i class="pi pi-key mr-2"></i>
-            <span class="font-medium">Change Password</span>
-          </router-link>
-        </li>
+
+        <SettingsMenuItem name="user:connected" icon="users" label="Connected Accounts" />
+
+        <SettingsMenuItem name="user:changePassword" icon="key" label="ChangePassword" />
+
       </ul>
 
       <ul class="list-none p-2 m-0 border-top-1 surface-border">
-        <li>
-          <router-link :to="{ name: 'user:delete' }"
-                       :class="route.name == 'user:delete' ? 'text-blue-500' : 'text-700'"
-                       v-ripple
-                       class="flex align-items-center cursor-pointer p-3 text-700 hover:surface-100
-                             border-round transition-colors transition-duration-150 p-ripple no-underline">
-            <i class="pi pi-trash mr-2"></i>
-            <span class="font-medium">Delete Account</span>
-          </router-link>
-        </li>
+
+        <SettingsMenuItem name="user:delete" icon="trash" label="Delete Account" />
+
       </ul>
     </div>
 
@@ -104,6 +67,7 @@
 </template>
 
 <script setup>
+  import SettingsMenuItem from "./SettingsMenuItem.vue"
 
   import { useRoute } from 'vue-router'
   const route = useRoute()

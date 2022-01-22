@@ -4,11 +4,12 @@ import {
   createWebHistory
 } from 'vue-router'
 
-import messageAuthRoutes from "./message-auth/router.js"
-import signRoutes from "./sign/router.js"
-import connectedRoutes from "./connected/router.js"
-import deleteRoutes from "./delete/router.js"
+import messageAuthRoutes from "./message-auth/routes.js"
+import signRoutes from "./sign/routes.js"
+import connectedRoutes from "./connected/routes.js"
+import deleteRoutes from "./delete/routes.js"
 import { passwordResetRoutes, passwordChangeRoutes } from "./password/routes.js"
+import { notificationsSettingsRoutes, notificationsRoutes } from "./notifications/routes.js"
 
 export function routes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
@@ -29,6 +30,7 @@ export function routes(config = {}) {
         ...deleteRoutes({ ...config, prefix: '' }),
         ...passwordChangeRoutes({ ...config, prefix: '' }),
         ...connectedRoutes({ ...config, prefix: '' }),
+        ...notificationsSettingsRoutes({ ...config, prefix: '' })
       ]
     }),
 
