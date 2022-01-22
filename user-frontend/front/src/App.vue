@@ -62,6 +62,13 @@ import { ref } from 'vue'
 const working = ref(false)
 const loading = ref(false)
 
+import { watch } from 'vue'
+import { client as useClient } from '@live-change/vue3-ssr'
+const client = useClient()
+watch(client, (newClient, oldClient) => {
+  console.log("WATCH CLIENT", oldClient, '=>', newClient)
+})
+
 </script>
 
 <style>

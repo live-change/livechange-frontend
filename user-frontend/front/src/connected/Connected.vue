@@ -4,7 +4,6 @@
     <ConfirmPopup v-if="isMounted" />
     <Toast v-if="isMounted" />
 
-    <SettingsTabs />
     <div class="surface-card border-round shadow-2 p-4">
       <div class="text-900 font-medium mb-3 text-xl">Connected accounts</div>
 
@@ -76,7 +75,7 @@ function disconnect(event, contactType, contact) {
 
 const emails = await live(path().email.myUserEmails({}))
 
-const allAccountsCount = computed(() => emails.value.length )
+const allAccountsCount = computed(() => emails.value?.length )
 const canDelete = computed(() => allAccountsCount.value > 1 )
 
 

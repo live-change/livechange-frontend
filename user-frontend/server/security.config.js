@@ -41,7 +41,7 @@ const counters = [
     max: 5,
     duration: '10m',
     actions: [
-      { type: 'ban', keys: ['ip'], ban: { type: 'block', actions: ['checkSecretCode'], expire: "10m" } }
+      { type: 'ban', keys: ['ip'], ban: { type: 'block', actions: ['checkSecretCode'], expire: "2m" } }
     ]
   }
 ]

@@ -35,7 +35,7 @@ export function createApp(api) {
   registerComponents(app) 
   app.use(ReactiveDaoVue, { dao: api })
   
-  const router = createRouter()
+  const router = createRouter(app)
   app.use(router)
 
   app.use(PrimeVue, {

@@ -1,6 +1,10 @@
 module.exports = {
   services: [
     {
+      name: 'timer',
+      path: '@live-change/timer-service'
+    },
+    {
       name: 'session',
       path: '@live-change/session-service',
       createSessionOnUpdate: true
