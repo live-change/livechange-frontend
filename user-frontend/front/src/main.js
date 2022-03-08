@@ -14,7 +14,6 @@ import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
 
 import App from './App.vue'
-import Page from './Page.vue'
 import { createRouter } from './router'
 
 import emailValidator from "@live-change/email-service/clientEmailValidator.js"
@@ -32,9 +31,9 @@ export function createApp(api) {
 
   api.installInstanceProperties(app.config.globalProperties)
 
-  registerComponents(app) 
+  registerComponents(app)
   app.use(ReactiveDaoVue, { dao: api })
-  
+
   const router = createRouter(app)
   app.use(router)
 
