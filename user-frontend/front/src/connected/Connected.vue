@@ -33,51 +33,50 @@
 </template>
 
 <script setup>
-import Button from "primevue/button"
-import isClientSide from "../isClientSide.js"
-import SettingsTabs from "../SettingsTabs.vue"
+  import Button from "primevue/button"
+  import isClientSide from "../isClientSide.js"
+  import SettingsTabs from "../SettingsTabs.vue"
 
-import { ref, onMounted, onUnmounted, inject, computed } from 'vue'
-import ConfirmPopup from 'primevue/confirmpopup'
-import Toast from 'primevue/toast'
-import { useConfirm } from 'primevue/useconfirm'
-const confirm = useConfirm()
-import { useToast } from 'primevue/usetoast'
-const toast = useToast()
-let isMounted = ref(false)
-onMounted(() => isMounted.value = true)
-onUnmounted(() => isMounted.value = false)
+  import { ref, onMounted, onUnmounted, inject, computed } from 'vue'
+  import ConfirmPopup from 'primevue/confirmpopup'
+  import Toast from 'primevue/toast'
+  import { useConfirm } from 'primevue/useconfirm'
+  const confirm = useConfirm()
+  import { useToast } from 'primevue/usetoast'
+  const toast = useToast()
+  let isMounted = ref(false)
+  onMounted(() => isMounted.value = true)
+  onUnmounted(() => isMounted.value = false)
 
 
-const workingZone = inject('workingZone')
+  const workingZone = inject('workingZone')
 
-import { path, live, actions } from '@live-change/vue3-ssr'
-const messageAuthenticationApi = actions().messageAuthentication
+  import { path, live, actions } from '@live-change/vue3-ssr'
+  const messageAuthenticationApi = actions().messageAuthentication
 
-function disconnect(event, contactType, contact) {
-  confirm.require({
-    target: event.currentTarget,
-    message: `Do you want to disconnect ${contactType} account ${contact}?`,
-    icon: 'pi pi-info-circle',
-    acceptClass: 'p-button-danger',
-    accept: async () => {
-      const upperCaseType = contactType[0].toUpperCase() + contactType.slice(1)
-      workingZone.addPromise('disconnectContact', (async () => {
-        await messageAuthenticationApi['disconnect'+upperCaseType]({ [contactType]: contact })
-        toast.add({ severity: 'info', summary: 'Account disconnected', life: 1500 })
-      })())
-    },
-    reject: () => {
-      toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
-    }
-  })
-}
+  function disconnect(event, contactType, contact) {
+    confirm.require({
+      target: event.currentTarget,
+      message: `Do you want to disconnect ${contactType} account ${contact}?`,
+      icon: 'pi pi-info-circle',
+      acceptClass: 'p-button-danger',
+      accept: async () => {
+        const upperCaseType = contactType[0].toUpperCase() + contactType.slice(1)
+        workingZone.addPromise('disconnectContact', (async () => {
+          await messageAuthenticationApi['disconnect'+upperCaseType]({ [contactType]: contact })
+          toast.add({ severity: 'info', summary: 'Account disconnected', life: 1500 })
+        })())
+      },
+      reject: () => {
+        toast.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
+      }
+    })
+  }
 
-const emails = await live(path().email.myUserEmails({}))
+  const emails = await live(path().email.myUserEmails({}))
 
-const allAccountsCount = computed(() => emails.value?.length )
-const canDelete = computed(() => allAccountsCount.value > 1 )
-
+  const allAccountsCount = computed(() => emails.value?.length )
+  const canDelete = computed(() => allAccountsCount.value > 1 )
 
 </script>
 

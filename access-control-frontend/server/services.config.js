@@ -18,10 +18,6 @@ module.exports = {
       path: '@live-change/email-service'
     },
     {
-      name: 'secretLink',
-      path: '@live-change/secret-link-service'
-    },
-    {
       name: 'secretCode',
       path: '@live-change/secret-code-service'
     },
@@ -40,19 +36,17 @@ module.exports = {
       signInWithoutPassword: true
     },
     {
-      name: 'security',
-      path: '@live-change/security-service',
-      ...require('./security.config.js')
-    },
-    {
       name: 'userIdentification',
       path: '@live-change/user-identification-service'
     },
     {
       name: 'identicon',
       path: '@live-change/identicon-service'
-    }
-
-    //  { path: '@live-change/google-account-service' },
+    },
+    {
+      name: 'accessControl',
+      path: '@live-change/access-control-service',
+      createSessionOnUpdate: true
+    },
   ]
 }

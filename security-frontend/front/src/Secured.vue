@@ -30,7 +30,7 @@
   <BlockUI :blocked="blockActive">
     <slot :block="blockActive && block" :captcha="captchaActive && captcha"></slot>
   </BlockUI>
-  <div>
+  <div v-if="false">
     <h4>Bans</h4>
     <pre>{{ JSON.stringify(bansState, null, '  ') }}</pre>
     <h4>Counters</h4>

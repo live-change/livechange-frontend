@@ -7,7 +7,7 @@ module.exports = async function(services) {
   const email2 = 'tester2@test.com'
   const password = 'Testy123'
   const session = 'xyLRAj38fIMjTImlkgzvkdVefXTZk/1j'
-  console.log("MDL", services.passwordAuthentication.models.PasswordAuthentication)
+  //console.log("MDL", services.passwordAuthentication.models.PasswordAuthentication)
   const passwordHash = services.passwordAuthentication.models.PasswordAuthentication
       .definition.properties.passwordHash.preFilter(password)
   await services.user.models.User.create({ id: user, roles: [] })

@@ -4,42 +4,23 @@ import {
   createWebHistory
 } from 'vue-router'
 
-import messageAuthRoutes from "./message-auth/routes.js"
-import signRoutes from "./sign/routes.js"
-import connectedRoutes from "./connected/routes.js"
-import deleteRoutes from "./delete/routes.js"
-import { passwordResetRoutes, passwordChangeRoutes } from "./password/routes.js"
-import { notificationsSettingsRoutes, notificationsRoutes } from "./notifications/routes.js"
 
 export function routes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
-
-    ...messageAuthRoutes(config),
-    ...signRoutes(config),
-    ...passwordResetRoutes(config),
-
     route({
-      path: prefix + 'settings', meta: { pageType: 'wide' },
-      component: () => import("./settings/Settings.vue"),
-      children: [
-        {
-          name: 'user:settings', path: '', meta: { viewType: 'wide', signedIn: true },
-          component: () => import("./settings/SettingsIndex.vue")
-        },
-        ...deleteRoutes({ ...config, prefix: '' }),
-        ...passwordChangeRoutes({ ...config, prefix: '' }),
-        ...connectedRoutes({ ...config, prefix: '' }),
-        ...notificationsSettingsRoutes({ ...config, prefix: '' })
-      ]
-    }),
-
+      name: 'accessControl:testPage', path: prefix + '', meta: { },
+      component: () => import("./components/AccessControl.vue"),
+      props: {
+        objectType: 'example_Example',
+        object: 'one'
+      }
+    })
   ]
 }
 
 export async function sitemap(route, api) {
-  route({ name: 'SignIn' })
-  route({ name: 'SignUp' })
+
 }
 
 import { client as useClient } from '@live-change/vue3-ssr'
