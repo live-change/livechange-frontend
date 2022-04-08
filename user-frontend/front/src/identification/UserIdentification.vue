@@ -6,12 +6,18 @@
                  class="flex align-items-center cursor-pointer text-700 hover:surface-100 border-round p-ripple">
       <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
       <img v-else :src="identiconUrl" class="mr-2" style="width: 28px; height: 28px"/>
-      <span class="font-medium">{{ userData?.name }}</span>
+      <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
+            :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
+        {{ userData?.name }}
+      </span>
     </router-link>
     <span v-else class="flex align-items-center cursor-pointer text-700 hover:surface-100 border-round p-ripple">
       <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
       <img v-else :src="identiconUrl" class="mr-2" style="width: 28px; height: 28px"/>
-      <span class="font-medium">{{ userData?.name }}</span>
+      <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
+            :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
+        {{ userData?.name }}
+      </span>
     </span>
   </span>
 </template>

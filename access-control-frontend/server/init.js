@@ -31,7 +31,7 @@ module.exports = async function(services) {
   await services.email.models.Email.create({ id: email2, email: email2, user: user2 })
   await services.userIdentification.models.Identification.create({
     id: App.encodeIdentifier(['user_User', user]), ownerType: 'user_User', owner: user,
-    name: 'Test User 2'
+    name: 'Test User 2 with very long name!'
   })
 
 /*  await PublicAccess.create({
