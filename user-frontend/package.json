@@ -21,7 +21,7 @@
     "debug": "node --inspect-brk server"
   },
   "dependencies": {
-    "@live-change/framework": "0.5.27",
+    "@live-change/framework": "0.6.0",
     "@live-change/cli": "0.5.25",
     "@live-change/dao": "0.4.4",
     "@live-change/dao-vue3": "0.4.4",

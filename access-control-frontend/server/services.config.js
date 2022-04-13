@@ -46,7 +46,8 @@ module.exports = {
     {
       name: 'accessControl',
       path: '@live-change/access-control-service',
-      createSessionOnUpdate: true
+      createSessionOnUpdate: true,
+      contactTypes: ['email']
     },
   ]
 }

@@ -5,15 +5,22 @@
                  v-ripple
                  class="flex align-items-center cursor-pointer text-700 hover:surface-100 border-round p-ripple">
       <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
-      <img v-else :src="identiconUrl" class="mr-2" style="width: 28px; height: 28px"/>
+      <img v-else :src="identiconUrl" class="mr-2 border-circle" style="width: 28px; height: 28px"/>
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
         {{ userData?.name }}
       </span>
     </router-link>
+    <span v-else-if="ownerType == 'email_Email'">
+      <i class="pi pi-envelope mr-2 ml-1"
+         style="font-size: 1.3rem; margin-right: 0.7rem !important; position: relative; top: 3px;" />
+      <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden">
+        {{ owner }}
+      </span>
+    </span>
     <span v-else class="flex align-items-center cursor-pointer text-700 hover:surface-100 border-round p-ripple">
       <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
-      <img v-else :src="identiconUrl" class="mr-2" style="width: 28px; height: 28px"/>
+      <img v-else :src="identiconUrl" class="mr-2 border-circle" style="width: 28px; height: 28px"/>
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
         {{ userData?.name }}
