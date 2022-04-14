@@ -5,133 +5,9 @@
         Access Control
       </div>
     </div>
-    <div class="grid formgrid p-fluid mb-2">
-      <div class="p-field field mb-4 col-12 md:col-6" v-if="isMounted && sessionRolesVisible">
-        <label for="publicAccess" class="block text-900 font-medium mb-2">Public access:</label>
-        <Dropdown v-if="!multiRole" id="publicAccess" class="w-full" inputClass="w-full"
-                  :options="['none'].concat(availablePublicSessionRoles ?? availablePublicRoles ?? availableRoles)"
-                  :optionLabel="optionLabel"
-                  :modelValue="synchronizedPublicAccess.sessionRoles?.[0] ?? 'none'"
-                  @update:modelValue="newValue => synchronizedPublicAccess.sessionRoles = [newValue]"
-                  :feedback="false" toggleMask />
-        <MultiSelect v-if="multiRole" id="publicAccess" class="w-full" inputClass="w-full"
-                  :options="availablePublicSessionRoles ?? availablePublicRoles ?? availableRoles"
-                  :optionLabel="optionLabel"
-                  v-model="synchronizedPublicAccess.sessionRoles"
-                  :feedback="false" toggleMask />
-      </div>
-      <div class="p-field field mb-4 col-12 md:col-6" v-if="isMounted && userRolesVisible">
-        <label for="userPublicAccess" class="block text-900 font-medium mb-2">Public access for users:</label>
-        <Dropdown v-if="!multiRole" id="userPublicAccess" class="w-full" inputClass="w-full"
-                  :options="['none'].concat(availablePublicUserRoles ?? availablePublicRoles ?? availableRoles)"
-                  :optionLabel="optionLabel"
-                  :modelValue="synchronizedPublicAccess.userRoles?.[0] ?? 'none'"
-                  @update:modelValue="newValue => synchronizedPublicAccess.userRoles = [newValue]"
-                  :feedback="false" toggleMask />
-        <MultiSelect v-if="multiRole" id="userPublicAccess" class="w-full" inputClass="w-full"
-                     :options="availablePublicUserRoles ?? availablePublicRoles ?? availableRoles"
-                     :optionLabel="optionLabel"
-                     v-model="synchronizedPublicAccess.userRoles"
-                     :feedback="false" toggleMask />
-      </div>
-      <div class="p-field field mb-4 col-12" v-if="isMounted && requestedRolesVisible">
-        <label for="availablePublicAccess" class="block text-900 font-medium mb-2">Roles available to request:</label>
-        <MultiSelect id="userPublicAccess" class="w-full" inputClass="w-full"
-                     :options="availableRequestedRoles ?? availableRoles"
-                     :optionLabel="optionLabel"
-                     v-model="synchronizedPublicAccess.availableRoles"
-                     :feedback="false" toggleMask />
-      </div>
-    </div>
-
-    <div v-if="synchronizedAccesses.length > 0" class="mb-4">
-      <div class="text-900 font-medium text-xl mb-2">Authorized</div>
-      <div v-for="access of synchronizedAccesses" class="flex flex-row flex-wrap align-items-center">
-        <div class="col-12 md:col-6 py-1">
-          <UserIdentification :ownerType="access.sessionOrUserType" :owner="access.sessionOrUser"
-                              :data="access.identification" />
-        </div>
-        <div class="col-12 md:col-6 flex flex-row pr-0" v-if="isMounted">
-          <Dropdown v-if="!multiRole" id="userPublicAccess" class="w-14em"
-                    style="width: calc(100% - 2.357rem) !important"
-                    :options="['none'].concat(availableRoles)"
-                    :optionLabel="optionLabel"
-                    :modelValue="access.roles?.[0] ?? 'none'"
-                    @update:modelValue="newValue => access.roles = [newValue]"
-                    :feedback="false" toggleMask />
-          <MultiSelect v-if="multiRole" id="userPublicAccess"
-                       style="width: calc(100% - 2.357rem) !important"
-                       :options="availableRoles"
-                       :optionLabel="optionLabel"
-                       v-model="access.roles"
-                       :feedback="false" toggleMask />
-          <Button @click="deleteAccess(access)" icon="pi pi-times"
-                  class="p-button-rounded p-button-text p-button-plain ml-2 px-3"
-                  style="padding-top: 0.77rem" />
-        </div>
-      </div>
-    </div>
-
-    <div v-if="synchronizedAccessRequests.length > 0" class="mb-4">
-      <div class="text-900 font-medium text-xl mb-2">Access Requests</div>
-      <div v-for="access of synchronizedAccessRequests" class="flex flex-row flex-wrap align-items-center">
-        <div class="col-12 md:col-6 py-1">
-          <UserIdentification :ownerType="access.sessionOrUserType" :owner="access.sessionOrUser"
-                              :data="access.identification" />
-        </div>
-        <div class="col-12 md:col-6 flex flex-row pr-0" v-if="isMounted">
-          <Dropdown v-if="!multiRole" id="userPublicAccess" class="w-14em"
-                    style="width: calc(100% - 2.357rem) !important"
-                    :options="['none'].concat(availableRoles)"
-                    :optionLabel="optionLabel"
-                    :modelValue="access.roles?.[0] ?? 'none'"
-                    @update:modelValue="newValue => access.roles = [newValue]"
-                    :feedback="false" toggleMask />
-          <MultiSelect v-if="multiRole" id="userPublicAccess"
-                       style="width: calc(100% - 2.357rem) !important"
-                       :options="availableRoles"
-                       :optionLabel="optionLabel"
-                       v-model="access.roles"
-                       :feedback="false" toggleMask />
-          <Button @click="deleteAccessRequest(access)" icon="pi pi-times"
-                  class="p-button-rounded p-button-text p-button-plain ml-2 px-3"
-                  style="padding-top: 0.77rem" />
-        </div>
-      </div>
-    </div>
-
-    <div v-if="synchronizedAccessInvitations.length > 0" class="mb-4">
-      <div class="text-900 font-medium text-xl mb-2">Access Invitations</div>
-      <div v-for="access of synchronizedAccessInvitations"
-           :key="access.to"
-           class="flex flex-row flex-wrap align-items-center">
-        <div class="col-12 md:col-6 py-1">
-          <UserIdentification :ownerType="access.contactOrUserType" :owner="access.contactOrUser"
-                              :data="access.identification" />
-        </div>
-        <div class="col-12 md:col-6 flex flex-row pr-0" v-if="isMounted">
-          <Dropdown v-if="!multiRole" id="userPublicAccess" class="w-14em"
-                    style="width: calc(100% - 2.357rem) !important"
-                    :options="['none'].concat(availableRoles)"
-                    :optionLabel="optionLabel"
-                    :modelValue="access.roles?.[0] ?? 'none'"
-                    @update:modelValue="newValue => access.roles = [newValue]"
-                    :feedback="false" toggleMask />
-          <MultiSelect v-if="multiRole" id="userPublicAccess"
-                       style="width: calc(100% - 2.357rem) !important"
-                       :options="availableRoles"
-                       :optionLabel="optionLabel"
-                       v-model="access.roles"
-                       :feedback="false" toggleMask />
-          <Button @click="deleteAccessInvitation(access)" icon="pi pi-times"
-                  class="p-button-rounded p-button-text p-button-plain ml-2 px-3"
-                  style="padding-top: 0.77rem" />
-        </div>
-      </div>
-    </div>
 
     <div>
-      <Button label="Invite with email" icon="pi pi-envelope" class="p-button" @click="inviteDialog = true" />
+      <Button label="Invite with email" icon="pi pi-envelope" class="p-button mb-4" @click="inviteDialog = true" />
     </div>
     <Dialog v-if="isMounted" v-model:visible="inviteDialog" :modal="true" class="w-full sm:w-9 md:w-8 lg:w-6">
       <template #header>
@@ -191,6 +67,138 @@
         <Button label="Invite" icon="pi pi-envelope" autofocus @click="inviteForm.submit()" />
       </template>
     </Dialog>
+
+    <div v-if="synchronizedAccessRequests.length > 0" class="mb-4">
+      <div class="text-900 font-medium text-xl mb-2">Access Requests</div>
+      <div v-for="access of synchronizedAccessRequests" class="flex flex-row flex-wrap align-items-center">
+        <div class="col-12 md:col-6 py-1">
+          <UserIdentification :ownerType="access.sessionOrUserType" :owner="access.sessionOrUser"
+                              :data="access.identification" />
+        </div>
+        <div class="col-12 md:col-6 flex flex-row pr-0" v-if="isMounted">
+          <Dropdown v-if="!multiRole && (access.roles?.length ?? 0) <= 1" id="userPublicAccess" class="w-14em"
+                    style="width: calc(100% - 4.714rem) !important"
+                    :options="['none'].concat(availableRoles)"
+                    :optionLabel="optionLabel"
+                    :modelValue="access.roles?.[0] ?? 'none'"
+                    @update:modelValue="newValue => access.roles = [newValue]"
+                    :feedback="false" toggleMask />
+          <MultiSelect v-else id="userPublicAccess"
+                       style="width: calc(100% - 4.714rem) !important"
+                       :options="availableRoles"
+                       :optionLabel="optionLabel"
+                       v-model="access.roles"
+                       :feedback="false" toggleMask />
+          <Button @click="acceptAccessRequest(access)" icon="pi pi-check"
+                  class="p-button-rounded p-button-text p-button-plain ml-2 px-3"
+                  style="padding-top: 0.77rem" />
+          <Button @click="deleteAccessRequest(access)" icon="pi pi-times"
+                  class="p-button-rounded p-button-text p-button-plain px-3"
+                  style="padding-top: 0.77rem" />
+        </div>
+      </div>
+    </div>
+
+    <div v-if="synchronizedAccessInvitations.length > 0" class="mb-4">
+      <div class="text-900 font-medium text-xl mb-2">Access Invitations</div>
+      <div v-for="access of synchronizedAccessInvitations"
+           :key="access.to"
+           class="flex flex-row flex-wrap align-items-center">
+        <div class="col-12 md:col-6 py-1">
+          <UserIdentification :ownerType="access.contactOrUserType" :owner="access.contactOrUser"
+                              :data="access.identification" />
+        </div>
+        <div class="col-12 md:col-6 flex flex-row pr-0" v-if="isMounted">
+          <Dropdown v-if="!multiRole && (access.roles?.length ?? 0) <= 1" id="userPublicAccess" class="w-14em"
+                    style="width: calc(100% - 2.357rem) !important"
+                    :options="['none'].concat(availableRoles)"
+                    :optionLabel="optionLabel"
+                    :modelValue="access.roles?.[0] ?? 'none'"
+                    @update:modelValue="newValue => access.roles = [newValue]"
+                    :feedback="false" toggleMask />
+          <MultiSelect v-else id="userPublicAccess"
+                       style="width: calc(100% - 2.357rem) !important"
+                       :options="availableRoles"
+                       :optionLabel="optionLabel"
+                       v-model="access.roles"
+                       :feedback="false" toggleMask />
+          <Button @click="deleteAccessInvitation(access)" icon="pi pi-times"
+                  class="p-button-rounded p-button-text p-button-plain ml-2 px-3"
+                  style="padding-top: 0.77rem" />
+        </div>
+      </div>
+    </div>
+
+    <div v-if="synchronizedAccesses.length > 0" class="mb-4">
+      <div class="text-900 font-medium text-xl mb-2">Authorized</div>
+      <div v-for="access of synchronizedAccesses" class="flex flex-row flex-wrap align-items-center">
+        <div class="col-12 md:col-6 py-1">
+          <UserIdentification :ownerType="access.sessionOrUserType" :owner="access.sessionOrUser"
+                              :data="access.identification" />
+        </div>
+        <div class="col-12 md:col-6 flex flex-row pr-0" v-if="isMounted">
+          <Dropdown v-if="!multiRole && (access.roles?.length ?? 0) <= 1"
+                    id="userPublicAccess" class="w-14em"
+                    style="width: calc(100% - 2.357rem) !important"
+                    :options="['none'].concat(availableRoles)"
+                    :optionLabel="optionLabel"
+                    :modelValue="access.roles?.[0] ?? 'none'"
+                    @update:modelValue="newValue => access.roles = [newValue]"
+                    :feedback="false" toggleMask />
+          <MultiSelect v-else id="userPublicAccess"
+                       style="width: calc(100% - 2.357rem) !important"
+                       :options="availableRoles"
+                       :optionLabel="optionLabel"
+                       v-model="access.roles"
+                       :feedback="false" toggleMask />
+          <Button @click="deleteAccess(access)" icon="pi pi-times"
+                  class="p-button-rounded p-button-text p-button-plain ml-2 px-3"
+                  style="padding-top: 0.77rem" />
+        </div>
+      </div>
+    </div>
+
+    <div class="grid formgrid p-fluid mb-2">
+      <div class="p-field field mb-4 col-12 md:col-6" v-if="isMounted && sessionRolesVisible">
+        <label for="publicAccess" class="block text-900 font-medium mb-2">Public access:</label>
+        <Dropdown v-if="!multiRole && (synchronizedPublicAccess.sessionRoles?.length ?? 0) <= 1"
+                  id="publicAccess" class="w-full" inputClass="w-full"
+                  :options="['none'].concat(availablePublicSessionRoles ?? availablePublicRoles ?? availableRoles)"
+                  :optionLabel="optionLabel"
+                  :modelValue="synchronizedPublicAccess.sessionRoles?.[0] ?? 'none'"
+                  @update:modelValue="newValue => synchronizedPublicAccess.sessionRoles = [newValue]"
+                  :feedback="false" toggleMask />
+        <MultiSelect v-else
+                     id="publicAccess" class="w-full" inputClass="w-full"
+                     :options="availablePublicSessionRoles ?? availablePublicRoles ?? availableRoles"
+                     :optionLabel="optionLabel"
+                     v-model="synchronizedPublicAccess.sessionRoles"
+                     :feedback="false" toggleMask />
+      </div>
+      <div class="p-field field mb-4 col-12 md:col-6" v-if="isMounted && userRolesVisible">
+        <label for="userPublicAccess" class="block text-900 font-medium mb-2">Public access for users:</label>
+        <Dropdown v-if="!multiRole && (synchronizedPublicAccess.userRoles?.length ?? 0) <= 1"
+                  id="userPublicAccess" class="w-full" inputClass="w-full"
+                  :options="['none'].concat(availablePublicUserRoles ?? availablePublicRoles ?? availableRoles)"
+                  :optionLabel="optionLabel"
+                  :modelValue="synchronizedPublicAccess.userRoles?.[0] ?? 'none'"
+                  @update:modelValue="newValue => synchronizedPublicAccess.userRoles = [newValue]"
+                  :feedback="false" toggleMask />
+        <MultiSelect v-else id="userPublicAccess" class="w-full" inputClass="w-full"
+                     :options="availablePublicUserRoles ?? availablePublicRoles ?? availableRoles"
+                     :optionLabel="optionLabel"
+                     v-model="synchronizedPublicAccess.userRoles"
+                     :feedback="false" toggleMask />
+      </div>
+      <div class="p-field field mb-4 col-12" v-if="isMounted && requestedRolesVisible">
+        <label for="availablePublicAccess" class="block text-900 font-medium mb-2">Roles available to request:</label>
+        <MultiSelect id="userPublicAccess" class="w-full" inputClass="w-full"
+                     :options="availableRequestedRoles ?? availableRoles"
+                     :optionLabel="optionLabel"
+                     v-model="synchronizedPublicAccess.availableRoles"
+                     :feedback="false" toggleMask />
+      </div>
+    </div>
 
 
     <div>
@@ -392,6 +400,14 @@
         toast.add({ severity:'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
       }
     })
+  }
+
+  async function acceptAccessRequest(accessRequest) {
+    console.log("ACCEPT ACCESS REQUEST", accessRequest)
+    await accessControlApi.acceptAccessRequest({
+      ...accessRequest, access: accessRequest.to
+    })
+    toast.add({ severity:'info', summary: 'Access Request accepted', life: 1500 })
   }
 
 
