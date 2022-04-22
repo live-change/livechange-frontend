@@ -57,7 +57,9 @@
   import { path, live, actions } from '@live-change/vue3-ssr'
 
   const dataPromise = data !== undefined ? Promise.resolve(data)
-      : live(path().userIdentification.Identification({ ownerType, owner }))
+      : live(path().userIdentification.sessionOrUserOwnedIdentification({
+        sessionOrUserType: ownerType, sessionOrUser: owner
+      }))
 
   const identiconUrl = `/api/identicon/jdenticon/${ownerType}:${owner}/28.svg`
 

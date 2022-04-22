@@ -39,7 +39,7 @@
 <script setup>
   import Button from "primevue/button"
 
-  import InviteDialog from "./InviteDialog.vue"
+  import InviteDialog from "../invite/InviteDialog.vue"
   import AccessRequests from "./AccessRequests.vue"
   import AccessInvitations from "./AccessInvitations.vue"
   import AccessList from "./AccessList.vue"

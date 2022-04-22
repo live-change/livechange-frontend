@@ -38,7 +38,7 @@
   import InputMask from "primevue/inputmask"
   import Button from "primevue/button"
 
-  import { Secured } from "security-frontend"
+  import { Secured } from "@live-change/security-frontend"
 
   import isClientSide from "../isClientSide.js"
 

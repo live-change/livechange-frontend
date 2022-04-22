@@ -109,7 +109,7 @@
   import { path, live, actions } from '@live-change/vue3-ssr'
   const accessControlApi = actions().accessControl
 
-  const [ publicAccess, accesses ] = await Promise.all([
+  const [ publicAccess ] = await Promise.all([
     live(path().accessControl.objectOwnedPublicAccess({ object, objectType }))
   ])
 
