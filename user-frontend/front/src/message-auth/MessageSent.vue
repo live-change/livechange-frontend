@@ -40,8 +40,6 @@
 
   import { Secured } from "@live-change/security-frontend"
 
-  import isClientSide from "../isClientSide.js"
-
   import { useRouter } from 'vue-router'
 
   const router = useRouter()

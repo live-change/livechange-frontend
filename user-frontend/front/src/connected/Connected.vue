@@ -34,7 +34,6 @@
 
 <script setup>
   import Button from "primevue/button"
-  import isClientSide from "../isClientSide.js"
   import SettingsTabs from "../SettingsTabs.vue"
 
   import { ref, onMounted, onUnmounted, inject, computed } from 'vue'

@@ -29,8 +29,6 @@
   import InputText from "primevue/inputtext"
   import Button from "primevue/button"
 
-  import isClientSide from "../isClientSide.js"
-
   import { onMounted, ref } from "vue"
   const isMounted = ref(false)
   onMounted(() => isMounted.value = true)

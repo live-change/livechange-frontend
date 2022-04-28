@@ -1,6 +1,6 @@
 <template>
   <div class="min-h-screen flex flex-column surface-ground">
-    <NavBar></NavBar>
+    <slot name="navbar"></slot>
     <div class="relative h-0 w-full">
       <ProgressBar v-if="loading || working" mode="indeterminate" style="height: .2em" />
     </div>
@@ -15,7 +15,6 @@
 
 <script setup>
   import ProgressBar from "primevue/progressbar"
-  import NavBar from "./NavBar.vue"
 
   const { working, loading } = defineProps({
     working: {
@@ -25,8 +24,6 @@
       type: Boolean
     }
   })
-
-  console.log("SETUP PAGE!!!")
 
   import { computed } from 'vue'
   import { useRoute } from 'vue-router'

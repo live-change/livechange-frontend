@@ -10,7 +10,7 @@
       </div>
 
       <command-form service="passwordAuthentication" action="signInEmail" v-slot="{ data }"
-                    @done="handleDone" keepOnDone v-if="isClientSide">
+                    @done="handleDone" keepOnDone v-if="isMounted">
 
         <div class="p-field mb-3">
           <label for="email" class="block text-900 font-medium mb-2">
@@ -62,7 +62,9 @@
   import Divider from "primevue/divider"
   import Password from "primevue/password"
 
-  import isClientSide from "../isClientSide.js"
+  import { onMounted, ref } from 'vue'
+  const isMounted = ref(false)
+  onMounted(() => isMounted.value = true)
 
   import { useRouter } from 'vue-router'
   const router = useRouter()

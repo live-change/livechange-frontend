@@ -45,6 +45,7 @@ export async function sitemap(route, api) {
 import { client as useClient } from '@live-change/vue3-ssr'
 
 export function installUserRedirects(router, app, config) {
+  const client = useClient(app._context)
   router.beforeEach(async (to, from) => {
     if(to?.matched.find(m => m?.meta.signedIn)) {
       if(!client.value.user) {
@@ -68,7 +69,6 @@ export function installUserRedirects(router, app, config) {
 
 export function createRouter(app, config) {
   //console.log("APP CTX", app._context)
-  const client = useClient(app._context)
   const router = _createRouter({
     // use appropriate history implementation for server/client
     // import.meta.env.SSR is injected by Vite.

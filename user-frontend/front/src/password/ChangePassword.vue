@@ -61,7 +61,6 @@
 </template>
 
 <script setup>
-import isClientSide from "../isClientSide.js"
 
 import InputText from "primevue/inputtext"
 import Checkbox from "primevue/checkbox"

@@ -13,10 +13,13 @@
 <script setup>
   import Button from 'primevue/button'
 
-  import isClientSide from '../isClientSide.js'
+  import { onMounted, ref } from 'vue'
+  const isMounted = ref(false)
+  onMounted(() => isMounted.value = true)
+
   import { computed } from 'vue'
 
-  const afterSignIn = computed( () => isClientSide.value && localStorage.redirectAfterSignIn )
+  const afterSignIn = computed( () => isMounted.value && localStorage.redirectAfterSignIn )
 </script>
 
 <style>

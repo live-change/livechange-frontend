@@ -3,14 +3,17 @@
     <div class="surface-card border-round shadow-2 p-4">
       <div class="text-900 font-medium mb-3 text-xl mb-4">Sign Out</div>
       <p class="mt-0 p-0 line-height-3">Signing out</p>
-      <ProgressSpinner v-if="isClientSide" class="m-3" />
+      <ProgressSpinner v-if="isMounted" class="m-3" />
     </div>
   </div>
 </template>
 
 <script setup>
   import ProgressSpinner from "primevue/progressspinner"
-  import isClientSide from "../isClientSide.js"
+
+  import { onMounted, ref } from 'vue'
+  const isMounted = ref(false)
+  onMounted(() => isMounted.value = true)
 
   import { actions } from '@live-change/vue3-ssr'
   import { inject } from 'vue'

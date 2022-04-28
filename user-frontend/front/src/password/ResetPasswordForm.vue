@@ -67,8 +67,6 @@
   import Divider from "primevue/divider"
   import Password from "primevue/password"
 
-  import isClientSide from "../isClientSide.js"
-
   const { resetKey } = defineProps({
     resetKey: {
       type: String,
