@@ -21,6 +21,8 @@ export async function render({ url, dao, windowId }) {
 
   const { app, router } = createApp(api)
 
+  app.directive('shared-element', {})
+
   // set the router to the desired URL before rendering
   router.push(url)
   await router.isReady()

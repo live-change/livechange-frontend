@@ -62,8 +62,6 @@ export default defineConfig(async ({ command, mode }) => {
     ssr: {
       external: [
         '@live-change/dao',
-        '@live-change/vue-api',
-        '@live-change/vue-api-session',
         '@live-change/uid',
         '@live-change/framework',
         '@live-change/framework/lib/utils/validators.js',
@@ -96,23 +94,8 @@ export default defineConfig(async ({ command, mode }) => {
       alias: [
         { find: 'debug', replacement: 'debug/src/browser.js' },
         { find: 'universal-websocket-client', replacement: 'universal-websocket-client/browser.js' },
-        { find: 'sockjs-client', replacement: 'sockjs-client/dist/sockjs.min.js' },
-        { find: '@', replacement: path.resolve(__dirname, './src') },
-        { find: '#user', replacement: path.resolve(__dirname, '.') }
+        { find: 'sockjs-client', replacement: 'sockjs-client/dist/sockjs.min.js' }
       ],
-    },
-    resolvers: [{
-      fileToRequest(filePath) {
-        console.log('@@@', filePath);
-        if (filePath.startsWith(srcPath)) {
-          return `/@/${path.relative(srcPath, filePath)}`
-        }
-      },
-      requestToFile(publicPath) {
-        if (publicPath.startsWith('/@/')) {
-          return path.join(srcPath, publicPath.replace(/^\/@\//, ''))
-        }
-      },
-    }],
+    }
   }
 })

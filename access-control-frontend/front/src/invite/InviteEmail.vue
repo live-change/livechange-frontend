@@ -72,7 +72,6 @@
 
   const secrets = data.secrets
   const secretLink = secrets.find(secret => secret.type == 'link')
-  const secretCode = secrets.find(secret => secret.type == 'code')
 
   const [ from ] = await Promise.all([
     live(path().userIdentification.sessionOrUserOwnedIdentification(
@@ -86,8 +85,6 @@
   }
 
   const linkAddress = ENV_BASE_HREF + '/link/' + secretLink.secret.secretCode
-
-  const code = secretCode.secret.secretCode
 
 </script>
 

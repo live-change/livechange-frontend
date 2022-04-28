@@ -7,9 +7,12 @@ import {
 import configurationRoutes from "./configuration/routes.js"
 import inviteRoutes from "./invite/routes.js"
 
+import { userRoutes, installUserRedirects } from "@live-change/user-frontend"
+
 export function routes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
+    ...userRoutes(config),
 
     ...configurationRoutes(config),
     ...inviteRoutes(config),
@@ -43,25 +46,7 @@ export function createRouter(app, config) {
     history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
     routes: routes(config)
   })
-  router.beforeEach(async (to, from) => {
-    if(to?.matched.find(m => m?.meta.signedIn)) {
-      if(!client.value.user) {
-        console.log("REDIRECT TO LOGIN BECAUSE PAGE REQUIRES LOGIN!")
-        router.redirectAfterSignIn = to.fullPath
-        return { name: 'user:signIn' }
-      }
-    }
-    if(to?.matched.find(m => m?.meta.signedOut)) {
-      if(client.value.user) {
-        console.log("REDIRECT TO USER INDEX BECAUSE PAGE REQUIRES LOGOUT!")
-        return { name: 'user:settings' }
-      }
-    }
-    if(to && to.name == 'user:signIn' && from?.matched.find(m => m?.meta.saveForSignIn)) {
-      console.log("SAVE FOR LOGIN", from.fullPath)
-      localStorage.redirectAfterLogin = from.fullPath
-    }
-  })
+  installUserRedirects(router, app, config)
   return router
 }
 

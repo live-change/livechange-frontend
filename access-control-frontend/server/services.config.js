@@ -18,6 +18,10 @@ module.exports = {
       path: '@live-change/email-service'
     },
     {
+      name: 'secretLink',
+      path: '@live-change/secret-link-service'
+    },
+    {
       name: 'secretCode',
       path: '@live-change/secret-code-service'
     },

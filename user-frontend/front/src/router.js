@@ -11,7 +11,7 @@ import deleteRoutes from "./delete/routes.js"
 import { passwordResetRoutes, passwordChangeRoutes } from "./password/routes.js"
 import { notificationsSettingsRoutes, notificationsRoutes } from "./notifications/routes.js"
 
-export function routes(config = {}) {
+export function userRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
 
@@ -44,15 +44,7 @@ export async function sitemap(route, api) {
 
 import { client as useClient } from '@live-change/vue3-ssr'
 
-export function createRouter(app, config) {
-  //console.log("APP CTX", app._context)
-  const client = useClient(app._context)
-  const router = _createRouter({
-    // use appropriate history implementation for server/client
-    // import.meta.env.SSR is injected by Vite.
-    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
-    routes: routes(config)
-  })
+export function installUserRedirects(router, app, config) {
   router.beforeEach(async (to, from) => {
     if(to?.matched.find(m => m?.meta.signedIn)) {
       if(!client.value.user) {
@@ -72,6 +64,18 @@ export function createRouter(app, config) {
       localStorage.redirectAfterLogin = from.fullPath
     }
   })
+}
+
+export function createRouter(app, config) {
+  //console.log("APP CTX", app._context)
+  const client = useClient(app._context)
+  const router = _createRouter({
+    // use appropriate history implementation for server/client
+    // import.meta.env.SSR is injected by Vite.
+    history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
+    routes: userRoutes(config)
+  })
+  installUserRedirects(router, app, config)
   return router
 }
 

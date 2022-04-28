@@ -1,5 +1,6 @@
 <template>
-  <Dialog v-model:visible="visible" :modal="true" class="w-full sm:w-9 md:w-8 lg:w-6">
+  <Dialog :visible="visible" @update:visible="v => $emit('update:visible', v)"
+          :modal="true" class="w-full sm:w-9 md:w-8 lg:w-6">
     <template #header>
       <h3>Invite user with email</h3>
     </template>
