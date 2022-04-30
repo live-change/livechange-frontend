@@ -8,7 +8,7 @@
       <img v-else :src="identiconUrl" class="mr-2 border-circle" style="width: 28px; height: 28px"/>
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
-        {{ userData?.name }}
+        {{ name }}
       </span>
     </router-link>
     <span v-else-if="ownerType == 'email_Email'">
@@ -23,13 +23,15 @@
       <img v-else :src="identiconUrl" class="mr-2 border-circle" style="width: 28px; height: 28px"/>
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
-        {{ userData?.name }}
+        {{ name }}
       </span>
     </span>
   </span>
 </template>
 
 <script setup>
+
+  import { colors, animals, uniqueNamesGenerator } from "unique-names-generator"
 
   const props = defineProps({
     ownerType: {
@@ -63,7 +65,17 @@
 
   const identiconUrl = `/api/identicon/jdenticon/${ownerType}:${owner}/28.svg`
 
+  import { computed } from 'vue'
+
   const [ userData ] = await Promise.all([ dataPromise ])
+
+  const nameGeneratorConfig = {
+    dictionaries: [/*["anonymous", "unnamed"],*/ colors, animals],
+    separator: ' ',
+    seed: ownerType + '_' + owner
+  }
+
+  const name = computed(() => userData.value?.name || uniqueNamesGenerator(nameGeneratorConfig))
 
 </script>
 

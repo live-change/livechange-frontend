@@ -6,9 +6,10 @@
       </div>
     </div>
 
-    <div>
+    <div class="text-center">
       <Button label="Invite with email" icon="pi pi-envelope" class="p-button mb-4" @click="inviteDialog = true" />
     </div>
+
     <InviteDialog v-if="isMounted"
                   :objectType="objectType" :object="object"
                   v-model:visible="inviteDialog"

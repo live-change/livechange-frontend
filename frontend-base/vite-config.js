@@ -1,4 +1,3 @@
-
 const { findFreePorts } = require("find-free-ports")
 const path = require('path')
 const vuePlugin = require('@vitejs/plugin-vue')
@@ -12,7 +11,6 @@ const ssrTransformCustomDir = () => {
     needRuntime: true
   }
 }
-
 
 module.exports = async ({ command, mode }) => ({
   define: {

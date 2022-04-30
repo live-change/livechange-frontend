@@ -7,11 +7,18 @@
     <p>
       <span v-if="from?.name">
         Our user
-
         <strong>{{ from.name }}</strong>
       </span>
       <span v-else>One of our users</span>
        invited you to use X by entering your email address.
+    </p>
+    <div v-if="data.message.trim().length > 0">
+      <p>He left message for you:</p>
+      <blockquote class="font-italic">{{ data.message }}</blockquote>
+    </div>
+    <p>
+      if you already have an account, you can add this email to your account
+      and the invitation will be linked to your account.
     </p>
     <p>
       Click the button below:

@@ -1,7 +1,8 @@
 <template>
   <div v-if="synchronizedAccesses.length > 0" class="mb-4">
     <div class="text-900 font-medium text-xl mb-2">Authorized</div>
-    <div v-for="access of synchronizedAccesses" class="flex flex-row flex-wrap align-items-center">
+    <div v-for="access of synchronizedAccesses" :key="access.to"
+         class="flex flex-row flex-wrap align-items-center">
       <div class="col-12 md:col-6 py-1">
         <UserIdentification :ownerType="access.sessionOrUserType" :owner="access.sessionOrUser"
                             :data="access.identification" />
