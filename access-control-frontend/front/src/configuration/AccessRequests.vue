@@ -83,6 +83,11 @@
         .with(access => path().userIdentification.sessionOrUserOwnedIdentification({
           sessionOrUserType: access.sessionOrUserType, sessionOrUser: access.sessionOrUser
         }).bind('identification'))
+        .action('delete', ({ sessionOrUserType, sessionOrUser, objectType, object }) =>
+          path().accessControl.resetSessionOrUserAndObjectOwnedAccessRequest(
+            { sessionOrUserType, sessionOrUser, objectType, object }
+          )
+        )
     )
   ])
 
@@ -107,9 +112,7 @@
       acceptClass: 'p-button-danger',
       accept: async () => {
         await synchronizedAccessRequestsList.delete(accessRequest)
-        /*await accessControlApi.deleteObjectRelatedAccess({
-          access: access.to, object: access.object, objectType: access.objectType
-        })*/
+        //accessRequest.delete()
         toast.add({ severity:'info', summary: 'Access Request Deleted', life: 1500 })
       },
       reject: () => {

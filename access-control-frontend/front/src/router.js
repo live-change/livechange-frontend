@@ -8,8 +8,10 @@ import configurationRoutes from "./configuration/routes.js"
 import inviteRoutes from "./invite/routes.js"
 
 import { userRoutes, installUserRedirects } from "@live-change/user-frontend"
+import { dbAdminRoutes } from "@live-change/db-admin"
 
 export function routes(config = {}) {
+  console.log("DB ROUTES", dbAdminRoutes({ prefix: '/_db' }))
   const { prefix = '/', route = (r) => r } = config
   return [
     ...userRoutes(config),
@@ -24,8 +26,9 @@ export function routes(config = {}) {
         objectType: 'example_Example',
         object: 'one'
       }
-    })
+    }),
 
+      ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
   ]
 }
 
