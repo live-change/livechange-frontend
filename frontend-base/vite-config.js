@@ -60,8 +60,6 @@ module.exports = async ({ command, mode }) => ({
   ssr: {
     external: [
       '@live-change/dao',
-      '@live-change/vue-api',
-      '@live-change/vue-api-session',
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
@@ -73,13 +71,13 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/vue3-components',
       '@live-change/dao-vue3',
       '@live-change/vue3-ssr',
+      '@live-change/email-service',
+      '@live-change/password-authentication-service',
       'vue3-scroll-border'
     ]
   },
   optimizeDeps: {
     include: [
-      '@live-change/vue-api',
-      '@live-change/vue-api-session',
       '@live-change/dao',
       '@live-change/dao-sockjs',
       '@live-change/dao-websocket',
