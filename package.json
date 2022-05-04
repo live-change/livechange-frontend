@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "workspaces": [
+    "access-control-frontend",
+    "frontend-base",
+    "peer-connection-frontend",
+    "security-frontend",
+    "user-frontend"
+  ]
+}
