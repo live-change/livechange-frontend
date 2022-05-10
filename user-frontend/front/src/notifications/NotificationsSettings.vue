@@ -8,48 +8,67 @@
         <div>
           <h2>Invities</h2>
         </div>
-        <div class="flex flex-wrap">
-          <div class=" sm:flex-order-1 md:flex-order-1  lg:flex-order-1 col-6 md:col-4 lg:col-4">
-            <h3>email</h3>
+        <div class="md:flex md:flex-row">
+          <div class="flex flex-row md:flex-column align-items-center mb-3 md:col-4">
+            <div class="flex-grow-1 md:mb-2">
+              <i class="pi pi-at"></i>
+              <span class="ml-2">Email</span>
+            </div>
+            <div class="">
+              <InputSwitch v-model="checked"/>
+            </div>
           </div>
-          <div class=" sm:flex-order-2 md:flex-order-4  lg:flex-order-4 col-6 md:col-4 lg:col-4">
-            <p></p><InputSwitch v-model="checked"/>
+
+          <div class="flex flex-row md:flex-column align-items-center mb-3 md:col-4">
+            <div class="flex-grow-1 md:mb-2">
+              <i class="pi pi-globe"></i>
+              <span class="ml-2">Web</span>
+            </div>
+            <div class="">
+              <InputSwitch v-model="checked"/>
+            </div>
           </div>
-          <div class=" sm:flex-order-3 md:flex-order-2 lg:flex-order-2 col-6 md:col-4 lg:col-4">
-            <h3>web</h3>
-          </div>
-          <div class="sm:flex-order-4 md:flex-order-5 lg:flex-order-5 col-6 md:col-4 lg:col-4">
-            <p></p><InputSwitch v-model="checked"/>
-          </div>
-          <div class="sm:flex-order-5 md:flex-order-3 lg:flex-order-3 col-6 md:col-4 lg:col-4">
-            <h3>sms</h3>
-          </div>
-          <div class="sm:flex-order-6 md:flex-order-6 lg:flex-order-6 col-6 md:col-4 lg:col-4">
-            <p></p> <InputSwitch v-model="checked"/>
+          <div class="flex flex-row md:flex-column align-items-center mb-3 md:col-4">
+            <div class="flex-grow-1 md:mb-2">
+              <i class="pi pi-phone"></i>
+              <span class="ml-2">SMS</span>
+            </div>
+            <div class="">
+              <InputSwitch v-model="checked"/>
+            </div>
           </div>
         </div>
         <div>
           <div>
             <h2>Messages</h2>
           </div>
-          <div  class="flex flex-wrap ">
-            <div class=" sm:flex-order-1 md:flex-order-1  lg:flex-order-1 col-6 md:col-4 lg:col-4">
-              <h3>email</h3>
+          <div class="md:flex md:flex-row">
+            <div class="flex flex-row md:flex-column align-items-center mb-3 md:col-4">
+              <div class="flex-grow-1 md:mb-2">
+                <i class="pi pi-at"></i>
+                <span class="ml-2">Email</span>
+              </div>
+              <div class="">
+                <InputSwitch v-model="checked"/>
+              </div>
             </div>
-            <div class=" sm:flex-order-2 md:flex-order-4  lg:flex-order-4 col-6 md:col-4 lg:col-4">
-              <p></p><InputSwitch v-model="checked"/>
+            <div class="flex flex-row md:flex-column align-items-center mb-3 md:col-4">
+              <div class="flex-grow-1 md:mb-2">
+                <i class="pi pi-globe"></i>
+                <span class="ml-2">Web</span>
+              </div>
+              <div class="">
+                <InputSwitch v-model="checked"/>
+              </div>
             </div>
-            <div class=" sm:flex-order-3 md:flex-order-2 lg:flex-order-2 col-6 md:col-4 lg:col-4">
-              <h3>web</h3>
-            </div>
-            <div class="sm:flex-order-4 md:flex-order-5 lg:flex-order-5 col-6 md:col-4 lg:col-4">
-              <p></p><InputSwitch v-model="checked"/>
-            </div>
-            <div class="sm:flex-order-5 md:flex-order-3 lg:flex-order-3 col-6 md:col-4 lg:col-4">
-              <h3>sms</h3>
-            </div>
-            <div class="sm:flex-order-6 md:flex-order-6 lg:flex-order-6 col-6 md:col-4 lg:col-4">
-              <p></p> <InputSwitch v-model="checked"/>
+            <div class="flex flex-row md:flex-column align-items-center mb-3 md:col-4">
+              <div class="flex-grow-1 md:mb-2">
+                <i class="pi pi-phone"></i>
+                <span class="ml-2">SMS</span>
+              </div>
+              <div class="">
+                <InputSwitch v-model="checked"/>
+              </div>
             </div>
           </div>
         </div>
