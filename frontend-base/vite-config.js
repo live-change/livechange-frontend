@@ -4,6 +4,7 @@ const vuePlugin = require('@vitejs/plugin-vue')
 const { visualizer } = require('rollup-plugin-visualizer')
 const viteImages = require('vite-plugin-vue-images')
 const viteCompression = require('vite-plugin-compression')
+const { searchForWorkspaceRoot } = require('vite')
 
 const ssrTransformCustomDir = () => {
   return {
@@ -19,6 +20,12 @@ module.exports = async ({ command, mode }) => ({
   server: {
     hmr: {
       port: (await findFreePorts())[0]
+    },
+    fs: {
+      allow: [
+        searchForWorkspaceRoot(process.cwd()),
+        path.dirname(require.resolve('primeicons/package.json'))
+      ]
     }
   },
   plugins: [
