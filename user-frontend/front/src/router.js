@@ -11,6 +11,8 @@ import deleteRoutes from "./delete/routes.js"
 import { passwordResetRoutes, passwordChangeRoutes } from "./password/routes.js"
 import { notificationsSettingsRoutes, notificationsRoutes } from "./notifications/routes.js"
 
+import { dbAdminRoutes } from "@live-change/db-admin"
+
 export function userRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
@@ -33,6 +35,8 @@ export function userRoutes(config = {}) {
         ...notificationsSettingsRoutes({ ...config, prefix: '' })
       ]
     }),
+
+    ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
 
   ]
 }

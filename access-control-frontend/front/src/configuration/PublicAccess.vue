@@ -49,7 +49,7 @@
   import { useToast } from 'primevue/usetoast'
   const toast = useToast()
 
-  import { synchronized, synchronizedList } from "@live-change/vue3-components"
+  import { synchronized } from "@live-change/vue3-components"
 
   function optionLabel(option) {
     if(option == 'none') return 'none'
@@ -104,7 +104,6 @@
 
   const isMounted = ref(false)
   onMounted(() => isMounted.value = true)
-
 
   import { path, live, actions } from '@live-change/vue3-ssr'
   const accessControlApi = actions().accessControl

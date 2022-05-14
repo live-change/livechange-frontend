@@ -1,4 +1,5 @@
-const app = require('@live-change/framework').app()
+const App = require('@live-change/framework')
+const app = App.app()
 
 module.exports = async function(services) {
 
@@ -6,7 +7,7 @@ module.exports = async function(services) {
   const email = 'tester@test.com'
   const email2 = 'tester2@test.com'
   const password = 'Testy123'
-  const session = 'xyLRAj38fIMjTImlkgzvkdVefXTZk/1j'
+  const session = 'SehSSbMMK+Fa3+rY0TbXuOBuod6jf1rt'
   //console.log("MDL", services.passwordAuthentication.models.PasswordAuthentication)
   const passwordHash = services.passwordAuthentication.models.PasswordAuthentication
       .definition.properties.passwordHash.preFilter(password)
@@ -14,6 +15,17 @@ module.exports = async function(services) {
   await services.passwordAuthentication.models.PasswordAuthentication.create({ id: user, user, passwordHash })
   await services.email.models.Email.create({ id: email, email, user })
   await services.email.models.Email.create({ id: email2, email: email2, user })
-  //await services.user.models.AuthenticatedUser.create({ id: session, session, user })
+
+  await services.user.models.AuthenticatedUser.create({ id: session, session, user })
+
+  await services.notification.models.NotificationSetting.create({
+    id: App.encodeIdentifier([ 'email_Email', email, 'example_TestNotification', 'example_TestNotification' ]),
+    contactType: 'email_Email',
+    contact: email,
+    notificationType: 'example_TestNotification',
+    notification: 'example_TestNotification',
+    active: true,
+    lastChanged: new Date()
+  })
 
 }

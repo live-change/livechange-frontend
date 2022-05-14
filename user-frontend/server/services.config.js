@@ -1,3 +1,5 @@
+const contactTypes = ['email']
+
 module.exports = {
   services: [
     {
@@ -28,7 +30,7 @@ module.exports = {
     {
       name: 'messageAuthentication',
       path: '@live-change/message-authentication-service',
-      contactTypes: ['email'],
+      contactTypes,
       signUp: true,
       signIn: true,
       connect: true
@@ -36,7 +38,7 @@ module.exports = {
     {
       name: 'passwordAuthentication',
       path: '@live-change/password-authentication-service',
-      contactTypes: ['email'],
+      contactTypes,
       signInWithoutPassword: true
     },
     {
@@ -51,7 +53,13 @@ module.exports = {
     {
       name: 'identicon',
       path: '@live-change/identicon-service'
-    }
+    },
+    {
+      name: 'notification',
+      path: '@live-change/notification-service',
+      contactTypes,
+      notificationTypes: ['example_TestNotification']
+    },
 
     //  { path: '@live-change/google-account-service' },
   ]
