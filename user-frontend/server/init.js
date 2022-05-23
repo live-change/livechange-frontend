@@ -7,7 +7,7 @@ module.exports = async function(services) {
   const email = 'tester@test.com'
   const email2 = 'tester2@test.com'
   const password = 'Testy123'
-  const session = 'SehSSbMMK+Fa3+rY0TbXuOBuod6jf1rt'
+  const session = 'GOzz0WylRDklhLCSppS6bwRYUeIQJqzt'
   //console.log("MDL", services.passwordAuthentication.models.PasswordAuthentication)
   const passwordHash = services.passwordAuthentication.models.PasswordAuthentication
       .definition.properties.passwordHash.preFilter(password)
@@ -27,5 +27,27 @@ module.exports = async function(services) {
     active: true,
     lastChanged: new Date()
   })
+
+  await services.notification.models.Notification.create({
+    id: app.generateUid(),
+    ownerType: 'user_User',
+    owner: user,
+    time: new Date(),
+    state: 'new',
+    readState: 'new',
+    notificationType: 'example_TestNotification'
+  })
+
+  for(let i = 1; i <= 12; i++) {
+    await services.notification.models.Notification.create({
+      id: app.generateUid(),
+      ownerType: 'user_User',
+      owner: user,
+      time: new Date(Date.now() - i * 60 * 1000),
+      state: 'new',
+      readState: 'new',
+      notificationType: 'example_RandomNotification'
+    })
+  } //*/
 
 }

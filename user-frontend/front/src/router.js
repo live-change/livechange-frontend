@@ -20,6 +20,7 @@ export function userRoutes(config = {}) {
     ...messageAuthRoutes(config),
     ...signRoutes(config),
     ...passwordResetRoutes(config),
+    ...notificationsRoutes(config),
 
     route({
       path: prefix + 'settings', meta: { pageType: 'wide' },
@@ -77,7 +78,10 @@ export function createRouter(app, config) {
     // use appropriate history implementation for server/client
     // import.meta.env.SSR is injected by Vite.
     history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
-    routes: userRoutes(config)
+    routes: [
+      { path: '/', component: () => import('./Index.vue') },
+      ...userRoutes(config)
+    ]
   })
   installUserRedirects(router, app, config)
   return router

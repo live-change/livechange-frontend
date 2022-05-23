@@ -17,6 +17,9 @@ export function notificationsRoutes(config = {}) {
 
   return [
 
+    route({ name: 'user:notificationsList', path: prefix + 'notifications', props: true,
+      component: () => import("./NotificationListPage.vue"), meta: { signedIn: true } }),
+
   ]
 }
 
