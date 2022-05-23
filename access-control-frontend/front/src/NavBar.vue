@@ -3,11 +3,16 @@
               relative md:sticky top-0 z-5"
        style="min-height: 80px" key="navbar">
     <img src="/images/logo.svg" alt="Image" height="40" class="mr-0 lg:mr-6">
-    <a v-ripple class="cursor-pointer block lg:hidden text-700 p-ripple"
+    <div class="hidden lg:flex">
+      <!-- place for desktop menu -->
+    </div>
+    <div class="flex flex-grow-1"></div>
+    <NotificationsIcon />
+    <a v-ripple class="cursor-pointer block lg:hidden text-700 p-ripple ml-2 hover:surface-100 p-2"
        v-styleclass="{ selector: '@next', enterClass: 'hidden', leaveToClass: 'hidden', hideOnOutsideClick: true }">
       <i class="pi pi-bars text-4xl"></i>
     </a>
-    <div class="align-items-center flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
+    <div class="align-items-center flex-grow-1 justify-content-between hidden absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
       <ul class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row">
         <li>
           <a v-ripple class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150 p-ripple">
@@ -73,15 +78,6 @@
             <span class="block lg:hidden font-medium">Inbox</span>
           </a>
         </li>
-        <li>
-          <a v-ripple class="flex px-6 p-3 lg:px-3 lg:py-3 align-items-center text-600 hover:text-900 hover:surface-100
-           font-medium border-round cursor-pointer transition-colors transition-duration-150 p-ripple">
-            <i class="pi pi-bell text-base lg:text-2xl mr-2 lg:mr-0 p-overlay-badge">
-              <Badge value="2"></Badge>
-            </i>
-            <span class="block lg:hidden font-medium">Notifications</span>
-          </a>
-        </li>
         <li class="border-top-1 surface-border lg:border-top-none">
           <a v-ripple class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center hover:surface-100 font-medium border-round cursor-pointer transition-colors transition-duration-150 p-ripple">
             <img src="/images/empty-user-photo.svg" class="mr-3 lg:mr-0 border-circle" style="width: 28px; height: 28px"/>
@@ -97,7 +93,9 @@
 </template>
 
 <script setup>
-  import Badge from "primevue/badge"
+
+  import { NotificationsIcon } from "@live-change/user-frontend"
+
 </script>
 
 <style scoped>

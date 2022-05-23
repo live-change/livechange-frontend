@@ -30,8 +30,8 @@ module.exports = async function(services) {
 
   await services.notification.models.Notification.create({
     id: app.generateUid(),
-    ownerType: 'user_User',
-    owner: user,
+    sessionOrUserType: 'user_User',
+    sessionOrUser: user,
     time: new Date(),
     state: 'new',
     readState: 'new',
@@ -41,8 +41,8 @@ module.exports = async function(services) {
   for(let i = 1; i <= 12; i++) {
     await services.notification.models.Notification.create({
       id: app.generateUid(),
-      ownerType: 'user_User',
-      owner: user,
+      sessionOrUserType: 'user_User',
+      sessionOrUser: user,
       time: new Date(Date.now() - i * 60 * 1000),
       state: 'new',
       readState: 'new',
