@@ -113,7 +113,7 @@
       .notification-buttons {
         visibility: hidden;
         position: absolute;
-        right: 5px;
+        right: 40px;
         top: 5px;
         //transform: translate(0, -50%);
       }

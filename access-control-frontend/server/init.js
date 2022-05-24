@@ -34,7 +34,7 @@ module.exports = async function(services) {
   await services.user.models.AuthenticatedUser.create({ id: session, session, user: user2.id })
 
   await services.notification.models.Notification.create({
-    "id": "[Wc5NDDP8L.0@1eFVgX]",
+    "id": app.generateUid(),
     "notificationType": "accessControl_Invitation",
     "objectType": "example_Example",
     "object": "two",

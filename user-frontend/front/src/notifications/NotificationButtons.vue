@@ -1,9 +1,11 @@
 <template>
   <div class="notification-buttons">
-    <Button @click="markRead()"
+    <Button v-if="notification.readState == 'new'" @click="markRead()"
             icon="pi pi-eye" class="p-button-rounded p-button-outlined" />
+    <Button v-if="notification.readState == 'read'" @click="markUnread()"
+            icon="pi pi-eye-slash" class="p-button-rounded p-button-outlined" />
     <Button @click="deleteNotification()"
-            icon="pi pi-times" class="p-button-rounded p-button-outlined ml-1" />
+            icon="pi pi-trash" class="p-button-rounded p-button-outlined ml-1" />
   </div>
 </template>
 
@@ -32,17 +34,27 @@
   const notificationApi = actions().notification
 
   function markRead() {
-    workingZone.addPromise('markNotification', (async () => {
-      await notificationApi.mark({ notification: notification.to || notification.id, state: 'read' })
+    workingZone.addPromise('markNotificationRead', (async () => {
+      await notificationApi.markRead({ notification: notification.to || notification.id })
       toast.add({
-        severity: 'success', summary:' Notification read',
+        severity: 'success', summary: 'Notification read',
         detail:'Notification has been marked as read', life: 3000
       })
     })())
   }
 
+  function markUnread() {
+    workingZone.addPromise('markNotificationUnread', (async () => {
+      await notificationApi.markUnread({ notification: notification.to || notification.id })
+      toast.add({
+        severity: 'success', summary: 'Notification unread',
+        detail:'Notification has been marked as unread', life: 3000
+      })
+    })())
+  }
+
   function deleteNotification() {
-    workingZone.addPromise('markNotification', (async () => {
+    workingZone.addPromise('deleteNotification', (async () => {
       await notificationApi.delete({ notification: notification.to || notification.id })
       toast.add({
         severity: 'warn', summary: 'Notification deleted',

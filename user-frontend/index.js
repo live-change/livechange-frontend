@@ -1,5 +1,6 @@
 import UserIdentification from "./front/src/identification/UserIdentification.vue"
-export { UserIdentification }
+import ObjectIdentification from "./front/src/identification/ObjectIdentification.vue"
+export { UserIdentification, ObjectIdentification }
 
 import NotificationsIcon from "./front/src/notifications/NotificationsIcon.vue"
 import SimpleNotification from "./front/src/notifications/SimpleNotification.vue"
