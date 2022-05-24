@@ -1,7 +1,7 @@
 <template>
   <div class="notification-buttons">
     <Button @click="markRead()"
-            icon="pi pi-check" class="p-button-rounded p-button-outlined" />
+            icon="pi pi-eye" class="p-button-rounded p-button-outlined" />
     <Button @click="deleteNotification()"
             icon="pi pi-times" class="p-button-rounded p-button-outlined ml-1" />
   </div>

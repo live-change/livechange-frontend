@@ -33,6 +33,19 @@ module.exports = async function(services) {
 
   await services.user.models.AuthenticatedUser.create({ id: session, session, user: user2.id })
 
+  await services.notification.models.Notification.create({
+    "id": "[Wc5NDDP8L.0@1eFVgX]",
+    "notificationType": "accessControl_Invitation",
+    "objectType": "example_Example",
+    "object": "two",
+    "fromType": "user_User",
+    "from": user1.id,
+    "sessionOrUserType": "user_User",
+    "sessionOrUser": user2.id,
+    "time": "2022-05-23T13:13:25.501Z",
+    "readState": "new"
+  })
+
 /*  await PublicAccess.create({
     id: App.encodeIdentifier(['example_Example', 'one']),
     objectType: 'example_Example', object: 'one',

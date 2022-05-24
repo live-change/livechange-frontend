@@ -11,6 +11,7 @@ import 'primevue/resources/themes/vela-orange/theme.css'
 
 import NavBar from "./NavBar.vue"
 import ViewRoot from "@live-change/frontend-base/ViewRoot.vue"
+import "./notifications"
 
 import { useMeta } from 'vue-meta'
 const { meta } = useMeta({

@@ -66,6 +66,12 @@ module.exports = {
         },
         object: {
           type: String
+        },
+        fromType: {
+          type: String
+        },
+        from: {
+          type: String
         }
       }
     },
