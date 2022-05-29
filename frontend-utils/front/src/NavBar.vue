@@ -7,7 +7,6 @@
       <!-- place for desktop menu -->
     </div>
     <div class="flex flex-grow-1"></div>
-    <NotificationsIcon />
     <a v-ripple class="cursor-pointer block lg:hidden text-700 p-ripple ml-2 hover:surface-100 p-2"
        v-styleclass="{ selector: '@next', enterClass: 'hidden', leaveToClass: 'hidden', hideOnOutsideClick: true }">
       <i class="pi pi-bars text-4xl"></i>
@@ -94,7 +93,6 @@
 
 <script setup>
 
-  import { NotificationsIcon } from "@live-change/user-frontend"
 
 </script>
 

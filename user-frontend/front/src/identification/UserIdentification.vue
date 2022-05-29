@@ -3,9 +3,12 @@
     <router-link v-if="ownerType == 'user_User' && profileRouteExists"
                  :to="{ name: 'user:profile', params: { user: owner } }"
                  v-ripple
-                 class="flex align-items-center cursor-pointer text-700 hover:surface-100 border-round p-ripple">
+                 :class="inline ? inlineClass : blockClass">
       <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
-      <img v-else :src="identiconUrl" class="mr-2 border-circle" style="width: 28px; height: 28px"/>
+      <img v-else :src="identiconUrl" class="mr-2 border-circle"
+           :style="inline
+                   ? { width: inlineImageSize, height: inlineImageSize }
+                   : { width: blockImageSize, height: blockImageSize }" />
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
         {{ name }}
@@ -18,9 +21,12 @@
         {{ owner }}
       </span>
     </span>
-    <span v-else class="flex align-items-center cursor-pointer text-700 hover:surface-100 border-round p-ripple">
+    <span v-else :class="inline ? inlineClass : blockClass">
       <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
-      <img v-else :src="identiconUrl" class="mr-2 border-circle" style="width: 28px; height: 28px"/>
+      <img v-else :src="identiconUrl" class="mr-2 border-circle"
+           :style="inline
+                   ? { width: inlineImageSize, height: inlineImageSize }
+                   : { width: blockImageSize, height: blockImageSize }" />
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
         {{ name }}
@@ -45,11 +51,20 @@
     data: {
       type: Object,
       default: null
+    },
+    inline: {
+      type: Boolean,
+      default: false
     }
   })
 
+  const inlineClass = ""
+  const blockClass = "flex align-items-center cursor-pointer text-700 hover:surface-100 border-round p-ripple"
+  const inlineImageSize = '1em'
+  const blockImageSize = '28px'
+
   import { toRefs } from "@vueuse/core"
-  const { data } = toRefs(props)
+  const { data, inline } = toRefs(props)
   const { ownerType, owner } = props
 
   import { useRouter } from 'vue-router'

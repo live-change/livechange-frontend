@@ -7,25 +7,28 @@
 </template>
 
 <script setup>
-import 'primevue/resources/themes/vela-orange/theme.css'
+  import 'primevue/resources/themes/saga-green/theme.css'
+  //import 'primevue/resources/themes/lara-light-blue/theme.css'
+  //import 'primevue/resources/themes/vela-orange/theme.css'
 
-import NavBar from "./NavBar.vue"
-import ViewRoot from "@live-change/frontend-base/ViewRoot.vue"
+  import NavBar from "./NavBar.vue"
+  import ViewRoot from "@live-change/frontend-base/ViewRoot.vue"
+  import "./notifications"
 
-import { useMeta } from 'vue-meta'
-const { meta } = useMeta({
-  title: 'Title',
-  htmlAttrs: {
-    lang: 'en',
-    amp: true
-  }
-})
+  import { useMeta } from 'vue-meta'
+  const { meta } = useMeta({
+    title: 'Title',
+    htmlAttrs: {
+      lang: 'en',
+      amp: true
+    }
+  })
 
-import { watch } from 'vue'
-import { client as useClient } from '@live-change/vue3-ssr'
-const client = useClient()
-watch(client, (newClient, oldClient) => {
-  console.log("WATCH CLIENT", oldClient, '=>', newClient)
-})
+  import { watch } from 'vue'
+  import { client as useClient } from '@live-change/vue3-ssr'
+  const client = useClient()
+  watch(client, (newClient, oldClient) => {
+    console.log("WATCH CLIENT", oldClient, '=>', newClient)
+  })
 
 </script>
