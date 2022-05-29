@@ -10,7 +10,7 @@
       <Button label="Accept" icon="pi pi-check" class="p-button-sm mr-2" @click="acceptInvitation" />
       <Button label="Ignore" icon="pi pi-times" class="p-button-sm" @click="deleteNotification" />
     </div>
-    <pre class="w-full overflow-hidden">{{ notification }}</pre>
+<!--    <pre class="w-full overflow-hidden">{{ notification }}</pre>-->
   </SimpleNotification>
 </template>
 
