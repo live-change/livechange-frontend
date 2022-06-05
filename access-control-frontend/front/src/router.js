@@ -28,7 +28,7 @@ export function routes(config = {}) {
       }
     }),
 
-      ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
+    ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
   ]
 }
 
