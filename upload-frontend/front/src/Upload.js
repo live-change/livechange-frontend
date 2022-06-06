@@ -11,6 +11,7 @@ class Upload {
       endpoint = 'upload',
       view = 'upload'
     } = options
+
     this.purpose = purpose
     this.blob = blob
 
@@ -68,6 +69,16 @@ class Upload {
 
     this.xhr.open('POST', this.url, true)
     this.xhr.send(blob)
+  }
+
+  cancel() {
+    if(this.xhr.readyState != 4) {
+      this.xhr.abort()
+    }
+    if(this.serverObservable) {
+      this.serverObservable.unbindProperty(this.serverUpload, 'value')
+      this.serverObservable = null
+    }
   }
 }
 

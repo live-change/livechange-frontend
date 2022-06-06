@@ -1,13 +1,14 @@
 <template>
   <SimpleNotification :notification="notification">
     <div class="text-orange-600 text-2xl">
-      Unknown nofitication!
+      Unknown notification!
     </div>
     <pre class="w-full overflow-hidden">{{ notification }}</pre>
   </SimpleNotification>
 </template>
 
 <script setup>
+
   import SimpleNotification from "./SimpleNotification.vue"
 
   const { notification } = defineProps({
@@ -16,6 +17,7 @@
       required: true
     }
   })
+
 </script>
 
 <style scoped>
