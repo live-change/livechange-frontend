@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.3",
   "scripts": {
-    "memDev": "lcli memDev --enableSessions --initScript ./init.js",
+    "memDev": "lcli memDev --enableSessions --initScript ./init.js --dbAccess",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
     "localDev": "lcli localDev --enableSessions",
     "dev": "lcli dev --enableSessions",

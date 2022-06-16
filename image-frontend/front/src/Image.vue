@@ -1,5 +1,9 @@
 <template>
-  <img :src="url" :width="width" :height="height" @load="ev => $emit('load', ev)" :title="title">
+  <img
+      :src="url"
+      @load="ev => $emit('load', ev)"
+      :title="title"
+      ref="element">
 </template>
 
 <script setup>
@@ -8,6 +12,7 @@
   const api = useApi()
 
   import { ref, computed, watch } from 'vue'
+  import { useResizeObserver } from '@vueuse/core'
   import { imageUploads } from "./imageUploads.js";
 
   const props = defineProps({
@@ -18,23 +23,14 @@
     imageData: {
       type: Object
     },
-    circle: {
-      type: Boolean,
-      default: false
-    },
-    original: {
-      type: Boolean,
-      default: false
-    },
-    reactive: {
-      type: Boolean,
-      default: false
-    },
     width: {
     },
     height: {
     },
     noResize: {
+    },
+    domResize: {
+      default: false
     },
     empty: {
       type: String,
@@ -52,12 +48,13 @@
 
   const imageData = ref(props.imageData)
   const reloadImageDataTimeout = 500
+  let tryCount = 0
 
   let loadImagePromise = null
   async function loadImageData() {
     if(!loadImagePromise) loadImagePromise = (async () => {
       const loaded = await api.get(['image', 'image', { image: props.image }])
-      console.log("IM DATA", loaded)
+      console.log("IM", props.image, "DATA", loaded)
       loadImagePromise = null
       if(loaded) {
         const { width, height } = loaded
@@ -65,7 +62,10 @@
         imageData.value = loaded
       }
       if(!imageData.value && !upload.value) {
-        setTimeout(loadImageData, reloadImageDataTimeout)
+        tryCount ++
+        const wait = reloadImageDataTimeout * Math.pow(2, tryCount)
+        console.log("IM WAIT", wait)
+        setTimeout(loadImageData, wait)
       }
     })()
     return loadImagePromise
@@ -76,9 +76,31 @@
 
   const dpr = (typeof window == 'undefined') ? 1.0 : window.devicePixelRatio
 
+  const domSize = ref()
+  const element = ref()
+
+  console.log("DR", props.domResize)
+  if(props.domResize) {
+    useResizeObserver(element, (entries) => {
+      const entry = entries[0]
+      const {width, height} = entry.contentRect
+      domSize.value = {width, height}
+      updateUrl()
+    })
+  }
 
   function getSuffix() {
     if(props.noResize) return ''
+    if(props.domResize && domSize.value) {
+      console.log("DOM SIZE", domSize.value)
+      if(props.domResize == 'width') {
+        return `/width-${(domSize.value.width * dpr)|0}`
+      } else if(props.domResize == 'height') {
+        return `/height-${(domSize.value.height * dpr)|0}`
+      } else {
+        return `/rect-${(domSize.value.width * dpr)|0}-${(domSize.value.height * dpr)|0}`
+      }
+    }
     if(props.width && props.height) return `/rect-${(props.width*dpr)|0}-${(props.height*dpr)|0}`
     if(props.width) return `/width-${(props.width*dpr)|0}`
     if(props.height) return `/height-${(props.height*dpr)|0}`
@@ -93,6 +115,7 @@
       return
     }
     if(!imageData.value) {
+      tryCount = 0
       loadImageData()
       return
     } else {

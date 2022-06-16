@@ -5,3 +5,4 @@ front/dist
 e2e/output
 stats.html
 *.db
+storage

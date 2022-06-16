@@ -4,15 +4,20 @@ import {
   createWebHistory
 } from 'vue-router'
 
+import { dbAdminRoutes } from "@live-change/db-admin"
+
 export function wysiwygRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
     route({
-      name: 'wysiwyg:experiment1', path: prefix + '/e1', meta: { },
-      component: () => import("./Experiment1.js"),
+      name: 'wysiwyg:editorWithPreview', path: prefix + '', meta: { },
+      component: () => import("./EditorWithPreview.vue"),
       props: {
       }
-    })
+    }),
+
+    ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
+
   ]
 }
 
