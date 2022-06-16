@@ -4,6 +4,8 @@ import { Upload } from '@live-change/upload-frontend'
 import { blobToDataUrl } from "./imageUtils.js"
 import preProcessImageFile from "./preprocessImageFile.js";
 
+const sleep = ms => new Promise(r => setTimeout(r, ms))
+
 class ImageUpload {
   constructor(purpose, uploadable, options = {}) {
     const blob = uploadable.file
@@ -17,7 +19,8 @@ class ImageUpload {
     this.fileName = fileName
     this.uploadOptions = { appContext: options.appContext, api, ...uploadOptions }
     this.api = api
-    this.id = options.id
+    this.id = options.generateId ? api.uid() : options.id
+    this.localUid = api.uid()
     this.blob = null
     this.uploadable = uploadable
     this.size = null
@@ -64,26 +67,14 @@ class ImageUpload {
 
       if(this.options.preparedPreview) {
         if(processed.canvas) {
+          console.log("TH", this)
           this.url.value = processed.canvas.toDataURL(this.options.fileType || 'image/png')
         } else {
           this.url.value = await blobToDataUrl(this.blob)
         }
+        //console.log("PREPARED PREVIEW!", processed, '=>', this.url.value)
       }
 
-      if(!this.id) {
-        this.id = this.api.uid()
-        if(this.options.createEmpty) {
-          await this.api.command(["image", "createEmptyImage"], {
-            image: this.id,
-            purpose: this.purpose,
-            name: this.uploadable.name || this.uploadable.file.name || this.options.name || 'unknown',
-            ownerType: this.ownerType,
-            owner: this.owner,
-          }).catch(error => {
-            this.error = error
-          })
-        }
-      }
       this.prepared = true
     })()
     return this.preparePromise
@@ -92,6 +83,7 @@ class ImageUpload {
   async upload() {
     if(!this.uploadPromise) this.uploadPromise = (async () => {
       await this.prepare()
+      await sleep(2000)
 
       this.state.value = 'uploading'
 
@@ -99,39 +91,18 @@ class ImageUpload {
       await this.fileUpload.promise
 
       try {
-        if (this.options.crop) {
-          await this.api.command(["image", "cropImage"], {
-            image: this.id,
-            crop: this.options.crop,
-            upload: this.fileUpload.id
-          })
-        } else {
-          if (this.options.createEmpty) {
-            await this.api.command(["image", "uploadImage"], {
-              image: this.id,
-              original: {
-                width: this.size.width,
-                height: this.size.height,
-                upload: this.fileUpload.id
-              }
-            })
-          } else {
-            await this.api.command(["image", "createImage"], {
-              image: this.id,
-              name: this.uploadable.name || this.uploadable.file.name || this.options.name || 'unknown',
-              original: {
-                width: this.size.width,
-                height: this.size.height,
-                upload: this.fileUpload.id
-              },
-              purpose: this.purpose,
-              ownerType: this.ownerType,
-              owner: this.owner,
-            })
-          }
-        }
-        this.uploadedUrl.value = `/pictures/${this.id}/original`
-        this.blobUrl.value = undefined
+        this.id = await this.api.command(["image", "createImage"], {
+          image: this.id,
+          name: this.uploadable.name || this.uploadable.file.name || this.options.name || 'unknown',
+          width: this.size.width,
+          height: this.size.height,
+          upload: this.fileUpload.id,
+          purpose: this.purpose,
+          ownerType: this.ownerType,
+          owner: this.owner,
+          crop: this.options.crop
+        })
+        //this.url.value = `/api/image/image/${this.id}` - useless reload...
         this.state.value = 'done'
       } catch(error) {
         this.error.value = error

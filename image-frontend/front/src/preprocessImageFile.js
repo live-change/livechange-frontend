@@ -1,4 +1,6 @@
-import { imageToCanvas, loadImageUpload, cancelOrientation, hasAlpha } from "./imageUtils.js"
+import {
+  imageToCanvas, loadImageUpload, cancelOrientation, hasAlpha, isExifOrientationSupported
+} from "./imageUtils.js"
 import imageResizer from "./imageResizer"
 
 async function preProcessImageFile({ file, image, canvas }, config) {
@@ -78,7 +80,7 @@ async function preProcessImageFile({ file, image, canvas }, config) {
     console.log(`RESIZING ${image.width}x${image.height} => ${targetWidth}x${targetHeight}`)
 
     let destCanvas = document.createElement('canvas')
-    if(image.orientation  > 4) { // Swap dimmensions
+    if(image.orientation > 4 && !(await isExifOrientationSupported())) { // Swap dimmensions
       destCanvas.width = targetHeight
       destCanvas.height = targetWidth
     } else {
@@ -94,7 +96,10 @@ async function preProcessImageFile({ file, image, canvas }, config) {
     canvas = destCanvas
   }
 
-  if(image.orientation) cancelOrientation(canvas, image.orientation)
+  if(image.orientation && !(await isExifOrientationSupported())) {
+    console.log("CANCEL ORIENTATION", image.orientation)
+    canvas = cancelOrientation(canvas, image.orientation)
+  }
 
   const blob = await new Promise(
       (resolve, reject) => canvas.toBlob(resolve, file?.type || config.fileType || 'image/png')

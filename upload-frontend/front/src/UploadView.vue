@@ -22,11 +22,8 @@
 <script setup>
 
   import ProgressBar from "primevue/progressbar"
-
   import { toRefs } from "@vueuse/core"
-
   import prettyBytes from 'pretty-bytes';
-
   import { Duration } from 'luxon'
 
   const props = defineProps({

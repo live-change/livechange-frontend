@@ -51,7 +51,7 @@ function loadImageUpload(file) {
   return new Promise(function(resolve, reject) {
     let img = document.createElement("img")
     let reader = new FileReader()
-    reader.onload = function(e) {
+    reader.onload = async function(e) {
       if(file.type == "image/jpeg") {
         let headerReader = new FileReader()
         headerReader.onload=function(he) {
@@ -99,6 +99,21 @@ function resize(img, w, h) {
 
                           // 0  1  2  3  4  5  6  7  8
 const reverseOrientations = [0, 0, 2, 3, 4, 5, 8, 7, 6]
+
+let exifOrientationSupportPromise = null
+async function isExifOrientationSupported() {
+  if(!exifOrientationSupportPromise) exifOrientationSupportPromise = new Promise((resolve, reject) => {
+    const img = new Image()
+    img.onerror = function() {
+      resolve(false)
+    }
+    img.onload = function() {
+      resolve(img.width !== 2)
+    }
+    img.src = 'data:image/jpeg;base64,/9j/4AAQSkZJRgABAQEAYABgAAD/4QAiRXhpZgAASUkqAAgAAAABABIBAwABAAAABgASAAAAAAD/2wBDAAEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/2wBDAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQH/wAARCAABAAIDASIAAhEBAxEB/8QAHwAAAQUBAQEBAQEAAAAAAAAAAAECAwQFBgcICQoL/8QAtRAAAgEDAwIEAwUFBAQAAAF9AQIDAAQRBRIhMUEGE1FhByJxFDKBkaEII0KxwRVS0fAkM2JyggkKFhcYGRolJicoKSo0NTY3ODk6Q0RFRkdISUpTVFVWV1hZWmNkZWZnaGlqc3R1dnd4eXqDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uHi4+Tl5ufo6erx8vP09fb3+Pn6/8QAHwEAAwEBAQEBAQEBAQAAAAAAAAECAwQFBgcICQoL/8QAtREAAgECBAQDBAcFBAQAAQJ3AAECAxEEBSExBhJBUQdhcRMiMoEIFEKRobHBCSMzUvAVYnLRChYkNOEl8RcYGRomJygpKjU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6goOEhYaHiImKkpOUlZaXmJmaoqOkpaanqKmqsrO0tba3uLm6wsPExcbHyMnK0tPU1dbX2Nna4uPk5ebn6Onq8vP09fb3+Pn6/9oADAMBAAIRAxEAPwD+/iiiigD/2Q==';
+  })
+  return exifOrientationSupportPromise
+}
 
 function cancelOrientation(canvas, orientation) {
   const change = reverseOrientations[orientation]
@@ -385,6 +400,7 @@ const methods = {
   getDataURIMime,
   blobToDataUrl,
   hasAlpha,
+  isExifOrientationSupported
 }
 
 export {
@@ -400,7 +416,8 @@ export {
   getDataURIData,
   getDataURIMime,
   blobToDataUrl,
-  hasAlpha
+  hasAlpha,
+  isExifOrientationSupported
 }
 
 export default methods
