@@ -27,27 +27,6 @@
   const now = useTimestamp({ interval: 1000 })
   import { DateTime } from 'luxon'
 
-  const units = [
-    'year',
-    'month',
-    'week',
-    'day',
-    'hour',
-    'minute',
-    'second',
-  ]
-
-  const timeAgo = (dateTime) => {
-    const diff = dateTime.diffNow().shiftTo(...units);
-    const unit = units.find((unit) => diff.get(unit) !== 0) || 'second'
-    const relativeFormatter = new Intl.RelativeTimeFormat('en', {
-      numeric: 'auto',
-    })
-    return relativeFormatter.format(Math.trunc(diff.as(unit)), unit)
-  }
-
-  console.log("REL", DateTime.fromISO(notification.value.time).toRelative())
-
 </script>
 
 <style scoped>
