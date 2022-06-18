@@ -1,5 +1,5 @@
 <template>
-  <li class="hidden md:block">
+  <li class="block">
     <router-link :to="{ name }"
                  :class="route.name == name ? 'text-blue-500' : 'text-700'"
                  v-ripple

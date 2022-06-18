@@ -1,6 +1,6 @@
 <template>
 
-  <SettingsMenu class="h-full block md:hidden" />
+  <SettingsMenu class="h-full block md:hidden surface-section" />
 
   <div class="flex-column flex-auto align-items-center p-5 hidden md:flex">
     <Connected class="mb-5" />
