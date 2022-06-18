@@ -12,7 +12,7 @@
   const api = useApi()
 
   import { ref, computed, watch } from 'vue'
-  import { useResizeObserver } from '@vueuse/core'
+  import { useResizeObserver, refDebounced } from '@vueuse/core'
   import { imageUploads } from "./imageUploads.js";
 
   const props = defineProps({
@@ -77,6 +77,7 @@
   const dpr = (typeof window == 'undefined') ? 1.0 : window.devicePixelRatio
 
   const domSize = ref()
+  const stableDomSize = refDebounced(domSize, 500)
   const element = ref()
 
   console.log("DR", props.domResize)
@@ -85,20 +86,21 @@
       const entry = entries[0]
       const {width, height} = entry.contentRect
       domSize.value = {width, height}
-      updateUrl()
     })
   }
+  watch(() => stableDomSize.value, size => updateUrl())
 
   function getSuffix() {
     if(props.noResize) return ''
-    if(props.domResize && domSize.value) {
-      console.log("DOM SIZE", domSize.value)
+    const domSize = stableDomSize.value
+    if(props.domResize && domSize) {
+      console.log("DOM SIZE", domSize)
       if(props.domResize == 'width') {
-        return `/width-${(domSize.value.width * dpr)|0}`
+        return `/width-${(domSize.width * dpr)|0}`
       } else if(props.domResize == 'height') {
-        return `/height-${(domSize.value.height * dpr)|0}`
+        return `/height-${(domSize.height * dpr)|0}`
       } else {
-        return `/rect-${(domSize.value.width * dpr)|0}-${(domSize.value.height * dpr)|0}`
+        return `/rect-${(domSize.width * dpr)|0}-${(domSize.height * dpr)|0}`
       }
     }
     if(props.width && props.height) return `/rect-${(props.width*dpr)|0}-${(props.height*dpr)|0}`
