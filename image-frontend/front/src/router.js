@@ -10,8 +10,14 @@ export function wysiwygRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
     route({
-      name: 'upload:test', path: prefix + '', meta: { },
+      name: 'upload:test', path: prefix + 'upload', meta: { },
       component: () => import("./UploadTest.vue"),
+      props: {
+      }
+    }),
+    route({
+      name: 'editor:test', path: prefix + '', meta: { },
+      component: () => import("./EditorTest.vue"),
       props: {
       }
     }),

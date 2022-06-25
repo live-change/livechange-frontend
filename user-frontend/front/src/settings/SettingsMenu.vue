@@ -6,6 +6,8 @@
           <div class="p-3 text-500 font-medium">SETTINGS</div>
         </li>
 
+        <SettingsMenuItem name="user:identification" icon="id-card" label="Identification" class="hidden md:block" />
+
         <SettingsMenuItem name="user:settings" icon="id-card" label="General Settings" class="hidden md:block" />
 
         <SettingsMenuItem name="user:notificationsSettings" icon="exclamation-circle" label="Notifications" />

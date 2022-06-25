@@ -43,19 +43,23 @@ async function preProcessImageFile({ file, image, canvas }, config) {
     throw new Error("tooBig")
   }
 
-  const processingNeeded =
+  let processingNeeded =
       image.width > maxUploadWidth
       || image.height > maxUploadHeight
-      || file.size > maxUploadSize
       || image.orientation
 
   if(!processingNeeded) {
     if(!file) {
       if(!canvas) canvas = imageToCanvas(image.image)
       file = await new Promise(
-          (resolve, reject) => canvas.toBlob(resolve, config.fileType || 'image/png')
+        (resolve, reject) => canvas.toBlob(resolve, config.fileType || 'image/png')
       )
     }
+  }
+
+  processingNeeded ||= file.size > maxUploadSize
+
+  if(!processingNeeded) {
     return {
       blob: file, canvas,
       size: { width: image.width, height: image.height }

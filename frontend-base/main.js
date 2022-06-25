@@ -7,8 +7,10 @@ import ReactiveDaoVue from '@live-change/dao-vue3'
 import PrimeVue from 'primevue/config'
 import ConfirmationService from 'primevue/confirmationservice'
 import { PrimeVueConfirmSymbol } from 'primevue/useconfirm'
-import { PrimeVueToastSymbol } from 'primevue/usetoast'
 import ToastService from 'primevue/toastservice'
+import { PrimeVueToastSymbol } from 'primevue/usetoast'
+import DialogService from 'primevue/dialogservice'
+import { PrimeVueDialogSymbol } from 'primevue/usedialog'
 import StyleClass from 'primevue/styleclass'
 import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
@@ -43,6 +45,9 @@ export function createApp(api, App, createRouter) {
 
   app.use(ToastService)
   app.provide(PrimeVueToastSymbol, app.config.globalProperties.$toast)
+
+  app.use(DialogService)
+  app.provide(PrimeVueDialogSymbol, app.config.globalProperties.$dialog)
 
   app.directive('styleclass', StyleClass)
   app.directive('ripple', Ripple)

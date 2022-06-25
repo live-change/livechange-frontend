@@ -7,6 +7,7 @@ import {
 import messageAuthRoutes from "./message-auth/routes.js"
 import signRoutes from "./sign/routes.js"
 import connectedRoutes from "./connected/routes.js"
+import identificationRoutes from "./identification/routes.js"
 import deleteRoutes from "./delete/routes.js"
 import { passwordResetRoutes, passwordChangeRoutes } from "./password/routes.js"
 import { notificationsSettingsRoutes, notificationsRoutes } from "./notifications/routes.js"
@@ -33,6 +34,7 @@ export function userRoutes(config = {}) {
         ...deleteRoutes({ ...config, prefix: '' }),
         ...passwordChangeRoutes({ ...config, prefix: '' }),
         ...connectedRoutes({ ...config, prefix: '' }),
+        ...identificationRoutes({ ...config, prefix: '' }),
         ...notificationsSettingsRoutes({ ...config, prefix: '' })
       ]
     }),

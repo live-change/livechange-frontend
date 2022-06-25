@@ -4,11 +4,9 @@
                  :to="{ name: 'user:profile', params: { user: owner } }"
                  v-ripple
                  :class="inline ? inlineClass : blockClass">
-      <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
-      <img v-else :src="identiconUrl" class="mr-2 border-circle"
-           :style="inline
-                   ? { width: inlineImageSize, height: inlineImageSize }
-                   : { width: blockImageSize, height: blockImageSize }" />
+      <Image v-if="userData?.image" :image="userData.image" class="mr-2 border-circle"
+             :style="imageStyle"/>
+      <img v-else :src="identiconUrl" class="mr-2 border-circle" :style="imageStyle" domResize />
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
         {{ name }}
@@ -22,11 +20,9 @@
       </span>
     </span>
     <span v-else :class="inline ? inlineClass : blockClass">
-      <span v-if="userData?.image" class="mr-2">reactive image not implemented!</span>
-      <img v-else :src="identiconUrl" class="mr-2 border-circle"
-           :style="inline
-                   ? { width: inlineImageSize, height: inlineImageSize }
-                   : { width: blockImageSize, height: blockImageSize }" />
+      <Image v-if="userData?.image" :image="userData.image" class="mr-2 border-circle"
+             :style="imageStyle"/>
+      <img v-else :src="identiconUrl" class="mr-2 border-circle" :style="imageStyle" domResize />
       <span class="text-overflow-ellipsis white-space-nowrap overflow-hidden"
             :class="[ ownerType == 'user_User' ? 'font-medium' : 'font-italic' ]">
         {{ name }}
@@ -37,6 +33,7 @@
 
 <script setup>
 
+  import { Image } from "@live-change/image-frontend"
   import { colors, animals, uniqueNamesGenerator } from "unique-names-generator"
 
   const props = defineProps({
@@ -81,6 +78,11 @@
   const identiconUrl = `/api/identicon/jdenticon/${ownerType}:${owner}/28.svg`
 
   import { computed } from 'vue'
+
+  const imageStyle = computed(() => inline
+      ? { width: inlineImageSize, height: inlineImageSize }
+      : { width: blockImageSize, height: blockImageSize }
+  )
 
   const [ userData ] = await Promise.all([ dataPromise ])
 

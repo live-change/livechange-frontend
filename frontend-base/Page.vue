@@ -1,8 +1,10 @@
 <template>
   <div class="min-h-screen flex flex-column surface-ground">
     <slot name="navbar"></slot>
-    <ConfirmPopup v-if="isMounted"></ConfirmPopup>
-    <Toast v-if="isMounted"></Toast>
+    <ConfirmPopup v-if="isMounted" />
+    <Toast v-if="isMounted" />
+    <DynamicDialog v-if="isMounted" />
+
     <div class="relative h-0 w-full">
       <ProgressBar v-if="loading || working" mode="indeterminate" style="height: .2em" />
     </div>
@@ -21,6 +23,7 @@
 
   import ConfirmPopup from 'primevue/confirmpopup'
   import Toast from 'primevue/toast'
+  import DynamicDialog from 'primevue/dynamicdialog';
 
   import { onMounted, ref } from 'vue'
   const isMounted = ref(false)

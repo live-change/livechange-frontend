@@ -11,7 +11,6 @@
       <div class="text-right ml-2" v-if="upload.serverUpload.progress.eta">
         eta: {{ Duration.fromMillis(upload.serverUpload.progress.eta).toHuman({  unitDisplay: "short" }) }}
       </div>
-
     </div>
     <div v-else class="text-center">
       Uploaded {{ prettyBytes(upload.serverUpload.progress.length) }}

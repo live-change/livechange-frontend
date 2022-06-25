@@ -10,7 +10,7 @@ class ImageUpload {
   constructor(purpose, uploadable, options = {}) {
     const blob = uploadable.file
     const {
-      fileName = blob?.name || 'unknown',
+      fileName = blob?.name,
       api = useApi(options.appContext),
       uploadOptions = {}
     } = options
@@ -41,6 +41,7 @@ class ImageUpload {
     }
 
     this.url = ref()
+    this.canvas = ref()
 
     this.error = ref()
     this.state = ref('starting')
@@ -55,6 +56,7 @@ class ImageUpload {
     if(!this.preparePromise) this.preparePromise = (async () => {
       if(this.options.unpreparedPreview) {
         if(this.uploadable.canvas) {
+          if(this.options.saveCanvas) this.canvas.value = this.uploadable.canvas
           this.url.value = this.uploadable.canvas.toDataURL(this.options.fileType || 'image/png')
         } else if(this.uploadable.file) {
           this.url.value = await blobToDataUrl(this.uploadable.file)
@@ -67,14 +69,23 @@ class ImageUpload {
 
       if(this.options.preparedPreview) {
         if(processed.canvas) {
-          console.log("TH", this)
+          if(this.options.saveCanvas) this.canvas.value = processed.canvas
           this.url.value = processed.canvas.toDataURL(this.options.fileType || 'image/png')
         } else {
           this.url.value = await blobToDataUrl(this.blob)
         }
         //console.log("PREPARED PREVIEW!", processed, '=>', this.url.value)
       }
-
+      const extension = this.blob.type.split('/')[1]
+      if(!this.fileName) {
+        this.fileName = 'unknown.' + extension
+      } else {
+        const nameSplit = this.fileName.split('.')
+        const currentExtension = nameSplit[nameSplit.length - 1]
+        if(currentExtension != extension) {
+          this.fileName = nameSplit.slice(0, -1).concat([extension]).join('.')
+        }
+      }
       this.prepared = true
     })()
     return this.preparePromise
@@ -91,9 +102,9 @@ class ImageUpload {
       await this.fileUpload.promise
 
       try {
-        this.id = await this.api.command(["image", "createImage"], {
+        const imageParams = {
           image: this.id,
-          name: this.uploadable.name || this.uploadable.file.name || this.options.name || 'unknown',
+          name: this.uploadable.name || this.uploadable.file?.name || this.options.name || 'unknown',
           width: this.size.width,
           height: this.size.height,
           upload: this.fileUpload.id,
@@ -101,7 +112,9 @@ class ImageUpload {
           ownerType: this.ownerType,
           owner: this.owner,
           crop: this.options.crop
-        })
+        }
+        console.log("CREATINNG IMAGE!", imageParams)
+        this.id = await this.api.command(["image", "createImage"], imageParams)
         //this.url.value = `/api/image/image/${this.id}` - useless reload...
         this.state.value = 'done'
       } catch(error) {

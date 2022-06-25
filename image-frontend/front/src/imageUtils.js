@@ -91,6 +91,19 @@ function loadImageUpload(file) {
   })
 }
 
+function loadImage(url) {
+  return new Promise((resolve, reject) => {
+    let image = new Image
+    image.onload = () => {
+      resolve(image)
+    }
+    image.onerror = (ev) => {
+      reject(ev)
+    }
+    image.src = url
+  })
+}
+
 function resize(img, w, h) {
   let canvas=imageUtils.imageToCanvas(img)
   resizeCanvas(canvas,w,h)
@@ -400,7 +413,8 @@ const methods = {
   getDataURIMime,
   blobToDataUrl,
   hasAlpha,
-  isExifOrientationSupported
+  isExifOrientationSupported,
+  loadImage
 }
 
 export {
@@ -417,7 +431,8 @@ export {
   getDataURIMime,
   blobToDataUrl,
   hasAlpha,
-  isExifOrientationSupported
+  isExifOrientationSupported,
+  loadImage
 }
 
 export default methods

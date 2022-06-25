@@ -65,7 +65,7 @@
         tryCount ++
         const wait = reloadImageDataTimeout * Math.pow(2, tryCount)
         console.log("IM WAIT", wait)
-        setTimeout(loadImageData, wait)
+        if(typeof window != 'undefined') setTimeout(loadImageData, wait)
       }
     })()
     return loadImagePromise
@@ -73,6 +73,9 @@
 
   const url = ref("/images/empty-photo.svg")
   const size = ref()
+
+  const emit = defineEmits(['size'])
+  watch(() => size.value, () => emit('size', size.value))
 
   const dpr = (typeof window == 'undefined') ? 1.0 : window.devicePixelRatio
 
@@ -131,5 +134,4 @@
   watch(() => upload.value && upload.value.url, () => updateUrl())
   watch(() => imageData.value, () => updateUrl())
 
-  // TODO: support real dimmensions with clientWidth
 </script>
