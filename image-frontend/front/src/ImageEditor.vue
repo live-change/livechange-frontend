@@ -6,6 +6,7 @@
                :sourceImage="sourceImage"
                :fill="props.fill"
                :sourceUpload="sourceUpload"
+               :type="type"
                v-model:ready="cropReady"
                ref="imageCrop" />
     <div class="flex p-4">

@@ -51,6 +51,10 @@
     },
     ready: {
     },
+    type: {
+      type: String,
+      default: 'rect' // or 'circle'
+    },
     crop: {
       type: Object,
       default: () => ({ x: 0, y: 0, zoom:1, orientation: 0 })

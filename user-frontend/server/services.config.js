@@ -60,6 +60,14 @@ module.exports = {
       contactTypes,
       notificationTypes: ['example_TestNotification']
     },
+    {
+      name: 'upload',
+      path: '@live-change/upload-service'
+    },
+    {
+      name: 'image',
+      path: '@live-change/image-service'
+    }
 
     //  { path: '@live-change/google-account-service' },
   ]

@@ -7,15 +7,25 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap">
+      <div class="flex flex-wrap align-items-center" v-if="userData !== undefined">
         <div class="relative" @click="openImageEditor">
-          <Image v-if="userData?.image" :image="userData.image" class="mr-2 border-circle profile-image" domResize
-                 width="200" height="200" />
+          <Image v-if="userData?.image" :image="userData.image" class="mr-2 border-circle profile-image"
+                 domResize width="200" height="200" />
           <img v-else :src="identiconUrl" class="mr-2 border-circle profile-image">
         </div>
-        <div>
-          <h2>Test</h2>
-        </div>
+        <command-form service="userIdentification" :action="updateMethod"
+                      :initialValues="{ name: userData?.name }"
+                      :parameters="{ image: userData?.image }" v-slot="{ data }"
+                      keepOnDone @done="handleNameSaved"
+                      class="ml-3 mb-3 flex flex-column">
+          <div class="p-field flex flex-column">
+            <InputText type="text" v-model="data.name"
+                       :class="{ 'p-invalid': data.nameError }"
+                       class="p-inputtext-lg" placeholder="Your name" />
+            <small id="currentPassword-help" class="p-error">{{ data.nameError }}</small>
+          </div>
+          <Button type="submit" label="Save name" class="mt-3" icon="pi pi-save" />
+        </command-form>
       </div>
 
     </div>
@@ -27,10 +37,17 @@
   import { ComponentDialog } from "@live-change/frontend-base"
   import { ImageEditor, Image } from "@live-change/image-frontend"
   import { useDialog } from 'primevue/usedialog'
+  import InputText from 'primevue/inputtext'
+  import Button from 'primevue/button'
   const dialog = useDialog()
 
-  import { shallowRef } from 'vue'
+  import { shallowRef, ref, inject, computed } from 'vue'
   import { path, live, actions,  api as useApi } from '@live-change/vue3-ssr'
+
+  import { useToast } from 'primevue/usetoast'
+  import { useConfirm } from 'primevue/useconfirm'
+  const confirm = useConfirm()
+  const toast = useToast()
 
   const api = useApi()
   const [ ownerType, owner ] = api.client.value.user
@@ -43,7 +60,8 @@
 
   const identiconUrl = `/api/identicon/jdenticon/${ownerType}:${owner}/28.svg`
 
-  import { computed } from 'vue'
+  const workingZone = inject('workingZone')
+
 
   function openImageEditor() {
     dialog.open(ComponentDialog, {
@@ -62,13 +80,28 @@
       data: {
         component: shallowRef(ImageEditor),
         props: {
-
+          type: 'circle'
         }
+      },
+      onClose: (options) => {
+        const data = options.data
+        console.log("EDITOR RESULT", data)
+        console.log("WZ", workingZone)
+        workingZone.addPromise('update user image', (async () => {
+          await api.command(['userIdentification', updateMethod.value], { image: data.value })
+          toast.add({ severity:'info', summary: 'User image saved', life: 1500 })
+        })())
       }
     })
   }
 
+  function handleNameSaved() {
+    toast.add({ severity:'info', summary: 'User name saved', life: 1500 })
+  }
+
   const [ userData ] = await Promise.all([ dataPromise ])
+
+  const updateMethod = computed(() => userData.value ? 'updateMyIdentification' : 'setMyIdentification')
 
 </script>
 

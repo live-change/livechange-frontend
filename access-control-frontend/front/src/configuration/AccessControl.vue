@@ -46,11 +46,6 @@
   import AccessList from "./AccessList.vue"
   import PublicAccess from "./PublicAccess.vue"
 
-  import { useToast } from 'primevue/usetoast'
-  import { useConfirm } from 'primevue/useconfirm'
-  const confirm = useConfirm()
-  const toast = useToast()
-
   const {
     object, objectType, paths,
     availableRoles, availablePublicSessionRoles, availablePublicUserRoles, availableRequestedRoles,

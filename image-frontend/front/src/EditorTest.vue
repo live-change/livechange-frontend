@@ -19,7 +19,7 @@
 
   import { ref } from 'vue'
 
-  const image = ref('[Wc6P6lJAd.0@1V6ZJBwyF_1I98X_]')
+  const image = ref()
 
 </script>
 
