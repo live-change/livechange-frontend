@@ -80,6 +80,7 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/vue3-ssr',
       '@live-change/email-service',
       '@live-change/password-authentication-service',
+      '@live-change/db-admin',
       'vue3-scroll-border'
     ]
   },

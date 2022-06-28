@@ -31,7 +31,7 @@ Scenario('setPassword', async ({ I }) => {
   const emptyPasswordAuthenticationData = await PasswordAuthentication.get(user)
   I.assert(emptyPasswordAuthenticationData, null, 'password not set')
 
-  I.amOnPage('/setting/change-password')
+  I.amOnPage('/settings/change-password')
   I.see('Set password')
 
   const firstPassword = passwordGenerator.generate({
@@ -48,7 +48,7 @@ Scenario('setPassword', async ({ I }) => {
   const firstPasswordAuthenticationData = await PasswordAuthentication.get(user)
   I.assert(!!firstPasswordAuthenticationData, true, 'password set')
 
-  I.amOnPage('/change-password')
+  I.amOnPage('/settings/change-password')
   I.see('Change password')
 
   const secondPassword = passwordGenerator.generate({
