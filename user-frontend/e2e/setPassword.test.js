@@ -31,7 +31,7 @@ Scenario('setPassword', async ({ I }) => {
   const emptyPasswordAuthenticationData = await PasswordAuthentication.get(user)
   I.assert(emptyPasswordAuthenticationData, null, 'password not set')
 
-  I.amOnPage('/change-password')
+  I.amOnPage('/setting/change-password')
   I.see('Set password')
 
   const firstPassword = passwordGenerator.generate({
@@ -42,7 +42,7 @@ Scenario('setPassword', async ({ I }) => {
   I.fillField('input#reenterPassword', firstPassword)
   I.click('button[type=submit]')
 
-  I.seeInCurrentUrl('/change-password-finished')
+  I.seeInCurrentUrl('/settings/change-password-finished')
 
   await I.wait(0.2)
   const firstPasswordAuthenticationData = await PasswordAuthentication.get(user)
