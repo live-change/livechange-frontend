@@ -1,3 +1,13 @@
 {
-  "private": true
+  "private": true,
+  "workspaces": [
+    "live-change-frontend/frontend-base",
+    "live-change-frontend/user-frontend",
+    "live-change-frontend/security-frontend",
+    "live-change-frontend/access-control-frontend",
+    "live-change-frontend/peer-connection-frontend",
+    "live-change-frontend/wysiwyg-frontend",
+    "live-change-frontend/upload-frontend",
+    "live-change-frontend/image-frontend"
+  ]
 }

@@ -14,7 +14,7 @@ export function routes(config = {}) {
   console.log("DB ROUTES", dbAdminRoutes({ prefix: '/_db' }))
   const { prefix = '/', route = (r) => r } = config
   return [
-    ...userRoutes(config),
+    ...userRoutes({ ...config, prefix: prefix + 'user/' }),
 
     ...configurationRoutes(config),
     ...inviteRoutes(config),

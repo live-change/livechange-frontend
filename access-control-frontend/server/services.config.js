@@ -20,6 +20,11 @@ module.exports = {
       path: '@live-change/email-service'
     },
     {
+      name: 'security',
+      path: '@live-change/security-service',
+      ...require('./security.config.js')
+    },
+    {
       name: 'secretLink',
       path: '@live-change/secret-link-service'
     },

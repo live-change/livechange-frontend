@@ -1,6 +1,6 @@
 <template>
   <div class="w-full lg:w-6 md:w-9" v-shared-element:form="{ duration: '300ms', includeChildren: true }">
-    <div class="surface-card border-round shadow-2 p-4" v-if="authenticationData?.state == 'used'">
+    <div class="surface-card border-round shadow-2 p-4" v-if="authenticationData?.state == 'used' && !submitted">
       <div class="text-900 font-medium mb-3 text-xl">Authentication done</div>
       <p class="mt-0 mb-1 p-0 line-height-3">You authenticated in a different tab.</p>
     </div>
@@ -10,7 +10,8 @@
       <p class="mt-0 mb-4 p-0 line-height-3">Click on the link or enter the code you found in that message.</p>
       <Secured :events="['wrong-secret-code']" :actions="['checkSecretCode']">
         <command-form service="messageAuthentication" action="finishMessageAuthentication"
-                      :parameters="{ secretType: 'code', authentication }" @done="handleAuthenticated"
+                      :parameters="{ secretType: 'code', authentication }"
+                      @submit="handleSubmit" @done="handleAuthenticated" @error="handleError"
                       v-slot="{ data }">
           <div class="flex justify-content-center">
             <div class="p-field mr-1 flex flex-column">
@@ -41,6 +42,7 @@
   import { Secured } from "@live-change/security-frontend"
 
   import { useRouter } from 'vue-router'
+  import { ref } from 'vue'
 
   const router = useRouter()
 
@@ -55,6 +57,16 @@
     const { targetPage } = result
     console.log("TARGET ROUTE", targetPage)
     router.push(targetPage)
+  }
+
+  const submitted = ref(false)
+
+  function handleSubmit() {
+    submitted.value = true
+  }
+
+  function handleError() {
+    submitted.value = false
   }
 
   import { inject } from 'vue'

@@ -6,7 +6,7 @@
       Invited you to
       <ObjectIdentification :objectType="notification.objectType" :object="notification.object" />
     </div>
-    <div class="mt-2 ml-4">
+    <div class="mt-2 ml-4" v-if="!notification.state">
       <Button label="Accept" icon="pi pi-check" class="p-button-sm mr-2" @click="acceptInvitation" />
       <Button label="Ignore" icon="pi pi-times" class="p-button-sm" @click="deleteNotification" />
     </div>
@@ -52,12 +52,15 @@
   function acceptInvitation() {
     workingZone.addPromise('acceptInvitation', (async () => {
       const { objectType, object } = notification
-      await accessControlApi.acceptInvitation({ objectType, object })
+      await Promise.all([
+        accessControlApi.acceptInvitation({ objectType, object }),
+        notificationApi.markRead({ notification: notification.to || notification.id }),
+        notificationApi.mark({ notification: notification.to || notification.id, state: 'accepted' })
+      ])
       toast.add({
         severity: 'success', summary: 'Invitation Accepted',
         detail: 'Invitation has been accepted', life: 3000
       })
-      await notificationApi.markRead({ notification: notification.to || notification.id })
     })())
   }
 
