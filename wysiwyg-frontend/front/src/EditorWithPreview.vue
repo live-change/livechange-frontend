@@ -18,7 +18,7 @@
   import ContentView from "./ContentView.js"
   import Editor from "./Editor.vue"
   import { ref } from 'vue'
-  import {basicMarks, messageNodes, richEditorNodes} from "./contentConfig";
+  import { basicMarks, messageNodes, richEditorNodes } from "./contentConfig.js"
 
   const contentConfig = {
     marks: {

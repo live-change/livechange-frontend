@@ -5,6 +5,7 @@
 </template>
 
 <script setup>
+
   import { inject, computed, onUnmounted } from 'vue'
   import { NodeViewWrapper, nodeViewProps } from '@tiptap/vue-3'
   import { imageUploads, Image } from "@live-change/image-frontend";
@@ -16,7 +17,7 @@
   const props = defineProps(nodeViewProps)
   const image = computed(() => props.node.attrs.image )
 
-  const form = inject('form')
+  const form = inject('form', null)
   if(form) {
     const barrier = async () => {
       if(upload.value) await upload.value.upload()

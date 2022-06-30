@@ -54,7 +54,7 @@
   async function loadImageData() {
     if(!loadImagePromise) loadImagePromise = (async () => {
       const loaded = await api.get(['image', 'image', { image: props.image }])
-      console.log("IM", props.image, "DATA", loaded)
+      //console.log("IM", props.image, "DATA", loaded)
       loadImagePromise = null
       if(loaded) {
         const { width, height } = loaded
@@ -64,7 +64,7 @@
       if(!imageData.value && !upload.value) {
         tryCount ++
         const wait = reloadImageDataTimeout * Math.pow(2, tryCount)
-        console.log("IM WAIT", wait)
+        //console.log("IM WAIT", wait)
         if(typeof window != 'undefined') setTimeout(loadImageData, wait)
       }
     })()

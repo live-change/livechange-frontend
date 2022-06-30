@@ -24,7 +24,8 @@ module.exports = async ({ command, mode }) => ({
     fs: {
       allow: [
         searchForWorkspaceRoot(process.cwd()),
-        path.dirname(require.resolve('primeicons/package.json'))
+        path.dirname(require.resolve('primeicons/package.json')),
+        path.dirname(require.resolve('@fortawesome/fontawesome-free/package.json'))
       ]
     }
   },

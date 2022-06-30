@@ -8,13 +8,15 @@
 </template>
 
 <script setup>
+
   import { useEditor, EditorContent } from '@tiptap/vue-3'
   import StarterKit from '@tiptap/starter-kit'
-  import Underline from "@tiptap/extension-underline"
-  import { ref, computed, watch, provide } from 'vue'
+
+  import { ref, computed, watch, provide, defineEmits, defineProps } from 'vue'
   import { toRefs } from '@vueuse/core'
   import EditorMenu from "./EditorMenu.vue"
-  import ImageNode from "./ImageNode.js"
+  import { getExtensions } from "./contentConfigExtensions.js"
+  import { getSchemaSpecFromConfig } from "./schemaJson";
 
   const props = defineProps({
     modelValue: {
@@ -29,18 +31,17 @@
 
   const emit = defineEmits(['update:modelValue'])
 
+  const extensions = getExtensions(props.config)
+
   const editor = useEditor({
     content: JSON.parse(props.modelValue),
-    extensions: [
-      StarterKit,
-      Underline,
-      ImageNode
-    ],
-    onUpdate: () => {
-      console.log("EDITOR", editor)
+    extensions,
+    onUpdate: ({ editor, transaction }) => {
+      console.log("EDITOR UPDATE", editor, args)
       const editorJson = JSON.stringify(editor.value.getJSON())
       emit('update:modelValue', editorJson)
-    },
+      emit('update', { editor, transaction })
+    }
   })
 
   const { modelValue, config } = toRefs(props)
@@ -51,6 +52,8 @@
     if (isSame) return
     editor.commands.setContent(JSON.parse(value), false)
   })
+
+  const schemaSpec = ref(getSchemaSpecFromConfig(props.config))
 
   provide('wysiwyg', {})
 

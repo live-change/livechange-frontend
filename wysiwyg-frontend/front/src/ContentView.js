@@ -2,7 +2,6 @@ import { h, ref } from 'vue'
 import Button from "primevue/button"
 import { toRefs } from '@vueuse/core'
 
-
 function renderNode(node, r, marks, nodes) {
   const renderer = nodes[node.type]
   if(!renderer) return h('div', { style: 'color: red' }, `[unknown node type ${node.type}]`)
