@@ -12,6 +12,13 @@ module.exports = {
     {
       name: "image",
       path: '@live-change/image-service'
+    },
+    {
+      name: 'prosemirror',
+      path: '@live-change/prosemirror-service',
+      documentTypes: {
+        rich: require('./rich.documentType.js')
+      }
     }
   ]
 }

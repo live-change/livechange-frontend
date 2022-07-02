@@ -17,7 +17,8 @@ function escapeHtml(unsafe) {
 export function serverEntry(App, createRouter) {
   return async function({ url, dao, windowId }) {
     const api = await serverApi(dao, {
-      use: []
+      use: [],
+      windowId
     })
 
     const { app, router } = createApp(api, App, createRouter)

@@ -10,13 +10,12 @@
 <script setup>
 
   import { useEditor, EditorContent } from '@tiptap/vue-3'
-  import StarterKit from '@tiptap/starter-kit'
 
   import { ref, computed, watch, provide, defineEmits, defineProps } from 'vue'
   import { toRefs } from '@vueuse/core'
   import EditorMenu from "./EditorMenu.vue"
   import { getExtensions } from "./contentConfigExtensions.js"
-  import { getSchemaSpecFromConfig } from "./schemaJson";
+  import { getSchemaSpecFromConfig } from "./schemaJson.js"
 
   const props = defineProps({
     modelValue: {
@@ -37,8 +36,8 @@
     content: JSON.parse(props.modelValue),
     extensions,
     onUpdate: ({ editor, transaction }) => {
-      console.log("EDITOR UPDATE", editor, args)
-      const editorJson = JSON.stringify(editor.value.getJSON())
+      console.log("EDITOR UPDATE", editor, transaction)
+      const editorJson = JSON.stringify(editor.getJSON())
       emit('update:modelValue', editorJson)
       emit('update', { editor, transaction })
     }

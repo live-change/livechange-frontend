@@ -82,7 +82,7 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/email-service',
       '@live-change/password-authentication-service',
       '@live-change/db-admin',
-      'vue3-scroll-border'
+      'vue3-scroll-border',
     ]
   },
   optimizeDeps: {

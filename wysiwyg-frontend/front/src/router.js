@@ -9,9 +9,17 @@ import { dbAdminRoutes } from "@live-change/db-admin"
 export function wysiwygRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
+
     route({
       name: 'wysiwyg:editorWithPreview', path: prefix + '', meta: { },
       component: () => import("./EditorWithPreview.vue"),
+      props: {
+      }
+    }),
+
+    route({
+      name: 'wysiwyg:documentEditor', path: prefix + 'collab', meta: { },
+      component: () => import("./DocumentEditorTest.vue"),
       props: {
       }
     }),

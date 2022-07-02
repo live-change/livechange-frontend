@@ -9,8 +9,12 @@ import { createApp } from "./main.js"
 
 export function clientEntry(App, createRouter) {
 
+  const windowId = window.__WINDOW_ID__
+  console.error("CLIENT WINDOW ID", windowId)
+
   window.api = clientApi({
-    use: []
+    use: [],
+    windowId
   })
 
   const { app, router } = createApp(api, App, createRouter)
