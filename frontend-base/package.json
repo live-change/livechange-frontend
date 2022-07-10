@@ -1,6 +1,5 @@
 {
   "name": "@live-change/frontend-base",
-  "private": true,
   "version": "0.0.3",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --templatePath ../../base-frontend/index.html",
