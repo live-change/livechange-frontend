@@ -37,9 +37,7 @@ export function userRoutes(config = {}) {
         ...identificationRoutes({ ...config, prefix: '' }),
         ...notificationsSettingsRoutes({ ...config, prefix: '' })
       ]
-    }),
-
-    ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
+    })
 
   ]
 }
@@ -82,7 +80,8 @@ export function createRouter(app, config) {
     history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
     routes: [
       { path: '/', component: () => import('./Index.vue') },
-      ...userRoutes(config)
+      ...userRoutes(config),
+      ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
     ]
   })
   installUserRedirects(router, app, config)
