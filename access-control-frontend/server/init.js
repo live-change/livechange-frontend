@@ -23,7 +23,7 @@ module.exports = async function(services) {
     }
   }
 
-  const session = 'GOzz0WylRDklhLCSppS6bwRYUeIQJqzt'
+  const session = 'Q6OytlOJ54r0tF1BriDB8bEYoGEUIf+i__'
 
   //console.log("MDL", services.passwordAuthentication.models.PasswordAuthentication)
 
@@ -31,7 +31,7 @@ module.exports = async function(services) {
   const user2 = await createUser('Test User 2 with very long name!', 'test2@test.com', 'Testy123')
   const user3 = await createUser('Test User 3', 'test3@test.com', 'Testy123')
 
-  await services.user.models.AuthenticatedUser.create({ id: session, session, user: user2.id })
+  await services.user.models.AuthenticatedUser.create({ id: session, session, user: user1.id })
 
   await services.notification.models.Notification.create({
     "id": app.generateUid(),

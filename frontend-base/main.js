@@ -49,6 +49,19 @@ export function createApp(api, App, createRouter) {
   app.use(DialogService)
   app.provide(PrimeVueDialogSymbol, app.config.globalProperties.$dialog)
 
+  const oldCommand = api.command
+  api.command = async (...args) => {
+    console.log("API COMMAND!")
+    try {
+      return await oldCommand.apply(api, args)
+    } catch(error) {
+      const text = error.message || error
+      const toast = app.config.globalProperties.$toast
+      if(text == 'notAuthorized')  toast.add({ severity:'error', summary: "Not Authorized", life: 5000 })
+      throw error
+    }
+  }
+
   app.directive('styleclass', StyleClass)
   app.directive('ripple', Ripple)
   app.directive('badge', BadgeDirective)
