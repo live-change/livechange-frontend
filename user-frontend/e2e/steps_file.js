@@ -1,6 +1,60 @@
-// in this file you can append custom step methods to 'I' object
+const App = require('@live-change/framework')
+const app = App.app()
+
+const randomProfile = require('random-profile-generator')
+const passwordGenerator = require('generate-password')
 
 const steps = {
+
+  async haveUser(name, email, password, user = app.generateUid()) {
+    const I = this
+
+    if(!password) password = passwordGenerator.generate({
+      length: 10,
+      numbers: true
+    })
+    if(!name) {
+      name = randomProfile.profile().firstName
+    }
+    if(!email) {
+      email = name.split(' ')[0].toLowerCase() + (Math.random()*100).toFixed() + '@test.com'
+    }
+
+    const PasswordAuthentication = await I.haveModel("passwordAuthentication", "PasswordAuthentication")
+    const User = await I.haveModel("user", "User")
+    const Email = await I.haveModel("email", "Email")
+    const Identification = await I.haveModel("userIdentification", "Identification")
+
+    const passwordHash = PasswordAuthentication.definition.properties.passwordHash.preFilter(password)
+    await User.create({ id: user, roles: [] })
+    await PasswordAuthentication.create({ id: user, user, passwordHash })
+    await Email.create({ id: email, email, user })
+    await Identification.create({
+      id: App.encodeIdentifier(['user_User', user]), sessionOrUserType: 'user_User', sessionOrUser: user,
+      name
+    })
+    return {
+      id: user,
+      name,
+      email,
+      password
+    }
+  },
+
+  async amLoggedIn(user) {
+    const I = this
+    console.log("USER", user)
+    const AuthenticatedUser = await I.haveModel("user", "AuthenticatedUser")
+    const session = await I.executeScript(() => window.api.client.value.session)
+    await AuthenticatedUser.create({ id: session, session, user: user.id })
+  },
+
+  async amLoggedOut() {
+    const I = this
+    const AuthenticatedUser = await I.haveModel("user", "AuthenticatedUser")
+    const session = await I.executeScript(() => window.api.client.value.session)
+    await AuthenticatedUser.delete(session)
+  },
 
   async useSecretCode(authentication, happyPath) {
     const I = this

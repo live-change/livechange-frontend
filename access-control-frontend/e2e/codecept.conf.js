@@ -1,6 +1,6 @@
 const { devices } = require('playwright')
 
-const testServerPort = process.env.TEST_URL ? 0 : require('get-port-sync')() 
+const testServerPort = process.env.TEST_URL ? 0 : require('get-port-sync')()
 const testServerUrl = process.env.TEST_URL || `http://localhost:${testServerPort}`
 
 const device = devices['Pixel 2']
@@ -13,8 +13,9 @@ exports.config = {
       require: '@live-change/codeceptjs-helper',
       startServer: !process.env.TEST_URL,
       enableSessions: true,
-      initScript: "./init.js",
+      //initScript: "./init.js",
       port: testServerPort,
+      dbAccess: true,
       dev: true
     },
     VideoHelper: {

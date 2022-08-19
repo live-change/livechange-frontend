@@ -23,7 +23,7 @@ module.exports = async function(services) {
     }
   }
 
-  const session = 'Q6OytlOJ54r0tF1BriDB8bEYoGEUIf+i__'
+  const session = 'l5W5GIeTfffiFpfUTkvpjNjrVR6buWDX'
 
   //console.log("MDL", services.passwordAuthentication.models.PasswordAuthentication)
 
@@ -37,7 +37,7 @@ module.exports = async function(services) {
     "id": app.generateUid(),
     "notificationType": "accessControl_Invitation",
     "objectType": "example_Example",
-    "object": "two",
+    "object": "one",
     "fromType": "user_User",
     "from": user1.id,
     "sessionOrUserType": "user_User",
@@ -46,12 +46,12 @@ module.exports = async function(services) {
     "readState": "new"
   })
 
-  await PublicAccess.create({
+ /* await PublicAccess.create({
     id: App.encodeIdentifier(['example_Example', 'one']),
     objectType: 'example_Example', object: 'one',
     userRoles: ['reader'],
     sessionRoles: ['reader']
-  })
+  })*/
 
   await Access.create({
     id: App.encodeIdentifier(['user_User', user1.id, 'example_Example', 'one']),
