@@ -1,10 +1,5 @@
 <template>
-  <div class="w-full sm:w-9 md:w-8 lg:w-6 surface-card p-4 shadow-2 border-round">
-    <div class="text-center mb-5">
-      <div class="text-900 text-3xl font-medium mb-3">
-        Access Control
-      </div>
-    </div>
+  <div>
 
     <div class="text-center">
       <Button label="Invite with email" icon="pi pi-envelope" class="p-button mb-4" @click="inviteDialog = true" />

@@ -20,8 +20,17 @@ export function routes(config = {}) {
     ...inviteRoutes(config),
 
     route({
-      name: 'accessControl:testPage', path: prefix + '', meta: { },
+      name: 'accessControl:configurationPage', path: prefix + 'configuration', meta: { },
       component: () => import("./configuration/AccessControl.vue"),
+      props: {
+        objectType: 'example_Example',
+        object: 'one'
+      }
+    }),
+
+    route({
+      name: 'accessControl:testPage', path: prefix + '', meta: { },
+      component: () => import("./TestPage.vue"),
       props: {
         objectType: 'example_Example',
         object: 'one'

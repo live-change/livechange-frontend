@@ -10,22 +10,16 @@
       </div>
     </div>
   </slot>
-  <BlockUI :blocked="notAuthorized">
+  <BlockUI :blocked="!authorized">
     <slot :authorized="authorized" :roles="accessRoles" :accesses="accesses"></slot>
   </BlockUI>
-  <div v-if="false">
-    <h4>Bans</h4>
-    <pre>{{ JSON.stringify(bansState, null, '  ') }}</pre>
-    <h4>Counters</h4>
-    <pre>{{ JSON.stringify(countersState, null, '  ') }}</pre>
-  </div>
 </template>
 
 <script setup>
 
   import BlockUI from 'primevue/blockui'
 
-  const { objectType, object, objects, requiredRoles } = defineProps({
+  const props = defineProps({
     objectType: {
       type: String,
       default: null
@@ -41,8 +35,13 @@
     requiredRoles: {
       type: Array,
       default: () => []
+    },
+    styleClass: {
+      default: ""
     }
   })
+
+  const { objectType, object, objects, requiredRoles } = props
 
   const allObjects = ((objectType && object) ? [{ objectType, object }] : []).concat(objects || [])
 
@@ -62,14 +61,17 @@
     for(const access of accessesList) {
       roles = roles.filter(role => access.roles.includes(role))
     }
+    return roles
   })
 
   const authorized = computed(() => {
-    const roles = accessRoles.value
-    for(const requiredRole of requiredRoles) {
-      if(!roles.includes(requiredRole)) return false
+    const clientRoles = accessRoles.value
+    for(const requiredRolesOption of requiredRoles) {
+      if((Array.isArray(requiredRolesOption) ? requiredRolesOption : [requiredRolesOption])
+        .every(role => clientRoles.includes(role))
+      ) return true
     }
-    return true
+    return false
   })
 
 </script>
