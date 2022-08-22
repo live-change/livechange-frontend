@@ -60,6 +60,6 @@
     "webdriverio": "^7.20.9"
   },
   "author": "",
-  "license": "ISC",
+  "license": "BSD-3-Clause",
   "description": ""
 }
