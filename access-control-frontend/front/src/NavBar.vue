@@ -8,6 +8,27 @@
     </div>
     <div class="flex flex-grow-1"></div>
     <NotificationsIcon />
+    <UserIcon />
+
+
+    <div class="static w-auto w-full surface-overlay left-0 top-100 z-1 shadow-none hidden">
+      <ul class="list-none p-0 m-0 flex align-items-center select-none flex-row border-top-none">
+        <li>
+          <a v-ripple class="flex p-3 px-3 align-items-center text-600 hover:text-900 hover:surface-100
+            font-medium border-round cursor-pointer transition-colors transition-duration-150 p-ripple">
+            <i class="pi pi-inbox text-base text-2xl mr-0"></i>
+          </a>
+        </li>
+        <li>
+          <a v-ripple class="flex p-3 px-3 align-items-center text-600 hover:text-900 hover:surface-100 font-medium
+           border-round cursor-pointer transition-colors transition-duration-150 p-ripple">
+            <i class="pi pi-bell text-base lg:text-2xl mr-2 lg:mr-0" v-badge.danger></i>
+          </a>
+        </li>
+      </ul>
+    </div>
+
+
     <a v-ripple class="cursor-pointer block lg:hidden text-700 p-ripple ml-2 hover:surface-100 p-2"
        v-styleclass="{ selector: '@next', enterClass: 'hidden', leaveToClass: 'hidden', hideOnOutsideClick: true }">
       <i class="pi pi-bars text-4xl"></i>
@@ -95,6 +116,10 @@
 <script setup>
 
   import { NotificationsIcon } from "@live-change/user-frontend"
+
+  import { UserIcon } from "@live-change/user-frontend"
+
+
 
 </script>
 
