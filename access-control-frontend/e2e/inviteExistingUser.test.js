@@ -10,7 +10,6 @@ Scenario('invite user that already exists', async ({ I }) => {
 
   await I.amOnPage('/')
   await I.amLoggedIn(adminUser)
-
   I.see('Access Granted!')
   I.click('Share')
   I.see('Access Control')
@@ -19,5 +18,10 @@ Scenario('invite user that already exists', async ({ I }) => {
   I.see('Email address')
   I.fillField('input[id="email"]', anotherUser.email)
   I.click('Invite')
-  I.click('Invite')
+  session('Y', () => {
+    I.amOnPage('/')
+    I.amLoggedIn(anotherUser)
+  })
+  pause()
+I.see('Authorized')
 })
