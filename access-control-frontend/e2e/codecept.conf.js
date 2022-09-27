@@ -29,7 +29,7 @@ exports.config = {
       url: testServerUrl,
       show: true,
       emulate: {
-       // ...device,
+        ...device,
         recordVideo: process.env.RECORD_TESTS ? {
           dir: "./output",
           //size: { width: 1080, height: 1920 }
