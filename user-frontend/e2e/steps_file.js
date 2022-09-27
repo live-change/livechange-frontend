@@ -46,6 +46,7 @@ const steps = {
     console.log("USER", user)
     const AuthenticatedUser = await I.haveModel("user", "AuthenticatedUser")
     const session = await I.executeScript(() => window.api.client.value.session)
+    console.log("AUTHENTICATE SESSION", session)
     await AuthenticatedUser.create({ id: session, session, user: user.id })
   },
 
