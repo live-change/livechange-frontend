@@ -4,7 +4,7 @@
      class="static w-auto w-full surface-overlay left-0 top-100 z-1 shadow-none p-ripple">
     <ul class="list-none p-0 m-0 flex align-items-center select-none flex-row border-top-none">
       <li class="border-top-none">
-        <a v-ripple class="flex p-0 px-3 align-items-center hover:surface-100 font-medium border-round
+        <span class="flex p-0 px-3 align-items-center hover:surface-100 font-medium border-round
            cursor-pointer transition-colors transition-duration-150 p-ripple">
           <img v-if="ownerType == 'session_Session'" src="/images/empty-user-photo.svg"
                class="mr-0 border-circle" style="width: 38px; height: 38px" />
@@ -12,7 +12,7 @@
                  class="mr-0 border-circle border-1 surface-border" />
           <img v-else :src="identiconUrl"
                class="mr-0 border-circle border-1 surface-border" style="width: 38px; height: 38px" />
-        </a>
+        </span>
       </li>
     </ul>
   </a>

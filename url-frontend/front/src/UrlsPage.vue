@@ -5,16 +5,19 @@
         Urls
       </div>
     </div>
-
-    <Urls if="" :targetType="targetType" :target="target" />
+    <LimitedAccess v-slot="{ authorized }" :objectType="targetType" :object="target" :requiredRoles="requiredRoles">
+      <Urls v-if="authorized" :targetType="targetType" :target="target" />
+    </LimitedAccess>
   </div>
 </template>
 
 <script setup>
   import Urls from "./Urls.vue"
-  import { useApi } from '@live-change/vue3-ssr'
+  import { useApi, serviceDefinition } from '@live-change/vue3-ssr'
+  import { LimitedAccess } from '@live-change/access-control-frontend'
 
   const api = useApi()
+  const requiredRoles = serviceDefinition('url').views.targetOwnedCanonical.accessControl.roles
 
   const { target, targetType } = defineProps({
     target: {

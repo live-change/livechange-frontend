@@ -6,47 +6,29 @@
           Canonical Url
         </div>
         <div v-if="canonical">
-          <div class="w-full flex flex-wrap flex-row align-items-center" v-for="url of redirects" :key="url.to">
+          <div class="w-full flex flex-wrap flex-row align-items-center">
             <span class="text-right overflow-hidden text-overflow-ellipsis mr-1">
               {{ canonical.domain || '*' }}
             </span>
             <span class="flex-grow-1">
               /{{ canonical.path }}
             </span>
-            <Button icon="pi pi-pencil" label="Edit" class="p-button-warning" @click="" />
+            <Button icon="pi pi-pencil" label="Edit" class="p-button-warning mr-1" @click="editCanonical" />
+            <Button icon="pi pi-trash" label="Delete" class="p-button-danger" @click="deleteCanonical"/>
+
+            <Dialog :visible="editCanonicalDialogVisible" @update:visible="v => editCanonicalDialogVisible = v"
+                    :modal="true" class="w-full sm:w-9 md:w-8 lg:w-6">
+              <template #header>
+                <h3>Edit canonical url</h3>
+              </template>
+              <TakeUrlForm :initialValues="canonical" :targetType="targetType" :target="target"
+                           @taken="handleCanonicalEdited" />
+            </Dialog>
           </div>
         </div>
         <div v-else>
-          <command-form service="url" action="takeUrl" v-slot="{ data }" :parameters="{ target, targetType }"
-                        @done="handleTaken" keepOnDone v-if="isMounted">
-
-            <div class="p-field mb-3">
-              <label for="path" class="block text-900 font-medium mb-2">
-                Path
-              </label>
-              <InputText id="url" type="text" class="w-full"
-                         aria-describedby="email-help" :class="{ 'p-invalid': data.pathlError }"
-                         placeholder="enter/absolute/path"
-                         v-model="data.path" />
-              <small id="path-help" class="p-error">{{ data.pathError }}</small>
-            </div>
-            <div class="p-field mb-3">
-              <label for="domain" class="block text-900 font-medium mb-2">
-                Domain (optional)
-              </label>
-              <InputText id="domain" type="text" class="w-full"
-                         aria-describedby="email-help" :class="{ 'p-invalid': data.domainError }"
-                         placeholder="any"
-                         v-model="data.domain" />
-              <small id="domain-help" class="p-error">{{ data.domainError }}</small>
-            </div>
-
-            <div class="flex flex-row flex-wrap">
-              <Button label="Take Url" icon="pi pi-save" class="mr-2" type="submit" />
-              <Button label="Generate Url" icon="pi pi-plus" type="button" @click="() => showGenerateDialog(data)"/>
-            </div>
-
-          </command-form>
+          <TakeUrlForm :targetType="targetType" :target="target"
+                       @taken="handleTaken" />
         </div>
       </div>
 
@@ -54,16 +36,29 @@
         <div class="text-900 text-xl font-medium mb-2">
           Redirects
         </div>
-        <div class="w-full flex flex-wrap flex-row align-items-center" v-for="url of redirects" :key="url.to">
+        <div class="w-full flex flex-wrap flex-row align-items-center mb-1" v-for="url of redirects" :key="url.to">
           <span class="text-right overflow-hidden text-overflow-ellipsis mr-1">
             {{ url.domain || '*' }}
           </span>
           <span class="flex-grow-1">
             /{{ url.path }}
           </span>
-          <Button icon="pi pi-trash" label="Delete" class="p-button-danger" />
+          <Button icon="pi pi-trash" label="Delete" class="p-button-danger" @click="() => deleteRedirect(url)"/>
         </div>
       </div>
+
+      <div class="mt-2 mb-2">
+        <Button icon="pi pi-plus" label="Add redirect" class="p-button-warning" click="showAddRedirectDialog"
+                @click="showCreateRedirectDialog" />
+      </div>
+
+      <Dialog :visible="createRedirectDialogVisible" @update:visible="v => createRedirectDialogVisible = v"
+              :modal="true" class="w-full sm:w-9 md:w-8 lg:w-6">
+        <template #header>
+          <h3>Add redirect</h3>
+        </template>
+        <TakeUrlForm redirect :targetType="targetType" :target="target" @taken="handleRedirectCreated" />
+      </Dialog>
     </div>
     <div v-else>
       Urls editor access denied
@@ -75,6 +70,9 @@
 
   import Button from "primevue/button"
   import InputText from "primevue/inputtext"
+  import Dialog from "primevue/dialog"
+
+  import TakeUrlForm from "./TakeUrlForm.vue"
 
   import { useToast } from 'primevue/usetoast'
   const toast = useToast()
@@ -105,12 +103,54 @@
   const isAccessible = serviceDefinition('url').views.targetOwnedCanonical
   const isEditable = serviceDefinition('url').views.resetTargetOwnedCanonical
 
-  function showGenerateDialog(data) {
-    console.log("D", data)
-  }
+  const editCanonicalDialogVisible = ref(false)
+  const createRedirectDialogVisible = ref(false)
 
   function handleTaken(data) {
-    console.log("TAKEN", data)
+  }
+
+  function editCanonical() {
+    editCanonicalDialogVisible.value = true
+  }
+  function handleCanonicalEdited() {
+    editCanonicalDialogVisible.value = false
+  }
+  function deleteCanonical() {
+    confirm.require({
+      target: event.currentTarget,
+      message: `Do you want to delete canonical url?`,
+      icon: 'pi pi-info-circle',
+      acceptClass: 'p-button-danger',
+      accept: async () => {
+        await urlsApi.resetTargetOwnedCanonical({ target, targetType })
+        toast.add({ severity:'info', summary: 'Canonical url deleted', life: 1500 })
+      },
+      reject: () => {
+        toast.add({ severity:'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
+      }
+    })
+  }
+
+  function deleteRedirect(redirect) {
+    confirm.require({
+      target: event.currentTarget,
+      message: `Do you want to delete redirect ${redirect.domain || '*'}/${redirect.path}?`,
+      icon: 'pi pi-info-circle',
+      acceptClass: 'p-button-danger',
+      accept: async () => {
+        await urlsApi.deleteTargetOwnedRedirect({ redirect: redirect.to, target, targetType })
+        toast.add({ severity:'info', summary: 'Redirect deleted', life: 1500 })
+      },
+      reject: () => {
+        toast.add({ severity:'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
+      }
+    })
+  }
+  function showCreateRedirectDialog() {
+    createRedirectDialogVisible.value = true
+  }
+  function handleRedirectCreated() {
+    createRedirectDialogVisible.value = false
   }
 
   const [ canonical, redirects ] = isAccessible ? (await Promise.all([
