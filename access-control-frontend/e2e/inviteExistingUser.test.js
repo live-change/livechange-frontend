@@ -11,6 +11,10 @@ Scenario('invite user that already exists', async ({ I }) => {
   console.log('ADMIN', adminUser)
   console.log("ANOTHER USER", anotherUser)
 
+  session('X')
+  session('Y')
+  I.amOnPage('/')
+
   session('X', async () => {
     await I.amOnPage('/')
     await I.amLoggedIn(adminUser)
@@ -22,12 +26,19 @@ Scenario('invite user that already exists', async ({ I }) => {
     I.see('Email address')
     I.fillField('input[id="email"]', anotherUser.email)
     I.click('Invite')
+    I.wait(5)
+    I.see('Access Invitations')
+    //I.see(anotherUser.name)
   })
   session('Y', async () => {
     I.amOnPage('/')
     await I.amLoggedIn(anotherUser)
-    I.see('Authorized')
+    I.click('i.pi.pi-bell')
+    I.click('Accept')
   })
-  pause()
-
+  session('X', () =>{
+  I.see('Authorized')
+  I.see(anotherUser.name)
+  I.wait(23)
+  })
 })
