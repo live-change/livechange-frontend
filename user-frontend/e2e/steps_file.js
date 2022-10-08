@@ -6,7 +6,7 @@ const passwordGenerator = require('generate-password')
 
 const steps = {
 
-  async haveUser(name, email, password, user = app.generateUid()) {
+  async haveUser(name, email, password, user = app.generateUid(), roles = []) {
     const I = this
 
     if(!password) password = passwordGenerator.generate({
@@ -26,7 +26,7 @@ const steps = {
     const Identification = await I.haveModel("userIdentification", "Identification")
 
     const passwordHash = PasswordAuthentication.definition.properties.passwordHash.preFilter(password)
-    await User.create({ id: user, roles: [] })
+    await User.create({ id: user, roles })
     await PasswordAuthentication.create({ id: user, user, passwordHash })
     await Email.create({ id: email, email, user })
     await Identification.create({
