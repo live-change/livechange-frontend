@@ -7,5 +7,8 @@ import SimpleNotification from "./front/src/notifications/SimpleNotification.vue
 import { notificationTypes } from "./front/src/notifications/notificationTypes.js"
 export { NotificationsIcon, SimpleNotification, notificationTypes }
 
+import UserIcon from "./front/src/nav/UserIcon.vue"
+export { UserIcon }
+
 import { userRoutes, installUserRedirects } from "./front/src/router.js"
 export { userRoutes, installUserRedirects }

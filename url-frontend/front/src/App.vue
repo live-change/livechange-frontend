@@ -8,13 +8,10 @@
 
 <script setup>
   import 'primevue/resources/themes/saga-green/theme.css'
-  //import 'primevue/resources/themes/lara-light-blue/theme.css'
-  //import 'primevue/resources/themes/vela-orange/theme.css'
+  import "@fortawesome/fontawesome-free/css/all.min.css"
 
   import NavBar from "./NavBar.vue"
   import ViewRoot from "@live-change/frontend-base/ViewRoot.vue"
-  import "./notifications"
-
 
   import { useMeta } from 'vue-meta'
   const { meta } = useMeta({

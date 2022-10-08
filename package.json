@@ -9,5 +9,6 @@
     "wysiwyg-frontend",
     "upload-frontend",
     "image-frontend"
-  ]
+  ],
+  "license": "BSD-3-Clause"
 }

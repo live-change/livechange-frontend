@@ -59,12 +59,11 @@
       content: props.initialContent,
       version: 0
     }
-    console.log(['prosemirror', 'createDocument'], documentData)
-    await api.command(['prosemirror', 'createDocument'], documentData)
+    documentData = await api.command(['prosemirror', 'createDocumentIfNotExists'], documentData)
   }
 
   const extensions = getExtensions(props.config)
-  console.log("CONFIG", props.config, 'EXTENSIONS', extensions)
+  //console.log("CONFIG", props.config, 'EXTENSIONS', extensions)
   const editor = useEditor({
     content: documentData.content,
     extensions: [
@@ -80,21 +79,63 @@
     }
   })
 
-  function save() {
+  let sentSteps = []
+  let sentVersion = 0
+
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+  async function save() {
     const state = editor.value.reactiveState.value
     const sendable = sendableSteps(state)
     if(sendable) {
+      let version = sendable.version
+      let firstOriginalStepIndex = 0
+      let resynchronization = false
       console.log("SENDABLE STEPS", sendable)
-      const serializedSteps = sendable.steps.map(step => step.toJSON())
+      const serializedSteps = sendable.steps.map((step, index) => ({ version: version + index, step: step.toJSON() }))
       console.log("SERIALIZED STEPS", serializedSteps)
-      api.command(['prosemirror', 'doSteps'], {
+      if(sendable.version <= sentVersion) { // found resend, check for duplicated steps
+        for(let i = 0; i < serializedSteps.length; i++) {
+          const step = serializedSteps[i]
+          const sentStep = sentSteps.find(({ version }) => version == step.version)
+          if(sentStep) {
+            console.log('FOUND SENT STEP WITH THE SAME VERSION', sentStep, '==', step)
+            if(JSON.stringify(sentStep) != JSON.stringify(step)) {
+              resynchronization = true
+              break
+            }
+            firstOriginalStepIndex = i + 1
+          } else break
+        }
+      }
+      serializedSteps.splice(0, firstOriginalStepIndex)
+      if(resynchronization && sentSteps.length > 0) {
+        console.log("RESYNCHRONIZATION!")
+        const firstVersion = serializedSteps[0].version
+        sentSteps = sentSteps.filter(({ version }) => version < firstVersion)
+      }
+      if(serializedSteps.length == 0) {
+        console.log("NOTHING TO SEND")
+        return
+      }
+      sentVersion = serializedSteps[0].version
+      sentSteps = sentSteps.concat(serializedSteps)
+      if(sentSteps.length > 200) sentSteps = sentSteps.slice(-100)
+      const data = {
         document, type: props.type,
-        version: sendable.version, steps: serializedSteps, window: api.windowId
-      })
+        version: sentVersion, steps: serializedSteps.map(({ step }) => step), window: api.windowId,
+        continuation: firstOriginalStepIndex > 0
+      }
+      console.log("SEND DATA", data)
+      //await sleep(1000)
+      await api.command(['prosemirror', 'doSteps'], data)
     }
   }
-
   const saveDebounced = useDebounceFn(save, 100)
+
+  api.source.on('connect', () => {
+    save()
+  })
 
   if(typeof window != 'undefined') {
     const stepsReader = inboxReader(
