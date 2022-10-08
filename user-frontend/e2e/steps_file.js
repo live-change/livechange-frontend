@@ -41,6 +41,18 @@ const steps = {
     }
   },
 
+  async useEmailLink(email, prefix = '/link/') {
+    const I = this
+    const MessageAuthentication = await I.haveModel('messageAuthentication', 'Authentication')
+    const authentication =
+      await MessageAuthentication.indexObjectGet('byContact', ['email', email], { reverse: true, limit: 1 })
+    const Link = await I.haveModel('secretLink', 'Link')
+    let link = await Link.indexObjectGet('byAuthentication', authentication)
+    I.amOnPage(prefix + link.secretCode)
+    await I.wait(0.1)
+    return { authentication, link }
+  },
+
   async amLoggedIn(user) {
     const I = this
     console.log("USER", user)
