@@ -110,7 +110,7 @@ const steps = {
     await I.wait(0.1)
   },
 
-  async useSecretLink(authentication, happyPath) {
+  async useSecretLink(authentication, happyPath, prefix = '') {
     const I = this
     const Link = await I.haveModel('secretLink', 'Link')
     let linkData = await Link.indexObjectGet('byAuthentication', authentication)
@@ -118,18 +118,18 @@ const steps = {
     I.assert(!!linkData, true, 'link created')
 
     if(!happyPath) {
-      I.amOnPage('/link/[badSecret]')
+      I.amOnPage(prefix + '/link/[badSecret]')
       I.see('Unknown link')
     }
 
     if(!happyPath) {
       await I.wait(0.2)
       await Link.update(linkData.id, { expire: new Date() }) // expire now
-      I.amOnPage('/link/' + linkData.secretCode)
+      I.amOnPage(prefix + '/link/' + linkData.secretCode)
       I.see('Link expired')
 
       I.click('Resend')
-      I.seeInCurrentUrl('/sent/')
+      I.seeInCurrentUrl(prefix + '/sent/')
 
       await I.wait(0.2)
       const newLinksData = await Link.indexRangeGet('byAuthentication', authentication)
@@ -140,8 +140,8 @@ const steps = {
       I.assert(oldLinkData.id != linkData.id, true, 'link is different from previous link')
     }
 
-    console.log("LINK RIGHT", '/link/' + linkData.secretCode)
-    I.amOnPage('/link/'+linkData.secretCode)
+    console.log("LINK RIGHT", prefix + '/link/' + linkData.secretCode)
+    I.amOnPage(prefix + '/link/'+linkData.secretCode)
     await I.wait(0.1)
 
     return linkData

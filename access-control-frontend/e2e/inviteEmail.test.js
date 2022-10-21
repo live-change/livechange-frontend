@@ -32,6 +32,9 @@ Scenario('invite user that will register from invitation link', async ({ I }) =>
     I.useEmailLink(invitedEmail, '/user/link/')
   })
 
-  pause()
-
+  session('Inviting', () => {
+    I.see('Access Invitations')
+    I.see(invitedEmail)
+    I.wait(23)
+  })
 })
