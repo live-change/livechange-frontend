@@ -1,6 +1,6 @@
 {
   "name": "@live-change/wysiwyg-frontend",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --dbAccess",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -85,5 +85,5 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "gitHead": "b7109dab79e452d391c00405c9a8108efda660d5"
+  "gitHead": "faf73f4f20fcd3d3f13289730f8ec7057b3433e8"
 }
