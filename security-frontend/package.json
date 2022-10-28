@@ -1,6 +1,6 @@
 {
   "name": "@live-change/security-frontend",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -61,5 +61,6 @@
   },
   "author": "",
   "license": "BSD-3-Clause",
-  "description": ""
+  "description": "",
+  "gitHead": "b7109dab79e452d391c00405c9a8108efda660d5"
 }

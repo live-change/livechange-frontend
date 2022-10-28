@@ -1,6 +1,6 @@
 {
   "name": "@live-change/frontend-base",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --templatePath ../../base-frontend/index.html",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -28,7 +28,7 @@
     "@live-change/password-authentication-service": "0.2.51",
     "@live-change/secret-code-service": "0.2.51",
     "@live-change/secret-link-service": "0.2.51",
-    "@live-change/security-frontend": "^0.2.0",
+    "@live-change/security-frontend": "^0.2.1",
     "@live-change/session-service": "0.2.51",
     "@live-change/user-service": "0.2.51",
     "@live-change/vue3-components": "0.2.15",
@@ -67,5 +67,6 @@
   },
   "author": "",
   "license": "BSD-3-Clause",
-  "description": ""
+  "description": "",
+  "gitHead": "b7109dab79e452d391c00405c9a8108efda660d5"
 }
