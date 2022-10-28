@@ -23,10 +23,16 @@
   })
 
   import { watch } from 'vue'
-  import { client as useClient } from '@live-change/vue3-ssr'
+  import { client as useClient, useApi } from '@live-change/vue3-ssr'
   const client = useClient()
   watch(client, (newClient, oldClient) => {
     console.log("WATCH CLIENT", oldClient, '=>', newClient)
   })
+
+  const api = useApi()
+  import emailValidator from "@live-change/email-service/clientEmailValidator.js"
+  import passwordValidator from "@live-change/password-authentication-service/clientPasswordValidator.js"
+  api.validators.email = emailValidator
+  api.validators.password = passwordValidator
 
 </script>

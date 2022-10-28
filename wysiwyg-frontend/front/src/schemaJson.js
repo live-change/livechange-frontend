@@ -1,5 +1,5 @@
 import { getSchema } from "@tiptap/core"
-import {getExtensions} from "./contentConfigExtensions";
+import { getExtensions } from "./contentConfigExtensions";
 
 export function schemaTypesMapToObject(map) {
   let obj = {}

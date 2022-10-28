@@ -164,6 +164,8 @@
     )
     onUnmounted(() => stepsReader.dispose())
   }
+
+  const schemaSpec = ref(getSchemaSpecFromConfig(props.config))
 </script>
 
 <style scoped>

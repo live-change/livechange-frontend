@@ -15,13 +15,14 @@ function escapeHtml(unsafe) {
 }
 
 export function serverEntry(App, createRouter) {
-  return async function({ url, dao, windowId }) {
+  return async function({ url, host, dao, windowId }) {
+    console.error('URL', host, url)
     const api = await serverApi(dao, {
       use: [],
       windowId
     })
 
-    const { app, router } = createApp(api, App, createRouter)
+    const { app, router } = createApp(api, App, createRouter, host)
 
     app.directive('shared-element', {})
 

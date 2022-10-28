@@ -5,29 +5,30 @@ import {
 } from 'vue-router'
 
 import { dbAdminRoutes } from "@live-change/db-admin"
+import { userRoutes } from "@live-change/user-frontend";
+import { catchAllPagesRoute, contentEditRoutes, pagesSitemap } from "./components/routes";
 
 export function wysiwygRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
+    ...userRoutes({ ...config, prefix: prefix + 'user/' }),
+
     route({
-      name: 'upload:test', path: prefix + 'upload', meta: { },
-      component: () => import("./UploadTest.vue"),
-      props: {
-      }
-    }),
-    route({
-      name: 'editor:test', path: prefix + '', meta: { },
-      component: () => import("./EditorTest.vue"),
-      props: {
+      name: 'page:test', path: prefix, meta: { },
+      redirect: to => {
+        return { name: 'content:page', params: { path: 'test' } }
       }
     }),
 
-    ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
+    ...contentEditRoutes({ ...config }),
+
+    ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) }),
+    ...catchAllPagesRoute({ ...config })
   ]
 }
 
 export async function sitemap(route, api) {
-
+  await pagesSitemap(route, api)
 }
 
 

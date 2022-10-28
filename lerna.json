@@ -8,7 +8,9 @@
     "security-frontend",
     "upload-frontend",
     "user-frontend",
-    "wysiwyg-frontend"
+    "wysiwyg-frontend",
+    "url-frontend",
+    "content-frontend"
   ],
   "publishConfig": {
     "access": "public"

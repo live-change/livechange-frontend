@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-  import Urls from "./Urls.vue"
+  import Urls from "./components/Urls.vue"
   import { useApi, serviceDefinition } from '@live-change/vue3-ssr'
   import { LimitedAccess } from '@live-change/access-control-frontend'
 

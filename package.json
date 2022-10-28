@@ -8,7 +8,9 @@
     "peer-connection-frontend",
     "wysiwyg-frontend",
     "upload-frontend",
-    "image-frontend"
+    "image-frontend",
+    "url-frontend",
+    "content-frontend"
   ],
   "license": "BSD-3-Clause"
 }

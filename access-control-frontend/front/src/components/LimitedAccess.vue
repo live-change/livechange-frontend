@@ -1,5 +1,5 @@
 <template>
-  <slot v-if="!authorized" name="blocked" :authorized="authorized" :roles="accessRoles" :accesses="accesses">
+  <slot v-if="!hidden && !authorized" name="blocked" :authorized="authorized" :roles="accessRoles" :accesses="accesses">
     <div class="flex align-items-start p-4 bg-pink-100 border-round border-1 border-pink-300 mb-4">
       <i class="pi pi-times-circle text-pink-900 text-2xl mr-3" />
       <div class="mr-3">
@@ -10,9 +10,11 @@
       </div>
     </div>
   </slot>
-  <BlockUI :blocked="!authorized">
+  <BlockUI v-if="!hidden" :blocked="!authorized">
     <slot :authorized="authorized" :roles="accessRoles" :accesses="accesses"></slot>
   </BlockUI>
+  <slot v-if="authorized && hidden" :roles="accessRoles" :accesses="accesses"></slot>
+  <slot v-if="!authorized && hidden" name="alternative" :roles="accessRoles" :accesses="accesses"></slot>
 </template>
 
 <script setup>
@@ -36,9 +38,10 @@
       type: Array,
       default: () => []
     },
-    styleClass: {
-      default: ""
-    }
+    hidden: {
+      type: Boolean,
+      default: false
+    },
   })
 
   const { objectType, object, objects, requiredRoles } = props
