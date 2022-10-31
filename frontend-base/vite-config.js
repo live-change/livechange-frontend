@@ -86,6 +86,14 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/user-frontend',
       '@live-change/frontend-base',
       '@live-change/frontend-utils',
+      '@live-change/access-control-frontend',
+      '@live-change/content-frontend',
+      '@live-change/image-frontend',
+      '@live-change/security-frontend',
+      '@live-change/upload-frontend',
+      '@live-change/url-frontend',
+      '@live-change/user-frontend',
+      '@live-change/wysiwyg-frontend',
       'vue3-scroll-border',
       'pretty-bytes'
     ]
