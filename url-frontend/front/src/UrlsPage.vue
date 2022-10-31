@@ -17,7 +17,7 @@
   import { LimitedAccess } from '@live-change/access-control-frontend'
 
   const api = useApi()
-  const requiredRoles = serviceDefinition('url').views.targetOwnedCanonical.accessControl.roles
+  const requiredRoles = serviceDefinition('url').actions.takeUrl.accessControl.roles
 
   const { target, targetType } = defineProps({
     target: {

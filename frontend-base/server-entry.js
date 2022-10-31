@@ -22,7 +22,7 @@ export function serverEntry(App, createRouter) {
       windowId
     })
 
-    const { app, router } = createApp(api, App, createRouter, host)
+    const { app, router } = createApp(api, App, createRouter, host, true)
 
     app.directive('shared-element', {})
 

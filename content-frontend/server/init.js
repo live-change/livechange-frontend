@@ -7,7 +7,7 @@ module.exports = async function(services) {
     'Test User 1', 'test1@test.com', 'Testy123', 'u1', ['writer'])
 
   const pageId = 'one'
-  const documentId = App.encodeIdentifier(['page_Page', 'one'])
+  const documentId = App.encodeIdentifier(['content_Page', 'one'])
   const snapshotId = App.encodeIdentifier([documentId, (0).toFixed().padStart(10, '0')])
 
   const documentContent = {
@@ -41,6 +41,8 @@ module.exports = async function(services) {
 
   await services.prosemirror.models.Document.create({
     id: documentId,
+    ownerType: 'content_Page',
+    owner: 'one',
     type: 'rich',
     purpose: 'page',
     version: 0,

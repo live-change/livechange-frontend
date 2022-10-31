@@ -72,7 +72,8 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
       'debug',
-      'vite'
+      'vite',
+      'pica'
     ],
     noExternal: [
       'vue-meta',
@@ -82,6 +83,9 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/email-service',
       '@live-change/password-authentication-service',
       '@live-change/db-admin',
+      '@live-change/user-frontend',
+      '@live-change/frontend-base',
+      '@live-change/frontend-utils',
       'vue3-scroll-border',
       'pretty-bytes'
     ]
@@ -94,7 +98,8 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
-      'debug'
+      'debug',
+      'pica'
     ]
   },
 

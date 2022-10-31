@@ -19,7 +19,7 @@ export function clientEntry(App, createRouter) {
 
   const host = document.location.host
 
-  const { app, router } = createApp(api, App, createRouter, host)
+  const { app, router } = createApp(api, App, createRouter, host, false)
 
   app.use(createSharedElementDirective())
   router.beforeEach(SharedElementRouteGuard)

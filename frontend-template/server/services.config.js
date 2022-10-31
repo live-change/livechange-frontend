@@ -41,14 +41,6 @@ module.exports = {
       ...require('./security.config.js')
     },
     {
-      name: 'userIdentification',
-      path: '@live-change/user-identification-service'
-    },
-    {
-      name: 'identicon',
-      path: '@live-change/identicon-service'
-    },
-    {
       name: 'notification',
       path: '@live-change/notification-service',
       contactTypes,
@@ -61,6 +53,14 @@ module.exports = {
     {
       name: 'image',
       path: '@live-change/image-service'
+    },
+    {
+      name: 'secretCode',
+      path: '@live-change/secret-code-service'
+    },
+    {
+      name: 'secretLink',
+      path: '@live-change/secret-link-service'
     }
 
     /// TODO: add cms when ready
