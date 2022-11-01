@@ -29,4 +29,11 @@
     console.log("WATCH CLIENT", oldClient, '=>', newClient)
   })
 
+  import { useApi } from '@live-change/vue3-ssr'
+  const api = useApi()
+  import emailValidator from "@live-change/email-service/clientEmailValidator.js"
+  import passwordValidator from "@live-change/password-authentication-service/clientPasswordValidator.js"
+  api.validators.email = emailValidator
+  api.validators.password = passwordValidator
+
 </script>

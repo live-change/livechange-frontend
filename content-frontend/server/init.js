@@ -43,7 +43,7 @@ module.exports = async function(services) {
     id: documentId,
     ownerType: 'content_Page',
     owner: 'one',
-    type: 'rich',
+    type: 'content',
     purpose: 'page',
     version: 0,
     content: documentContent,

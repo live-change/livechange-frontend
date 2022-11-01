@@ -128,7 +128,7 @@
       }
       console.log("SEND DATA", data)
       //await sleep(1000)
-      await api.command(['prosemirror', 'doSteps'], data)
+      await api.command(['prosemirror', 'edit'], data)
     }
   }
   const saveDebounced = useDebounceFn(save, 100)

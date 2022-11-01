@@ -23,8 +23,7 @@
               </div>
             </template>
             <template v-slot:default="{ isWorking }">
-              <component :is="Component"
-                         :style="isWorking || isLoading ? 'filter: blur(4px)' : ''"
+              <component :is="Component" :style="isWorking || isLoading ? 'filter: blur(4px)' : ''"
                          class="working-blur" />
             </template>
           </working-zone>

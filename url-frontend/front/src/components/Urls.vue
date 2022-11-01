@@ -79,8 +79,6 @@
   import { useConfirm } from 'primevue/useconfirm'
   const confirm = useConfirm()
 
-  import { synchronized, synchronizedList } from "@live-change/vue3-components"
-
   import { computed, watch, ref, onMounted } from 'vue'
 
   const isMounted = ref(false)

@@ -64,7 +64,7 @@
               @click="editor.chain().focus().setHorizontalRule().run()" />
     </div>
 
-    <div class="p-buttonset mr-1 mb-1">
+<!--    <div class="p-buttonset mr-1 mb-1">-->
 <!--      <Button v-if="config.nodes.hardBreak" icon="pi pi-image" class="p-button-sm"
               :class="{ 'p-button-outlined': true }"
               @click="editor.chain().focus().setImage().run()" />-->
@@ -73,7 +73,7 @@
         <Button v-if="config.nodes.hardBreak" icon="pi pi-image" class="p-button-sm"
                 :class="{ 'p-button-outlined': true }" />
       </FileInput>
-    </div>
+<!--    </div>-->
 
   </div>
 </template>

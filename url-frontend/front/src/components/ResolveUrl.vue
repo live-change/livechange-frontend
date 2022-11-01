@@ -1,8 +1,11 @@
 <template>
-  <slot v-if="url" :url="url" :target="url.target">
-    <pre>{{ JSON.stringify(url, null, "  ") }}</pre>
+  <slot v-if="url" :url="url" :target="url.target" :class="clazz" :style="style">
+    <div class="w-full surface-card p-4 shadow-2 border-round">
+      <h2>Url resolved:</h2>
+      <pre>{{ JSON.stringify(url, null, "  ") }}</pre>
+    </div>
   </slot>
-  <slot v-else name="notFound" :path="urlPath">
+  <slot v-else name="notFound" :path="urlPath" :class="clazz" :style="style">
     <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
       <div style="background: radial-gradient(50% 109137.91% at 50% 50%, rgba(233, 30, 99, 0.1) 0%, rgba(254, 244, 247, 0) 100%);" class="text-center">
         <span class="bg-white text-pink-500 font-bold text-2xl inline-block px-3">404</span>
@@ -10,15 +13,16 @@
       <div class="mt-6 mb-5 font-bold text-6xl text-900 text-center">Page Not Found</div>
       <p class="text-700 text-3xl mt-0 mb-6 text-center">Sorry, we couldn't find the page.</p>
       <div class="text-center">
-        <Button class="p-button-text mr-2" label="Go Back" icon="pi pi-arrow-left"></Button>
-        <Button label="Go to Dashboard" icon="pi pi-home"></Button>
+        <Button class="p-button-text mr-2" label="Go Back" icon="pi pi-arrow-left" />
+        <Button label="Go to Dashboard" icon="pi pi-home" />
       </div>
     </div>
   </slot>
-
 </template>
 
 <script setup>
+
+  import Button from "primevue/button"
 
   import { computed, watch, ref, onMounted } from 'vue'
   import { toRefs } from "@vueuse/core"
@@ -39,9 +43,11 @@
     fetchMore: {
       type: Array,
       default: () => []
-    }
+    },
+    class: {},
+    style: {}
   })
-  const { path: urlPath, targetType, fetchMore } = toRefs(props)
+  const { path: urlPath, targetType, fetchMore, class: clazz, style } = toRefs(props)
 
   const urlDomain = useHost()
 

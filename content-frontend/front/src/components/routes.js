@@ -5,9 +5,9 @@ export function contentEditRoutes(config = {}) {
 
   return [
 
-    route({ name: 'content:editor', path: prefix + 'content-editor/:documentId', meta: { },
+    route({ name: 'content:editor', path: prefix + 'content-editor/:documentId', meta: { }, props: true,
       component: () => import("./ContentEditor.vue") }),
-    route({ name: 'content:pageEditor', path: prefix + 'page-editor/:pageId', meta: { },
+    route({ name: 'content:pageEditor', path: prefix + 'page-editor/:pageId', meta: { }, props: true,
       component: () => import("./PageEditor.vue") }),
 
   ]
