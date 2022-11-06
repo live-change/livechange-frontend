@@ -16,7 +16,7 @@ function ContentView(props, context) {
     return renderNode(doc, r, config.marks, config.nodes)
   }
   return h('div', {}, [
-    h('h1', {}, 'Content View'),
+    h('h1', {}, 'Empty document'),
   ])
 }
 

@@ -71,7 +71,6 @@
     return fetchPath
   }
 
-
   const livePathWithDomain = computed(
     () => liveUrlPath(targetType.value, urlDomain, urlPath.value, fetchMore.value)
   )

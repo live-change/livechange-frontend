@@ -1,6 +1,6 @@
 <template>
   <div class="surface-overlay py-3 px-6 shadow-2 flex align-items-center justify-content-between
-              relative md:sticky top-0 z-5"
+              relative sticky top-0 z-5"
        style="min-height: 80px" key="navbar">
     <img src="/images/logo.svg" alt="Image" height="40" class="mr-0 lg:mr-6">
     <div class="hidden lg:flex">

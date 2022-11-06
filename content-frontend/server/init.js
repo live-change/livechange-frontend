@@ -45,7 +45,7 @@ module.exports = async function(services) {
     owner: 'one',
     type: 'content',
     purpose: 'page',
-    version: 0,
+    version: 1,
     content: documentContent,
     created: documentTime,
     lastModified: documentTime
@@ -53,7 +53,7 @@ module.exports = async function(services) {
   await services.prosemirror.models.Snapshot.create({
     id: snapshotId,
     document: documentId,
-    version: 0,
+    version: 1,
     content: documentContent,
     timestamp: documentTime,
   })

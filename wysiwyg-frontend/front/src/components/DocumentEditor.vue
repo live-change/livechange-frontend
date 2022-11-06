@@ -1,7 +1,12 @@
 <template>
   <div class="relative">
-    <slot v-if="editor" name="menu" :editor="editor">
-      <EditorMenu :editor="editor" :config="config" />
+    <slot v-if="editor" name="menu" :editor="editor" :saveState="saveState">
+      <EditorMenu :editor="editor" :config="config" :saveState="saveState">
+        <template #before="scope"><slot name="beforeMenu" v-bind="{ ...scope, editor, saveState }" /></template>
+        <template #after="scope"><slot name="afterMenu" v-bind="{ ...scope, editor, saveState }" /></template>
+        <template #begin="scope"><slot name="menuBegin" v-bind="{ ...scope, editor, saveState }" /></template>
+        <template #end="scope"><slot name="menuEnd" v-bind="{ ...scope, editor, saveState }" /></template>
+      </EditorMenu>
     </slot>
     <editor-content :editor="editor" class="content" />
   </div>
@@ -10,7 +15,9 @@
 <script setup>
 
   import { useEditor, EditorContent } from '@tiptap/vue-3'
-  import { ref, computed, watch, provide, defineEmits, defineProps, getCurrentInstance, onUnmounted } from 'vue'
+  import {
+    ref, computed, watch, provide, defineEmits, defineProps, getCurrentInstance, onUnmounted, inject, onMounted
+  } from 'vue'
   import { toRefs, useDebounceFn } from '@vueuse/core'
   import EditorMenu from "./EditorMenu.vue"
   import { getExtensions } from "./contentConfigExtensions.js"
@@ -46,10 +53,13 @@
     initialContent: {
       type: Object,
       default: () => ({ type: 'doc', content: [ ] })
-    }
+    },
   })
 
-  const emit = defineEmits(['update:synchronizationState', 'update:version'])
+  const emit = defineEmits(['update:saveState', 'update:version'])
+
+  const isMounted = ref(false)
+  onMounted(() => isMounted.value = true)
 
   const appContext = getCurrentInstance().appContext
   const api = useApi(appContext)
@@ -65,9 +75,15 @@
     initialContent: props.initialContent
   })
 
-  emit('update:synchronizationState', 'loading')
-  watch(() => authority.synchronizationState, async (syncState) => {
-    emit('update:synchronizationState', syncState)
+  const saveState = computed(() => authority.synchronizationState ?? 'loading')
+  emit('update:saveState', saveState.value)
+  watch(() => saveState.value, async (state) => {
+    emit('update:saveState', state)
+  })
+
+  const version = ref()
+  watch(() => version.value, async (v) => {
+    emit('update:version', v)
   })
 
   authority.onNewSteps.push(() => {
@@ -79,6 +95,7 @@
     console.error("RECEIVE STEPS", steps, clientIDs, clientID)
     const transaction = receiveTransaction(state, steps, clientIDs)
     view.dispatch(transaction)
+    version.value = authority.remoteVersion
   })
   authority.onResynchronization.push(async function () {
     const state = editor.value.reactiveState.value
@@ -89,7 +106,9 @@
     }
   })
 
+  onUnmounted(() => authority.dispose())
   const documentData = await authority.loadDocument()
+  version.value = authority.remoteVersion
 
   console.log("CONFIG", props.config, 'EXTENSIONS', extensions
   )

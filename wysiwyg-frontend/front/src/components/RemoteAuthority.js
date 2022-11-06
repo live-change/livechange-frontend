@@ -85,6 +85,7 @@ class RemoteAuthority{
   async startInboxReader() {
     const inboxPrefix =  JSON.stringify(JSON.stringify(this.targetType)+':'+JSON.stringify(this.target))+':'
     const identifiers = { targetType: this.targetType, target: this.target }
+    console.log("START INBOX READER FROM", this.remoteVersion)
     this.stepsReader = inboxReader(
       (rawPosition, bucketSize) => {
         console.log("RP", rawPosition)

@@ -1,7 +1,12 @@
 <template>
   <div class="relative">
     <slot v-if="editor" name="menu" :editor="editor">
-      <EditorMenu :editor="editor" :config="config" />
+      <EditorMenu :editor="editor" :config="config">
+        <template #beforeMenu="scope"><slot name="before" v-bind="{ ...scope, editor }" /></template>
+        <template #afterMenu="scope"><slot name="after" v-bind="{ ...scope, editor }" /></template>
+        <template #begin="scope"><slot name="menuBegin" v-bind="{ ...scope, editor, saveState }" /></template>
+        <template #end="scope"><slot name="menuEnd" v-bind="{ ...scope, editor, saveState }" /></template>
+      </EditorMenu>
     </slot>
     <editor-content :editor="editor" class="content" />
   </div>

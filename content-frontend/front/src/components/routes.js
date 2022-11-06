@@ -9,6 +9,8 @@ export function contentEditRoutes(config = {}) {
       component: () => import("./ContentEditor.vue") }),
     route({ name: 'content:pageEditor', path: prefix + 'page-editor/:pageId', meta: { }, props: true,
       component: () => import("./PageEditor.vue") }),
+    route({ name: 'content:pagePreview', path: prefix + 'page-preview/:pageId', meta: { }, props: true,
+      component: () => import("./PagePreview.vue") }),
 
   ]
 }

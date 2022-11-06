@@ -1,6 +1,6 @@
 <template>
 <!--  <pre>{{ JSON.stringify(content, null, "  ") }}</pre>-->
-  <ContentView :content="JSON.stringify(content.content)" :config="contentConfig" />
+  <ContentView :content="JSON.stringify(content?.content)" :config="contentConfig" />
 </template>
 
 <script setup>
@@ -15,6 +15,10 @@
     object: {
       type: String,
       required: true
+    },
+    preview: {
+      type: Boolean,
+      default: false
     }
   })
 
@@ -26,7 +30,9 @@
 
   const p = path()
   const liveContentPath = computed(() =>
-    p.content.content({ objectType: props.objectType, object: props.object })
+    props.preview
+      ? p.content.contentPreview({ objectType: props.objectType, object: props.object })
+      : p.content.content({ objectType: props.objectType, object: props.object })
   )
 
   const [content] = await Promise.all([
