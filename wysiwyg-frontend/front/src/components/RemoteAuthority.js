@@ -1,7 +1,6 @@
 import { useApi, inboxReader } from '@live-change/vue3-ssr'
 import { ref } from 'vue'
 
-import schema from "./editorSchema.js"
 import { Step } from "prosemirror-transform"
 
 import Debug from "debug"
@@ -10,12 +9,14 @@ const debug = Debug("wysiwyg:collab")
 const stepsThrottle = 100
 
 class RemoteAuthority{
-  constructor(appContext, documentId, type) {
+  constructor(appContext, targetType, target, type, options) {
     this.appContext = appContext
     this.api = useApi(appContext)
 
-    this.documentId = documentId
-    this.type = typeg
+    this.targetType = targetType
+    this.target = target
+    this.type = type
+    this.options = options
     this.onNewSteps = []
     this.onResynchronization = []
 
@@ -82,22 +83,28 @@ class RemoteAuthority{
   }
 
   async startInboxReader() {
+    const inboxPrefix =  JSON.stringify(JSON.stringify(this.targetType)+':'+JSON.stringify(this.target))+':'
+    const identifiers = { targetType: this.targetType, target: this.target }
     this.stepsReader = inboxReader(
       (rawPosition, bucketSize) => {
+        console.log("RP", rawPosition)
         const positionCounter = (+rawPosition.split(':').pop().replace(/"/g, '')) + 1
-        const position = JSON.stringify(this.documentId) +
-          `:${JSON.stringify(positionCounter.toFixed().padStart(10, '0'))}`
-        return ['prosemirror', 'steps', { document: this.documentId, gt: position, limit: bucketSize }]
+        console.log("PC", positionCounter)
+        const position = inboxPrefix + JSON.stringify(positionCounter.toFixed().padStart(10, '0'))
+        const path = ['prosemirror', 'steps', { ...identifiers , gt: position, limit: bucketSize }]
+        console.log("P", path)
+        return path
       },
       (message) => {
         debug("MESSAGE!", message, this.remoteVersion)
-        if(message.version != this.remoteVersion) throw new Error("message out of order!")
-        const modifiedVersion = message.version + 1
+        const modifiedVersion = +message.id.split(':').pop().replace(/"/g, '')
+        const originalVersion = modifiedVersion - message.steps.length
+        if(originalVersion != this.remoteVersion) throw new Error("message out of order!")
         this.remoteVersion = modifiedVersion
-        this.receivedSteps.push(message)
+        this.receivedSteps.push(...message.steps.map(step => ({ step, window: message.window })))
         this.handleStepsThrottled()
       },
-      `${JSON.stringify(this.documentId)}:${JSON.stringify((this.remoteVersion - 1).toFixed().padStart(10, '0'))}`,
+      inboxPrefix + JSON.stringify((this.remoteVersion - 1).toFixed().padStart(10, '0')),
       {
         bucketSize: 32,
         context: this.appContext
@@ -107,10 +114,23 @@ class RemoteAuthority{
 
   async loadDocument() {
     debug("LOAD DOCUMENT!")
-    const documentData = await this.dao.get(['editor', 'document', this.documentId])
+    const identifier = { targetType: this.targetType, target: this.target }
+    let documentData = await this.api.get(['prosemirror', 'document', identifier])
+    if(!documentData) {
+      documentData = {
+        ...identifier,
+        type: this.type,
+        purpose: this.options?.purpose ?? 'document',
+        content: this.options?.initialContent ?? { type: 'doc', content: [ ] },
+        version: 1
+      }
+      documentData = await this.api.actions.prosemirror.createDocumentIfNotExists(documentData)
+    }
     this.remoteVersion = documentData.version
     this.waitingForResync = false
-    await this.startInboxReader()
+    if(typeof window != 'undefined') {
+      await this.startInboxReader()
+    }
     this.synchronizationState.value = 'loaded'
     return documentData
   }
@@ -181,8 +201,9 @@ class RemoteAuthority{
     let result
     try {
       this.pendingRequests++
-      result = await this.api.prosemirror.edit({
-        document: this.documentId,
+      result = await this.api.actions.prosemirror.edit({
+        targetType: this.targetType,
+        target: this.target,
         type: this.type,
         version: this.sentVersion, steps: stepsJson.map(({step}) => step),
         window: api.windowId,
@@ -198,7 +219,7 @@ class RemoteAuthority{
     }
   }
 
-  stepsSince(version) {
+  stepsSince(version, schema) {
     debug("GET STEPS SINCE", version, this.receivedSteps)
     const firstStepVersion = this.remoteVersion - this.receivedSteps.length
     debug(
@@ -218,9 +239,10 @@ class RemoteAuthority{
     }
     const versionDiff = version - firstStepVersion
     const stepsData = this.receivedSteps.slice(versionDiff)
+    console.log("SD", stepsData)
     debug("PARSING STEPS", stepsData.length)
     const steps = stepsData.map(stepData => Step.fromJSON(schema, stepData.step))
-    const clientIDs = stepsData.map(stepData => stepData.clientId)
+    const clientIDs = stepsData.map(stepData => stepData.window)
     return { steps, clientIDs }
   }
 }
