@@ -22,7 +22,14 @@ export function serverEntry(App, createRouter) {
       windowId
     })
 
-    const { app, router } = createApp(api, App, createRouter, host, true)
+    const response = {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html'
+      }
+    }
+
+    const { app, router } = createApp(api, App, createRouter, host, response)
 
     app.directive('shared-element', {})
 
@@ -59,6 +66,6 @@ export function serverEntry(App, createRouter) {
       ).join(' ')}>`))
     ].join('\n')
 
-    return {html, data, meta: ctx.teleports, modules: ctx.modules}
+    return {html, data, meta: ctx.teleports, modules: ctx.modules, response}
   }
 }

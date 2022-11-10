@@ -2,6 +2,7 @@
   "private": true,
   "workspaces": [
     "frontend-base",
+    "frontend-auto-form",
     "user-frontend",
     "security-frontend",
     "access-control-frontend",

@@ -1,28 +1,24 @@
 <template>
-  <slot v-if="url" :url="url" :target="url.target" :class="clazz" :style="style">
+  <slot v-if="url && accessible" :url="url" :target="url.target" :class="clazz" :style="style">
     <div class="w-full surface-card p-4 shadow-2 border-round">
       <h2>Url resolved:</h2>
       <pre>{{ JSON.stringify(url, null, "  ") }}</pre>
     </div>
   </slot>
+  <slot v-else-if="url">
+    <NotAuthorized></NotAuthorized>
+  </slot>
   <slot v-else name="notFound" :path="urlPath" :class="clazz" :style="style">
-    <div class="surface-section px-4 py-8 md:px-6 lg:px-8">
-      <div style="background: radial-gradient(50% 109137.91% at 50% 50%, rgba(233, 30, 99, 0.1) 0%, rgba(254, 244, 247, 0) 100%);" class="text-center">
-        <span class="bg-white text-pink-500 font-bold text-2xl inline-block px-3">404</span>
-      </div>
-      <div class="mt-6 mb-5 font-bold text-6xl text-900 text-center">Page Not Found</div>
-      <p class="text-700 text-3xl mt-0 mb-6 text-center">Sorry, we couldn't find the page.</p>
-      <div class="text-center">
-        <Button class="p-button-text mr-2" label="Go Back" icon="pi pi-arrow-left" />
-        <Button label="Go to Dashboard" icon="pi pi-home" />
-      </div>
-    </div>
+    <NotFound />
   </slot>
 </template>
 
 <script setup>
 
   import Button from "primevue/button"
+
+  import NotFound from "./NotFound.vue"
+  import NotAuthorized from "./NotAuthorized.vue"
 
   import { computed, watch, ref, onMounted } from 'vue'
   import { toRefs } from "@vueuse/core"
@@ -40,6 +36,10 @@
       type: String,
       default: 'content_Page'
     },
+    requiredRoles: {
+      type: Array,
+      default: () => ['reader']
+    },
     fetchMore: {
       type: Array,
       default: () => []
@@ -47,7 +47,7 @@
     class: {},
     style: {}
   })
-  const { path: urlPath, targetType, fetchMore, class: clazz, style } = toRefs(props)
+  const { path: urlPath, targetType, fetchMore, class: clazz, style, requiredRoles } = toRefs(props)
 
   const urlDomain = useHost()
 
@@ -59,12 +59,13 @@
   const p = path()
 
   const liveUrlPath = (targetType, domain, urlPath, more) => {
-    let fetchPath = p.url.urlsByTargetAndPath({targetType, domain, path: urlPath})
+    let fetchPath = p.url.urlsByTargetAndPath({ targetType, domain, path: urlPath })
       //.with(url => p.url.targetOwnedCanonical({ targetType, target: url.target }).bind('canonical'))
       .with(url => url.type.$switch({
         'canonical': null,
-        'redirect': p.url.targetOwnedCanonical({targetType, target: url.target})
+        'redirect': p.url.targetOwnedCanonical({ targetType, target: url.target })
       }).$bind('canonical'))
+      .with(url => p.accessControl.myAccessTo({ objectType: targetType, object: url.target }).bind('access'))
     for (let fetch of more) {
       fetchPath = fetchPath.with(url => fetch(url))
     }
@@ -77,14 +78,27 @@
   const livePathWithoutDomain = computed(
     () => liveUrlPath(targetType.value, '', urlPath.value, fetchMore.value)
   )
-  const [domainUrls, globalUrls] = await Promise.all([
-    live(livePathWithDomain),
+
+  const [/*domainUrls,*/ globalUrls] = await Promise.all([
+  //  live(livePathWithDomain),
     live(livePathWithoutDomain)
   ])
+  const domainUrls = ref([])
+  console.log("OK!", domainUrls.value, globalUrls.value)
   const url = computed(() => {
     if(domainUrls.value.length > 0) return domainUrls.value[0]
     if(globalUrls.value.length > 0) return globalUrls.value[0]
     return null
+  })
+  const accessible = computed(() => {
+    if(!(requiredRoles?.value?.length)) return true
+    if(!url.value) return undefined
+    const clientRoles = url.value.access?.roles ?? []
+    for(const requiredRolesOption of requiredRoles.value) {
+      if((Array.isArray(requiredRolesOption) ? requiredRolesOption : [requiredRolesOption])
+        .every(role => clientRoles.includes(role))
+      ) return true
+    }
   })
 
   if(typeof window != 'undefined') {

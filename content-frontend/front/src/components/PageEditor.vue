@@ -1,17 +1,24 @@
 <template>
-  <Accordion v-if="pageData" :multiple="true" class="w-full">
+  <Accordion v-if="pageData" :multiple="true" class="w-full mb-2">
     <AccordionTab>
       <template #header>
         <UrlsInfo targetType="content_Page" :target="pageId" class="w-full" />
       </template>
       <Urls :key="pageId" targetType="content_Page" :target="pageId" />
     </AccordionTab>
-<!--<AccordionTab header="Header II">
-      Content
+    <AccordionTab>
+      <template #header>
+        <span class="font-bold mr-1">Public access: {{ publicAccessLevel }}</span>
+      </template>
+      <AccessControl objectType="content_Page" :object="pageId" />
     </AccordionTab>
-    <AccordionTab header="Header III">
-      Content
-    </AccordionTab>-->
+    <AccordionTab>
+      <template #header>
+        <span v-if="metadata" class="font-bold mr-1">Title: {{ metadata.title }}</span>
+        <span v-else class="font-bold text-red-600">Metadata not set</span>
+      </template>
+      <MetadataEditor objectType="content_Page" :object="pageId" :key="pageId"></MetadataEditor>
+    </AccordionTab>
   </Accordion>
 
   <DocumentEditor v-if="pageData" targetType="content_Page" :target="pageId"
@@ -25,7 +32,7 @@
                 class="p-button p-component p-button-sm p-button-outlined p-button-secondary cursor-auto inline-block"
                 :class="{ 'p-disabled': saveState == 'saving' }">
           <span class="pi p-button-icon p-button-icon-left"
-                :class="[stateSave == 'saving' ? 'pi-sync' : 'pi-hashtag' ]" />
+                :class="[saveState == 'saving' ? 'pi-sync' : 'pi-hashtag' ]" />
           <span class="p-button-label">{{ ( version ?? 0 ).toFixed().padStart(10, '0') }}</span>
         </button>
         <Button icon="pi pi-save" label="Publish" class="p-button-success p-button-sm" type="button"
@@ -46,6 +53,8 @@
 
   import { UrlsInfo, Urls, NotFound } from '@live-change/url-frontend'
   import { DocumentEditor, EditorMenu } from "@live-change/wysiwyg-frontend"
+  import { AccessControl } from '@live-change/access-control-frontend'
+  import MetadataEditor from "./MetadataEditor.vue"
   import contentConfig from "./contentConfig.js";
 
   import { computed, watch, ref, onMounted, inject } from 'vue'
@@ -88,10 +97,25 @@
   const liveCanonicalUrlPath = computed(
     () =>  p.url.targetOwnedCanonical({ targetType: 'content_Page', target: pageId.value })
   )
-  const [pageData, canonicalUrlData] = await Promise.all([
+  const livePublicAccessPath = computed(
+    () =>  p.accessControl.objectOwnedPublicAccess({ objectType: 'content_Page', object: pageId.value })
+  )
+  const liveMetadataPath = computed(
+    () =>  p.content.objectOwnedMetadata({ objectType: 'content_Page', object: pageId.value })
+  )
+
+  const [pageData, canonicalUrlData, publicAccessData, metadata] = await Promise.all([
     live(livePagePath),
-    live(liveCanonicalUrlPath)
+    live(liveCanonicalUrlPath),
+    live(livePublicAccessPath),
+    live(liveMetadataPath)
   ])
+
+  const publicAccessLevel = computed(() => {
+    if(publicAccessData?.sessionRoles?.includes('reader')) return 'session'
+    if(publicAccessData?.userRoles?.includes('reader')) return 'user'
+    return 'none'
+  })
 
   function publish() {
     const snapshotVersion = version.value
@@ -115,7 +139,6 @@
         toast.add({ severity:'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
       }
     })
-
 
   }
 

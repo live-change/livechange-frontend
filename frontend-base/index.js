@@ -9,3 +9,6 @@ export { ViewRoot, Page, NavBar }
 
 import { useHost } from "./host.js"
 export { useHost }
+
+import { useResponse } from "./response.js"
+export { useResponse }

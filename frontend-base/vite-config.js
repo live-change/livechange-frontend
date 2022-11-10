@@ -38,7 +38,8 @@ module.exports = async ({ command, mode }) => ({
             'ripple': ssrTransformCustomDir,
             'styleclass': ssrTransformCustomDir,
             'badge': ssrTransformCustomDir,
-            'shared-element': ssrTransformCustomDir
+            'shared-element': ssrTransformCustomDir,
+            'lazy': ssrTransformCustomDir
           }
         }
       },

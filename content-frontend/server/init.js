@@ -3,67 +3,70 @@ const App = require('@live-change/framework')
 const app = App.app()
 
 module.exports = async function(services) {
-  const user1 = await createUser(services,
-    'Test User 1', 'test1@test.com', 'Testy123', 'u1', ['writer'])
+  async function createPage(pageId) {
+    const documentId = App.encodeIdentifier(['content_Page', pageId])
+    const snapshotId = App.encodeIdentifier([documentId, (0).toFixed().padStart(10, '0')])
 
-  const pageId = 'one'
-  const documentId = App.encodeIdentifier(['content_Page', 'one'])
-  const snapshotId = App.encodeIdentifier([documentId, (0).toFixed().padStart(10, '0')])
+    const documentContent = {
+      "type": "doc",
+      "content": [].concat(new Array(2).fill(
+        {
+          "type": "paragraph",
+          "content": [
+            {
+              "type": "text",
+              "text": "test"
+            },
+            {
+              "type": "text",
+              "marks": [
+                {
+                  "type": "bold"
+                }
+              ],
+              "text": "est"
+            }
+          ]
+        }
+      ))
+    }
+    const documentTime = new Date()
 
-  const documentContent = {
-    "type": "doc",
-    "content": [].concat(new Array(2).fill(
-      {
-        "type": "paragraph",
-        "content": [
-          {
-            "type": "text",
-            "text": "test"
-          },
-          {
-            "type": "text",
-            "marks": [
-              {
-                "type": "bold"
-              }
-            ],
-            "text": "est"
-          }
-        ]
-      }
-    ))
+    await services.content.models.Page.create({
+      id: pageId
+    })
+
+    await services.prosemirror.models.Document.create({
+      id: documentId,
+      ownerType: 'content_Page',
+      owner: pageId,
+      type: 'content',
+      purpose: 'page',
+      version: 1,
+      content: documentContent,
+      created: documentTime,
+      lastModified: documentTime
+    })
+    await services.prosemirror.models.Snapshot.create({
+      id: snapshotId,
+      document: documentId,
+      version: 1,
+      content: documentContent,
+      timestamp: documentTime,
+    })
+
+    await services.content.models.Content.create({
+      id: documentId,
+      objectType: 'content_Page',
+      object: pageId,
+      snapshot: snapshotId
+    })
   }
-  const documentTime = new Date()
 
-  await services.content.models.Page.create({
-    id: pageId
-  })
+  const user1 = await createUser(services,
+    'Test User 1', 'test1@test.com', 'Testy123', 'u1', ['writer', 'administrator'])
 
-  await services.prosemirror.models.Document.create({
-    id: documentId,
-    ownerType: 'content_Page',
-    owner: 'one',
-    type: 'content',
-    purpose: 'page',
-    version: 1,
-    content: documentContent,
-    created: documentTime,
-    lastModified: documentTime
-  })
-  await services.prosemirror.models.Snapshot.create({
-    id: snapshotId,
-    document: documentId,
-    version: 1,
-    content: documentContent,
-    timestamp: documentTime,
-  })
-
-  await services.content.models.Content.create({
-    id: App.encodeIdentifier(['content_Page', 'one']),
-    objectType: 'content_Page',
-    object: 'one',
-    snapshot: snapshotId
-  })
+  await createPage('one')
 
   await services.accessControl.models.PublicAccess.create({
     id: App.encodeIdentifier(['content_Page', 'one']),
@@ -93,4 +96,13 @@ module.exports = async function(services) {
     target: 'one'
   })
 
+  await createPage('two')
+
+  await services.url.models.Canonical.create({
+    id: App.encodeIdentifier(['content_Page', 'two']),
+    domain: '',
+    path: 'test2',
+    targetType: 'content_Page',
+    target: 'two'
+  })
 }
