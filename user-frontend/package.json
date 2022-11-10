@@ -1,6 +1,6 @@
 {
   "name": "@live-change/user-frontend",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --dbAccess",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -27,14 +27,14 @@
     "@live-change/email-service": "0.3.2",
     "@live-change/framework": "0.7.4",
     "@live-change/identicon-service": "0.3.2",
-    "@live-change/image-frontend": "^0.2.6",
+    "@live-change/image-frontend": "^0.2.7",
     "@live-change/message-authentication-service": "0.3.2",
     "@live-change/notification-service": "0.3.2",
     "@live-change/password-authentication-service": "0.3.2",
     "@live-change/pattern": "0.2.1",
     "@live-change/secret-code-service": "0.3.2",
     "@live-change/secret-link-service": "0.3.2",
-    "@live-change/security-frontend": "^0.2.6",
+    "@live-change/security-frontend": "^0.2.7",
     "@live-change/security-service": "0.3.2",
     "@live-change/session-service": "0.3.2",
     "@live-change/timer-service": "0.3.2",
@@ -77,5 +77,5 @@
   "author": "",
   "license": "BSD-3-Clause",
   "description": "",
-  "gitHead": "faf73f4f20fcd3d3f13289730f8ec7057b3433e8"
+  "gitHead": "323185f6d910912093b3c92df102d0f938cef367"
 }
