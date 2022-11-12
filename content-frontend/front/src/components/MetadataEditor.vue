@@ -1,13 +1,14 @@
 <template>
-  <auto-input v-model="editable.title" :definition="properties.title" />
-
+  <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ JSON.stringify(editable, null, '  ') }}</pre>
+  <auto-editor :definition="definition" v-model="editable" :rootValue="editable" />
+  <Button label="Save metadata" icon="pi pi-save" :disabled="!changed" @click="save" />
 </template>
 
 <script setup>
+  import Button from 'primevue/button'
+  import { AutoInput, AutoField, AutoEditor } from '@live-change/frontend-auto-form'
 
-  import AutoInput from '@live-change/frontend-auto-form/AutoInput.vue'
-
-  import { computed, watch, ref, onMounted, inject } from 'vue'
+  import { computed, watch, ref, onMounted, onUnmounted, inject } from 'vue'
   import { toRefs } from "@vueuse/core"
 
   const isMounted = ref(false)
@@ -35,6 +36,11 @@
 
   import { synchronized } from "@live-change/vue3-components"
 
+  import { useToast } from 'primevue/usetoast'
+  const toast = useToast()
+  import { useConfirm } from 'primevue/useconfirm'
+  const confirm = useConfirm()
+
   const metadata = await live(p.content.objectOwnedMetadata({ objectType, object }))
 
   const synchronizedMetadata = synchronized({
@@ -43,12 +49,20 @@
     identifiers: { object, objectType },
     recursive: true,
     autoSave: false,
-    onSave: () => toast.add({ severity: 'info', summary: 'Public access saved', life: 1500 })
-  }).value
+    onSave: () => toast.add({ severity: 'info', summary: 'Metadata saved', life: 1500 })
+  })
 
   const editable = synchronizedMetadata.value
   const save = synchronizedMetadata.save
   const changed = synchronizedMetadata.changed
+
+
+
+  function beforeUnload(ev) {
+    if(changed.value) return ev.returnValue = "You have some unsaved changes!"
+  }
+  onMounted(() => window.addEventListener('beforeunload', beforeUnload))
+  onUnmounted(() => window.removeEventListener('beforeunload', beforeUnload))
 
 </script>
 

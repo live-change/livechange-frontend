@@ -1,6 +1,8 @@
 import AutoInput from './AutoInput.vue'
+import AutoField from './AutoField.vue'
+import AutoEditor from './AutoEditor.vue'
 
-export { AutoInput }
+export { AutoInput, AutoField, AutoEditor }
 
-import inputConfig from './config.js'
+import * as inputConfig from './config.js'
 export { inputConfig }

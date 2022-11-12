@@ -21,7 +21,7 @@
     </AccordionTab>
   </Accordion>
 
-  <DocumentEditor v-if="pageData" targetType="content_Page" :target="pageId"
+  <DocumentEditor v-if="pageData" targetType="content_Page" :target="pageId" purpose="page"
                   :config="contentConfig" type="content" v-model:saveState="saveState" v-model:version="version">
     <template #menuEnd="{}">
 

@@ -75,7 +75,7 @@
     initialContent: props.initialContent
   })
 
-  const saveState = computed(() => authority.synchronizationState ?? 'loading')
+  const saveState = computed(() => authority.synchronizationState.value ?? 'loading')
   emit('update:saveState', saveState.value)
   watch(() => saveState.value, async (state) => {
     emit('update:saveState', state)
@@ -110,9 +110,8 @@
   const documentData = await authority.loadDocument()
   version.value = authority.remoteVersion
 
-  console.log("CONFIG", props.config, 'EXTENSIONS', extensions
-  )
-  console.log("DOCUMENT DATA", documentData)
+  //console.log("CONFIG", props.config, 'EXTENSIONS', extensions)
+  //console.log("DOCUMENT DATA", documentData)
   const editor = useEditor({
     content: documentData.content,
     extensions: [
