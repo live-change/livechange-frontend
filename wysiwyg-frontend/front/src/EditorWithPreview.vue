@@ -15,10 +15,10 @@
 </template>
 
 <script setup>
-  import ContentView from "./ContentView.js"
-  import Editor from "./Editor.vue"
+  import ContentView from "./components/ContentView.js"
+  import Editor from "./components/Editor.vue"
   import { ref } from 'vue'
-  import { basicMarks, messageNodes, richEditorNodes } from "./contentConfig.js"
+  import { basicMarks, messageNodes, richEditorNodes } from "./components/contentConfig.js"
 
   const contentConfig = {
     marks: {

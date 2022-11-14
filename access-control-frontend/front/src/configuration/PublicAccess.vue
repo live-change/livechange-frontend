@@ -8,13 +8,13 @@
                 :optionLabel="optionLabel"
                 :modelValue="synchronizedPublicAccess.sessionRoles?.[0] ?? 'none'"
                 @update:modelValue="newValue => synchronizedPublicAccess.sessionRoles = [newValue]"
-                :feedback="false" toggleMask />
+                :feedback="false" toggleMask :disabled="disabled" />
       <MultiSelect v-else
                    id="publicAccess" class="w-full" inputClass="w-full"
                    :options="availableSessionRoles"
                    :optionLabel="optionLabel"
                    v-model="synchronizedPublicAccess.sessionRoles"
-                   :feedback="false" toggleMask />
+                   :feedback="false" toggleMask :disabled="disabled" />
     </div>
     <div class="p-field field mb-4 col-12 md:col-6" v-if="isMounted && userRolesVisible">
       <label for="userPublicAccess" class="block text-900 font-medium mb-2">Public access for users:</label>
@@ -24,12 +24,12 @@
                 :optionLabel="optionLabel"
                 :modelValue="synchronizedPublicAccess.userRoles?.[0] ?? 'none'"
                 @update:modelValue="newValue => synchronizedPublicAccess.userRoles = [newValue]"
-                :feedback="false" toggleMask />
+                :feedback="false" toggleMask :disabled="disabled" />
       <MultiSelect v-else id="userPublicAccess" class="w-full" inputClass="w-full"
                    :options="availableUserRoles"
                    :optionLabel="optionLabel"
                    v-model="synchronizedPublicAccess.userRoles"
-                   :feedback="false" toggleMask />
+                   :feedback="false" toggleMask :disabled="disabled" />
     </div>
     <div class="p-field field mb-4 col-12" v-if="isMounted && requestedRolesVisible">
       <label for="availablePublicAccess" class="block text-900 font-medium mb-2">Roles available to request:</label>
@@ -37,7 +37,7 @@
                    :options="availableRequestedRoles"
                    :optionLabel="optionLabel"
                    v-model="synchronizedPublicAccess.availableRoles"
-                   :feedback="false" toggleMask />
+                   :feedback="false" toggleMask :disabled="disabled" />
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@
     object, objectType,
     availableRequestedRoles, availableSessionRoles, availableUserRoles,
     sessionRolesVisible, userRolesVisible, requestedRolesVisible,
-    multiRole
+    multiRole, disabled
   } = defineProps({
     object: {
       type: String,
@@ -97,6 +97,10 @@
       default: () => ['reader']
     },
     multiRole: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }

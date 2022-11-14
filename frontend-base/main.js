@@ -14,19 +14,18 @@ import { PrimeVueDialogSymbol } from 'primevue/usedialog'
 import StyleClass from 'primevue/styleclass'
 import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
-
-import emailValidator from "@live-change/email-service/clientEmailValidator.js"
-import passwordValidator from "@live-change/password-authentication-service/clientPasswordValidator.js"
+import VueLazyLoad from 'vue3-lazyload'
 
 // SSR requires a fresh app instance per request, therefore we export a function
 // that creates a fresh app instance. If using Vuex, we'd also be creating a
 // fresh store here.
-export function createApp(api, App, createRouter) {
-  api.validators.email = emailValidator
-  api.validators.password = passwordValidator
-
+export function createApp(api, App, createRouter, host, response) {
+  const isSSR = response !== undefined
   const app = createSSRApp(App)
   app.config.devtools = true
+
+  app.config.globalProperties.$response = response
+  app.config.globalProperties.$host = host
 
   api.installInstanceProperties(app.config.globalProperties)
 
@@ -66,8 +65,12 @@ export function createApp(api, App, createRouter) {
   app.directive('ripple', Ripple)
   app.directive('badge', BadgeDirective)
 
+  app.use(VueLazyLoad, {
+    // options...
+  })
+
   const meta = createMetaManager({
-    isSSR: import.meta.env.SSR
+    isSSR
   })
   app.use(meta)
 

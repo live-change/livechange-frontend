@@ -1,6 +1,6 @@
 {
   "name": "@live-change/url-frontend",
-  "version": "0.1.5",
+  "version": "0.2.7",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --dbAccess",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -21,18 +21,18 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.1.1",
-    "@live-change/cli": "0.6.12",
-    "@live-change/dao": "0.5.4",
-    "@live-change/dao-vue3": "0.5.4",
-    "@live-change/dao-websocket": "0.5.4",
-    "@live-change/framework": "0.6.12",
-    "@live-change/password-authentication-service": "0.2.49",
-    "@live-change/prosemirror-service": "0.2.49",
-    "@live-change/secret-code-service": "0.2.49",
-    "@live-change/secret-link-service": "0.2.49",
-    "@live-change/session-service": "0.2.49",
-    "@live-change/vue3-components": "0.2.14",
-    "@live-change/vue3-ssr": "0.2.14",
+    "@live-change/cli": "0.7.4",
+    "@live-change/dao": "0.5.8",
+    "@live-change/dao-vue3": "0.5.8",
+    "@live-change/dao-websocket": "0.5.8",
+    "@live-change/framework": "0.7.4",
+    "@live-change/password-authentication-service": "0.3.2",
+    "@live-change/prosemirror-service": "0.3.2",
+    "@live-change/secret-code-service": "0.3.2",
+    "@live-change/secret-link-service": "0.3.2",
+    "@live-change/session-service": "0.3.2",
+    "@live-change/vue3-components": "0.2.15",
+    "@live-change/vue3-ssr": "0.2.15",
     "@tiptap/extension-blockquote": "^2.0.0-beta.29",
     "@tiptap/extension-bold": "^2.0.0-beta.28",
     "@tiptap/extension-bullet-list": "^2.0.0-beta.29",
@@ -60,8 +60,8 @@
     "cross-env": "^7.0.3",
     "get-port-sync": "1.0.1",
     "primeflex": "^3.2.1",
-    "primeicons": "^5.0.0",
-    "primevue": "^3.15.0",
+    "primeicons": "^6.0.1",
+    "primevue": "^3.18.1",
     "prosemirror-collab": "^1.3.0",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-visualizer": "5.6.0",
@@ -73,7 +73,7 @@
     "vue3-scroll-border": "0.1.2"
   },
   "devDependencies": {
-    "@live-change/codeceptjs-helper": "0.6.12",
+    "@live-change/codeceptjs-helper": "0.7.4",
     "@wdio/selenium-standalone-service": "^7.20.8",
     "codeceptjs": "^3.3.4",
     "generate-password": "1.7.0",
@@ -84,5 +84,6 @@
   },
   "author": "",
   "license": "ISC",
-  "description": ""
+  "description": "",
+  "gitHead": "323185f6d910912093b3c92df102d0f938cef367"
 }

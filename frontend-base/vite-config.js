@@ -38,7 +38,8 @@ module.exports = async ({ command, mode }) => ({
             'ripple': ssrTransformCustomDir,
             'styleclass': ssrTransformCustomDir,
             'badge': ssrTransformCustomDir,
-            'shared-element': ssrTransformCustomDir
+            'shared-element': ssrTransformCustomDir,
+            'lazy': ssrTransformCustomDir
           }
         }
       },
@@ -72,7 +73,8 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
       'debug',
-      'vite'
+      'vite',
+      'pica'
     ],
     noExternal: [
       'vue-meta',
@@ -82,6 +84,17 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/email-service',
       '@live-change/password-authentication-service',
       '@live-change/db-admin',
+      '@live-change/user-frontend',
+      '@live-change/frontend-base',
+      '@live-change/frontend-utils',
+      '@live-change/access-control-frontend',
+      '@live-change/content-frontend',
+      '@live-change/image-frontend',
+      '@live-change/security-frontend',
+      '@live-change/upload-frontend',
+      '@live-change/url-frontend',
+      '@live-change/user-frontend',
+      '@live-change/wysiwyg-frontend',
       'vue3-scroll-border',
       'pretty-bytes'
     ]
@@ -94,7 +107,8 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
-      'debug'
+      'debug',
+      'pica'
     ]
   },
 

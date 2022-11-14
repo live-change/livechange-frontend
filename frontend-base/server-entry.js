@@ -15,13 +15,21 @@ function escapeHtml(unsafe) {
 }
 
 export function serverEntry(App, createRouter) {
-  return async function({ url, dao, windowId }) {
+  return async function({ url, host, dao, windowId }) {
+    console.error('URL', host, url)
     const api = await serverApi(dao, {
       use: [],
       windowId
     })
 
-    const { app, router } = createApp(api, App, createRouter)
+    const response = {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html'
+      }
+    }
+
+    const { app, router } = createApp(api, App, createRouter, host, response)
 
     app.directive('shared-element', {})
 
@@ -58,6 +66,6 @@ export function serverEntry(App, createRouter) {
       ).join(' ')}>`))
     ].join('\n')
 
-    return {html, data, meta: ctx.teleports, modules: ctx.modules}
+    return {html, data, meta: ctx.teleports, modules: ctx.modules, response}
   }
 }

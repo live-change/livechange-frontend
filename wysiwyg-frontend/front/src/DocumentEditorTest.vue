@@ -1,6 +1,6 @@
 <template>
   <div>
-    <DocumentEditor :document="document" :type="'rich'" :purpose="'test'"
+    <DocumentEditor targetType="Example" target="one" :type="'rich'" :purpose="'test'"
                     :initialContent="emptyContent"
                     :config="contentConfig" />
   </div>
@@ -8,9 +8,9 @@
 
 <script setup>
 
-  import DocumentEditor from "./DocumentEditor.vue"
+  import DocumentEditor from "./components/DocumentEditor.vue"
   import { ref } from 'vue'
-  import { basicMarks, messageNodes, richEditorNodes } from "./contentConfig.js"
+  import { basicMarks, messageNodes, richEditorNodes } from "./components/contentConfig.js"
 
   const contentConfig = {
     marks: {

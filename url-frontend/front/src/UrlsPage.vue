@@ -12,12 +12,12 @@
 </template>
 
 <script setup>
-  import Urls from "./Urls.vue"
+  import Urls from "./components/Urls.vue"
   import { useApi, serviceDefinition } from '@live-change/vue3-ssr'
   import { LimitedAccess } from '@live-change/access-control-frontend'
 
   const api = useApi()
-  const requiredRoles = serviceDefinition('url').views.targetOwnedCanonical.accessControl.roles
+  const requiredRoles = serviceDefinition('url').actions.takeUrl.accessControl.roles
 
   const { target, targetType } = defineProps({
     target: {

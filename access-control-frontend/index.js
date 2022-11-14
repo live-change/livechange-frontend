@@ -1,5 +1,7 @@
 import LimitedAccess from "./front/src/components/LimitedAccess.vue"
 export { LimitedAccess }
+import InsufficientAccess from "./front/src/components/InsufficientAccess.vue"
+export { InsufficientAccess }
 
 import AccessControl from "./front/src/configuration/AccessControl.vue"
 import AccessInvitations from "./front/src/configuration/AccessInvitations.vue"

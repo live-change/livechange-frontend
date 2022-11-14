@@ -1,23 +1,19 @@
 <template>
-  <slot v-if="!authorized" name="blocked" :authorized="authorized" :roles="accessRoles" :accesses="accesses">
-    <div class="flex align-items-start p-4 bg-pink-100 border-round border-1 border-pink-300 mb-4">
-      <i class="pi pi-times-circle text-pink-900 text-2xl mr-3" />
-      <div class="mr-3">
-        <div class="text-pink-900 font-medium text-xl mb-3 line-height-1">Not authorized</div>
-        <p class="m-0 p-0 text-pink-700">
-          You do not have sufficient privileges to use this feature of this object.
-        </p>
-      </div>
-    </div>
+  <slot v-if="!hidden && !authorized" name="blocked" :authorized="authorized" :roles="accessRoles" :accesses="accesses">
+    <InsufficientAccess />
   </slot>
-  <BlockUI :blocked="!authorized">
+  <BlockUI v-if="!hidden" :blocked="!authorized">
     <slot :authorized="authorized" :roles="accessRoles" :accesses="accesses"></slot>
   </BlockUI>
+  <slot v-if="authorized && hidden" :roles="accessRoles" :accesses="accesses"></slot>
+  <slot v-if="!authorized && hidden" name="alternative" :roles="accessRoles" :accesses="accesses"></slot>
 </template>
 
 <script setup>
 
   import BlockUI from 'primevue/blockui'
+
+  import InsufficientAccess from "./InsufficientAccess.vue"
 
   const props = defineProps({
     objectType: {
@@ -36,22 +32,30 @@
       type: Array,
       default: () => []
     },
-    styleClass: {
-      default: ""
-    }
+    hidden: {
+      type: Boolean,
+      default: false
+    },
   })
 
-  const { objectType, object, objects, requiredRoles } = props
-
-  const allObjects = ((objectType && object) ? [{ objectType, object }] : []).concat(objects || [])
-
-  import { provide, computed } from 'vue'
+  import { toRefs } from '@vueuse/core'
+  import { computed } from 'vue'
   import { live, path } from '@live-change/vue3-ssr'
 
+  const { objectType, object, objects, requiredRoles } = toRefs(props)
+
+  const allObjects = computed(() =>
+    ((objectType.value && object.value) ? [{ objectType: objectType.value, object: object.value }] : [])
+      .concat(objects.value || [])
+  )
+
+  const p = path()
+  const accessesLivePath = computed( () =>
+    p.accessControl.myAccessesTo({ objects: allObjects.value })
+  )
+
   const [ accesses ] = await Promise.all([
-    live(
-      path().accessControl.myAccessesTo({ objects: allObjects })
-    )
+    live(accessesLivePath)
   ])
 
   const accessRoles = computed(() => {
@@ -66,7 +70,8 @@
 
   const authorized = computed(() => {
     const clientRoles = accessRoles.value
-    for(const requiredRolesOption of requiredRoles) {
+    if(requiredRoles.value.length == 0) return true
+    for(const requiredRolesOption of requiredRoles.value) {
       if((Array.isArray(requiredRolesOption) ? requiredRolesOption : [requiredRolesOption])
         .every(role => clientRoles.includes(role))
       ) return true
