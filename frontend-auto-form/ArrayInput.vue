@@ -51,6 +51,8 @@
 
   const { value, definition, modelValue } = toRefs(props)
 
+  import { defaultData } from "@live-change/vue3-components"
+
   import { useToast } from 'primevue/usetoast'
   const toast = useToast()
   import { useConfirm } from 'primevue/useconfirm'
@@ -58,7 +60,8 @@
 
   function insertItem(index) {
     const data = modelValue.value || []
-    data.splice(index ?? data.length, 0, null) /// TODO: default value
+    const item = defaultData(definition.value.of)
+    data.splice(index ?? data.length, 0, item) /// TODO: default value
     emit('update:modelValue', data)
     toast.add({ severity: 'info', summary: 'Item added', life: 1500 })
   }
@@ -68,13 +71,19 @@
     emit('update:modelValue', data)
   }
   function removeItem(index) {
-    confirm.confirm({
+    confirm.require({
+      target: event.currentTarget,
       message: `Are you sure you want to remove this item?`,
-      accept: () => {
+      icon: 'pi pi-info-circle',
+      acceptClass: 'p-button-danger',
+      accept: async () => {
         const data = modelValue.value || []
         data.splice(index, 1)
         emit('update:modelValue', data)
         toast.add({ severity: 'info', summary: 'Item removed', life: 1500 })
+      },
+      reject: () => {
+        toast.add({ severity:'error', summary: 'Rejected', detail: 'You have rejected', life: 3000 })
       }
     })
   }

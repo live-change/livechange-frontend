@@ -10,7 +10,7 @@
                   @update:modelValue="value => emit('update:modelValue', value)"
                   :id="uid" />
     </slot>
-    <small :class="{ 'p-error': !!error }">{{ error }}</small>
+    <small v-if="validationResult" class="p-error">{{ validationResult }}</small>
   </div>
 </template>
 
@@ -85,6 +85,14 @@
     return true
   })
 
+  import { validateData } from "@live-change/vue3-components"
+
+  const validationResult = computed(() => {
+    const validationResult = validateData(definition.value, modelValue.value, 'validation')
+    const softValidationResult = validateData(definition.value, modelValue.value, 'softValidation')
+    return validationResult || softValidationResult || error.value
+  })
+
   const inputConfig = computed(() => {
     if(definition.value.input) return inputs[definition.value.input]
     if(definition.value.type) return types[definition.value.type]
@@ -113,7 +121,7 @@
     definition: props.definition,
     class: fieldClass.value,
     style: fieldStyle.value,
-    inputClass: props.inputClass,
+    inputClass: [props.inputClass, { 'p-invalid': !!validationResult.value }],
     inputStyle: props.inputStyle,
     rootValue: props.rootValue,
     propName: props.propName,

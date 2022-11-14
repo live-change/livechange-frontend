@@ -21,6 +21,12 @@ export function wysiwygRoutes(config = {}) {
       props: {
       }
     }),
+    route({
+      name: 'input:test', path: prefix + 'input', meta: { },
+      component: () => import("./InputTest.vue"),
+      props: {
+      }
+    }),
 
     ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
   ]

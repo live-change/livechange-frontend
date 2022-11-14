@@ -36,7 +36,7 @@
 
   const emit = defineEmits(['update:modelValue'])
 
-  const { value, definition, modelValue } = toRefs(props)
+  const { definition, modelValue } = toRefs(props)
 
   const inputConfig = computed(() => {
     if(definition.value.input) return inputs[definition.value.input]
@@ -86,7 +86,6 @@
   const inputStyle = computed(() => [inputConfig.value?.inputStyle, definition.value?.inputStyle, props.style])
 
   function updateValue(value) {
-    if(props.name) form.setFieldValue(props.name, value)
     emit('update:modelValue', value)
   }
 

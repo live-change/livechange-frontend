@@ -1,12 +1,15 @@
 <template>
   <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ JSON.stringify(editable, null, '  ') }}</pre>
-  <auto-editor :definition="definition" v-model="editable" :rootValue="editable" />
-  <Button label="Save metadata" icon="pi pi-save" :disabled="!changed" @click="save" />
+  <auto-editor :definition="editableDefinition" v-model="editable" :rootValue="editable" />
+  <Button label="Save metadata" icon="pi pi-save" :disabled="!changed || error" @click="save" />
+  <small v-if="error" class="p-error">Fix errors above to save</small>
 </template>
 
 <script setup>
   import Button from 'primevue/button'
   import { AutoInput, AutoField, AutoEditor } from '@live-change/frontend-auto-form'
+
+  import "@live-change/image-frontend"
 
   import { computed, watch, ref, onMounted, onUnmounted, inject } from 'vue'
   import { toRefs } from "@vueuse/core"
@@ -32,16 +35,25 @@
   const p = path()
 
   const definition = api.getServiceDefinition('content').models.Metadata
-  const properties = definition.properties
-
-  import { synchronized } from "@live-change/vue3-components"
+  const editableDefinition = {
+    ...definition,
+    properties: { ...{
+      ...definition.properties,
+      objectType: undefined,
+      object: undefined,
+      lastUpdate: undefined
+    } }
+  }
 
   import { useToast } from 'primevue/usetoast'
   const toast = useToast()
   import { useConfirm } from 'primevue/useconfirm'
   const confirm = useConfirm()
 
-  const metadata = await live(p.content.objectOwnedMetadata({ objectType, object }))
+  import { synchronized, defaultData, validateData } from "@live-change/vue3-components"
+
+  const serverMetadata = await live(p.content.objectOwnedMetadata({ objectType, object }))
+  const metadata = computed(() => serverMetadata.value || defaultData(editableDefinition))
 
   const synchronizedMetadata = synchronized({
     source: metadata,
@@ -56,6 +68,7 @@
   const save = synchronizedMetadata.save
   const changed = synchronizedMetadata.changed
 
+  const error = computed(() => validateData(editableDefinition, editable.value))
 
 
   function beforeUnload(ev) {

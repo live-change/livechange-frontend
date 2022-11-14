@@ -35,7 +35,8 @@
 
   const emit = defineEmits(['update:modelValue'])
 
-  const propertiesList = computed(() => Object.keys(props.definition.properties))
+  const propertiesList = computed(() => Object.keys(props.definition.properties)
+    .filter(key => props.definition.properties[key]))
 
   function updateModelProperty(property, value) {
     const data = modelValue.value || {}
