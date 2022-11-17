@@ -31,12 +31,16 @@
     propName: {
       type: String,
       default: ''
+    },
+    i18n: {
+      type: String,
+      default: ''
     }
   })
 
   const emit = defineEmits(['update:modelValue'])
 
-  const { definition, modelValue } = toRefs(props)
+  const { definition, modelValue, propName } = toRefs(props)
 
   const inputConfig = computed(() => {
     if(definition.value.input) return inputs[definition.value.input]
@@ -56,6 +60,7 @@
   const visible = computed(() => {
     if(!definition.value) return false
     if(definitionIf.value) {
+      console.log("DIF", propName.value, definitionIf.value, 'IN', props.rootValue)
       return definitionIf.value({
         source: definition.value,
         props: props.rootValue,
@@ -65,10 +70,24 @@
     return true
   })
 
+  import { useI18n } from 'vue-i18n'
+  const { t, d, n } = useI18n()
+
   const configAttributes = computed(() => {
     const attributes = inputConfig.value?.attributes
     if(!attributes) return attributes
-    if(typeof attributes == 'function') return attributes(definition.value)
+    if(typeof attributes == 'function') {
+      const fieldName = props.propName.split('.').pop()
+      console.log("PROPS", JSON.stringify(props))
+      console.log("PROPNAME", propName.value)
+      return attributes({
+        definition: definition.value,
+        i18n: props.i18n + fieldName,
+        propName: props.propName,
+        fieldName,
+        t, d, n
+      })
+    }
     return attributes
   })
 
@@ -79,7 +98,8 @@
     modelValue: modelValue.value,
     definition: definition.value,
     rootValue: props.rootValue,
-    propName: props.propName
+    propName: props.propName,
+    i18n: props.i18n
   }))
 
   const inputClass = computed(() => [inputConfig.value?.inputClass, definition.value?.inputClass, props.class])

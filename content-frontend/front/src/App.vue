@@ -13,11 +13,14 @@
   import ViewRoot from "@live-change/frontend-base/ViewRoot.vue"
   import NavBar from "./NavBar.vue"
 
+  import { useI18n } from 'vue-i18n'
+  const i18n = useI18n()
+
   import { useMeta } from 'vue-meta'
   const { meta } = useMeta({
     title: 'Title',
     htmlAttrs: {
-      lang: 'en',
+      lang: i18n.locale.value,
       amp: true
     }
   })

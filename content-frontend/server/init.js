@@ -96,6 +96,40 @@ module.exports = async function(services) {
     target: 'one'
   })
 
+  await services.content.models.Metadata.create({
+    id: App.encodeIdentifier(['content_Page', 'one']),
+    objectType: 'content_Page',
+    object: 'one',
+    title: 'Test Page',
+    description: 'Test Description',
+    "og": {
+      "locale": "en_US",
+      "localeAlternate": [],
+      "type": "website",
+      "music": {
+        "song": [],
+        "album": [],
+        "musician": [],
+        "creator": []
+      },
+      "video": {
+        "actor": [],
+        "director": [],
+        "writer": [],
+        "tag": []
+      },
+      "article": {
+        "author": [],
+        "tag": []
+      },
+      "profile": {},
+      "book": {
+        "author": [],
+        "tag": []
+      }
+    }
+  })
+
   await createPage('two')
 
   await services.url.models.Canonical.create({

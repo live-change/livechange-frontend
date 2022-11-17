@@ -11,7 +11,8 @@
       </div>
       <auto-input :modelValue="value" :definition="definition.of"
                    @update:modelValue="value => updateItem(index, value)"
-                  :rootValue="props.rootValue" :propName="props.propName + '.' + index" />
+                  :rootValue="props.rootValue" :propName="props.propName + '.' + index"
+                  :i18n="i18n" />
     </div>
     <div>
       <Button label="Add item" icon="pi pi-plus" @click="insertItem" />
@@ -45,6 +46,10 @@
       type: String,
       default: ''
     },
+    i18n: {
+      type: String,
+      default: ''
+    }
   })
 
   const emit = defineEmits(['update:modelValue'])

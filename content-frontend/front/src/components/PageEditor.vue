@@ -14,7 +14,8 @@
     </AccordionTab>
     <AccordionTab>
       <template #header>
-        <span v-if="metadata" class="font-bold mr-1">Title: {{ metadata.title }}</span>
+        <span v-if="metadata" class="font-bold mr-1">Metadata:</span>
+        <span v-if="metadata" class="mr-1 font-normal">{{ metadata.title }}</span>
         <span v-else class="font-bold text-red-600">Metadata not set</span>
       </template>
       <MetadataEditor objectType="content_Page" :object="pageId" :key="pageId"></MetadataEditor>

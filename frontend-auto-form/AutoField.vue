@@ -1,16 +1,19 @@
 <template>
   <component v-if="fieldComponent && visible" :is="fieldComponent" v-bind="attributes"
-             @update:modelValue="value => emit('update:modelValue', value)" />
+             @update:modelValue="value => emit('update:modelValue', value)" :i18n="i18n" />
   <div v-else-if="visible" class="field" :class="fieldClass" :style="fieldStyle">
-    <label :for="uid">{{ label }}</label>
+    <label :for="uid">{{ t( label ) }}</label>
     <slot>
       <auto-input :modelValue="modelValue" :definition="definition"
                   :class="props.inputClass" :style="props.inputStyle"
                   :attributes="props.inputAttributes"
+                  :propName="props.propName"
+                  :rootValue="props.rootValue"
                   @update:modelValue="value => emit('update:modelValue', value)"
-                  :id="uid" />
+                  :id="uid"
+                  :i18n="i18n" />
     </slot>
-    <small v-if="validationResult" class="p-error">{{ validationResult }}</small>
+    <small v-if="validationResult" class="p-error">{{ t( 'errors.' + validationResult ) }}</small>
   </div>
 </template>
 
@@ -21,6 +24,9 @@
   import { inputs, types } from './config.js'
   import { computed, getCurrentInstance } from 'vue'
   import { toRefs } from '@vueuse/core'
+
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
   const props = defineProps({
     modelValue: {},
@@ -53,6 +59,10 @@
       default: () => ({})
     },
     propName: {
+      type: String,
+      default: ''
+    },
+    i18n: {
       type: String,
       default: ''
     }
@@ -99,7 +109,7 @@
     return inputs.default
   })
 
-  const label = computed(() => props.label || definition.value.label || props.name)
+  const label = computed(() => props.i18n + (props.label || definition.value.label || props.name))
 
   const fieldClass = computed(() => [inputConfig.value?.fieldClass, definition.value?.fieldClass, props.class, {
     'p-invalid': !!error.value

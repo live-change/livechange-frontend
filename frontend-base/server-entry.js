@@ -6,7 +6,7 @@ import { serverApi } from '@live-change/vue3-ssr/serverApi.js'
 import { createApp } from "./main.js"
 
 function escapeHtml(unsafe) {
-  return unsafe
+  return (''+unsafe)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -14,8 +14,9 @@ function escapeHtml(unsafe) {
       .replace(/'/g, "&#039;");
 }
 
-export function serverEntry(App, createRouter) {
-  return async function({ url, host, dao, windowId }) {
+export function serverEntry(App, createRouter, config) {
+  return async function({ url, headers, dao, windowId }) {
+    const host = headers['host']
     console.error('URL', host, url)
     const api = await serverApi(dao, {
       use: [],
@@ -29,7 +30,9 @@ export function serverEntry(App, createRouter) {
       }
     }
 
-    const { app, router } = createApp(api, App, createRouter, host, response)
+    const { app, router } = await createApp(
+      config, api, App, createRouter, host, headers, response, url
+    )
 
     app.directive('shared-element', {})
 
@@ -56,6 +59,7 @@ export function serverEntry(App, createRouter) {
 
     const metaManager = app.config.globalProperties.$metaManager
     const activeMeta = metaManager.target.context.active
+    console.log("ACTIVE META", activeMeta)
     ctx.teleports.head = [
       ...(activeMeta.title ? [`<title data-vm-ssr="true">${escapeHtml(activeMeta.title)}</title>`] : []),
       ...((activeMeta.meta || []).map(meta => `<meta ${Object.keys(meta).map(
