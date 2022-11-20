@@ -14,7 +14,7 @@ function escapeHtml(unsafe) {
       .replace(/'/g, "&#039;");
 }
 
-export function serverEntry(App, createRouter, config) {
+export function serverEntry(App, createRouter, config = {}) {
   return async function({ url, headers, dao, windowId }) {
     const host = headers['host']
     console.error('URL', host, url)

@@ -1,5 +1,5 @@
 <template>
-  <pre>{{ JSON.stringify(metadata, null, "  ") }}</pre>
+<!--  <pre>{{ JSON.stringify(metadata, null, "  ") }}</pre>-->
 </template>
 
 <script setup>

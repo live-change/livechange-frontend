@@ -7,7 +7,7 @@ import {
 
 import { createApp } from "./main.js"
 
-export async function clientEntry(App, createRouter, config) {
+export async function clientEntry(App, createRouter, config = {}) {
 
   const windowId = window.__WINDOW_ID__
   console.error("CLIENT WINDOW ID", windowId)
