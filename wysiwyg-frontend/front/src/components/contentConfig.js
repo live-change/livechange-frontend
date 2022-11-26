@@ -48,3 +48,13 @@ export const richEditorNodes = {
 
   ...messageNodes
 }
+
+import components from './components.js'
+
+export const pageNodes = {
+  ...richEditorNodes,
+
+  component: (params, r) => {
+    return components[params.attrs.is].render(params, r)
+  }
+}

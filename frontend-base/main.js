@@ -75,6 +75,11 @@ export async function createApp(config, api, App, createRouter, host, headers, r
   })
   app.use(meta)
 
+  app.directive("focus", {
+    mounted: (el) => el.focus(),
+    updated: (el, binding) => value && app.nextTick(() => el.focus())
+  })
+
   const defaultLocale = config.defaultLocale || 'en'
   const i18n = createI18n({
     legacy: false,

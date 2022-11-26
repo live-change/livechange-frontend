@@ -9,9 +9,9 @@ function renderNode(node, r, marks, nodes) {
 }
 
 function ContentView(props, context) {
-  const { content, config } = props
+  let { content, config } = props
   if(content) {
-    const doc = JSON.parse(content)
+    const doc = typeof content == 'string' ? JSON.parse(content) : content
     const r = nodes => nodes?.map(n => renderNode(n, r, config.marks, config.nodes))
     return renderNode(doc, r, config.marks, config.nodes)
   }

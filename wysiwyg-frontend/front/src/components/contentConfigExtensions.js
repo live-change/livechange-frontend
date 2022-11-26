@@ -19,6 +19,7 @@ import Strike from "@tiptap/extension-strike"
 
 import ImageNode from "./ImageNode.js"
 
+import ComponentNode from "./ComponentNode.js"
 
 export const marksExtensions = {
   bold: [Bold],
@@ -43,7 +44,9 @@ export const nodesExtensions = {
   orderedList: [OrderedList],
   listItem: [ListItem],
 
-  image: [ImageNode]
+  image: [ImageNode],
+
+  component: [ComponentNode]
 }
 
 export function getExtensions(contentConfig) {

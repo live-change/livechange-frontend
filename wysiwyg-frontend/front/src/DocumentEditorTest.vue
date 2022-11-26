@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <DocumentEditor targetType="Example" target="one" :type="'rich'" :purpose="'test'"
+  <div class="wysiwyg">
+    <DocumentEditor targetType="Example" :target="target" :type="'page'" :purpose="'test'"
                     :initialContent="emptyContent"
                     :config="contentConfig" />
   </div>
@@ -10,7 +10,17 @@
 
   import DocumentEditor from "./components/DocumentEditor.vue"
   import { ref } from 'vue'
-  import { basicMarks, messageNodes, richEditorNodes } from "./components/contentConfig.js"
+  import { basicMarks, messageNodes, richEditorNodes, pageNodes } from "./components/contentConfig.js"
+  import { toRefs } from '@vueuse/core'
+
+  const props = defineProps({
+    target: {
+      type: String,
+      default: 'one'
+    }
+  })
+
+  const { target } = toRefs(props)
 
   const contentConfig = {
     marks: {
@@ -18,11 +28,10 @@
     },
     nodes: {
       //...messageNodes,
-      ...richEditorNodes
+      //...richEditorNodes
+      ...pageNodes
     }
   }
-
-  const document = 'testDocument'
 
   const emptyContent = {
     "type": "doc",
@@ -50,6 +59,12 @@
 
 </script>
 
-<style scoped>
+<style lang="scss">
+  .wysiwyg {
 
+    .ProseMirror:focus {
+      outline: none;
+    }
+
+  }
 </style>

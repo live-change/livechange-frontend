@@ -117,6 +117,7 @@ class RemoteAuthority{
     debug("LOAD DOCUMENT!")
     const identifier = { targetType: this.targetType, target: this.target }
     let documentData = await this.api.get(['prosemirror', 'document', identifier])
+    console.log("DOCUMENT DATA", documentData)
     if(!documentData) {
       documentData = {
         ...identifier,

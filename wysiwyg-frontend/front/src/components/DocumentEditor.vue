@@ -15,6 +15,7 @@
 <script setup>
 
   import { useEditor, EditorContent } from '@tiptap/vue-3'
+  import { History } from '@tiptap/extension-history'
   import {
     ref, computed, watch, provide, defineEmits, defineProps, getCurrentInstance, onUnmounted, inject, onMounted
   } from 'vue'
@@ -119,6 +120,10 @@
       ProseMirrorCollab.configure({
         version: documentData.version,
         clientID
+      }),
+      History.configure({
+        depth: 100,
+        newGroupDelay: 500
       })
     ],
     onTransaction: ({ editor, transaction }) => {
@@ -133,6 +138,8 @@
   const schemaSpec = editor.view
     ? serializeSchema(editor.view.state.schema.spec)
     : getSchemaSpecFromConfig(props.config)
+
+  if(typeof window != 'undefined') window.schemaSpecJson = JSON.stringify(schemaSpec, null, "  ")
 
   async function save() {
     const state = editor.value.reactiveState.value
@@ -155,6 +162,7 @@
       transaction.apply(editor.value.view.state)
     }
   }
+
 </script>
 
 <style scoped>

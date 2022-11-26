@@ -76,6 +76,10 @@
         </FileInput>
   <!--    </div>-->
 
+      <Button v-if="config.nodes.component" label="Insert Component"
+              class="p-button-sm p-button-primary inline-block mr-1 mb-1"
+              @click="openComponentMenu" />
+
       <span v-if="saveState"
             class="p-button p-component p-button-sm p-button-outlined p-button-secondary cursor-auto
              inline-block mr-1 mb-1"
@@ -95,14 +99,23 @@
 
     </div>
     <slot name="after" />
+    <OverlayPanel ref="insertComponentOverlay" style="width: 450px" :breakpoints="{'960px': '75vw'}">
+      <ComponentsMenu :config="config" @selected="c => handleComponentSelected(c)" />
+    </OverlayPanel>
+<!--    <div class="surface-card p-1 shadow-2" style="width: 450px">
+      <h3>components:</h3>
+      <ComponentsMenu :config="config" />
+    </div>-->
   </div>
 </template>
 
 <script setup>
   import Button from "primevue/button"
   import ProgressSpinner from "primevue/progressspinner"
+  import OverlayPanel from 'primevue/overlaypanel'
 
-  import { inject, getCurrentInstance } from "vue"
+  import ComponentsMenu from "./ComponentsMenu.vue"
+  import { inject, getCurrentInstance, ref } from "vue"
   import { toRefs } from "@vueuse/core"
   import { uploadImage } from "@live-change/image-frontend"
   import { FileInput } from "@live-change/upload-frontend"
@@ -122,6 +135,10 @@
     saveState: {
       type: String,
       default: null
+    },
+    availableComponents: {
+      type: Array,
+      default: () => []
     }
   })
 
@@ -138,7 +155,27 @@
     await upload.upload()
   }
 
-  window.editor = editor.value
+  const insertComponentOverlay = ref()
+  function openComponentMenu(event) {
+    insertComponentOverlay.value.show(event)
+  }
+  function handleComponentSelected(component) {
+    insertComponentOverlay.value.hide()
+    editor.value.chain().focus().insertContent({
+      type: 'component',
+      attrs: {
+        is: component,
+      },
+      content: [
+        { type: 'paragraph', content: [
+            { type: 'text', text: 'test' }
+        ] }
+      ]
+    }).run()
+    //editor.value.chain().focus().setNode('component', { is: component }).run()
+  }
+
+  if(typeof window != 'undefined') window.editor = editor.value
 </script>
 
 <style scoped>

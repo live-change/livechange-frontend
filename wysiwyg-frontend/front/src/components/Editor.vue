@@ -15,6 +15,7 @@
 <script setup>
 
   import { useEditor, EditorContent } from '@tiptap/vue-3'
+  import { History } from '@tiptap/extension-history'
 
   import { ref, computed, watch, provide, defineEmits, defineProps } from 'vue'
   import { toRefs } from '@vueuse/core'
@@ -39,7 +40,13 @@
 
   const editor = useEditor({
     content: JSON.parse(props.modelValue),
-    extensions,
+    extensions: [
+      ...extensions,
+      History.configure({
+        depth: 100,
+        newGroupDelay: 500
+      })
+    ],
     onUpdate: ({ editor, transaction }) => {
       console.log("EDITOR UPDATE", editor, transaction)
       const editorJson = JSON.stringify(editor.getJSON())

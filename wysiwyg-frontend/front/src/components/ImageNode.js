@@ -2,7 +2,6 @@ import { Node } from '@tiptap/core'
 import { VueNodeViewRenderer } from '@tiptap/vue-3'
 import ImageComponent from "./ImageComponent.vue"
 
-
 export default Node.create({
   name: 'image',
   group: 'block',
