@@ -76,8 +76,8 @@
         </FileInput>
   <!--    </div>-->
 
-      <Button v-if="config.nodes.component" label="Insert Component"
-              class="p-button-sm p-button-primary inline-block mr-1 mb-1"
+      <Button v-if="config.nodes.component" label="Component"
+              class="p-button-sm p-button-primary p-button-outlined inline-block mr-1 mb-1"
               @click="openComponentMenu" />
 
       <span v-if="saveState"
@@ -100,7 +100,7 @@
     </div>
     <slot name="after" />
     <OverlayPanel ref="insertComponentOverlay" style="width: 450px" :breakpoints="{'960px': '75vw'}">
-      <ComponentsMenu :config="config" @selected="c => handleComponentSelected(c)" />
+      <ComponentsMenu :config="config" @selected="(n,c) => handleComponentSelected(n,c)" />
     </OverlayPanel>
 <!--    <div class="surface-card p-1 shadow-2" style="width: 450px">
       <h3>components:</h3>
@@ -159,12 +159,13 @@
   function openComponentMenu(event) {
     insertComponentOverlay.value.show(event)
   }
-  function handleComponentSelected(component) {
+  function handleComponentSelected(name, component) {
     insertComponentOverlay.value.hide()
     editor.value.chain().focus().insertContent({
       type: 'component',
       attrs: {
-        is: component,
+        is: name,
+        attrs: component.initialAttrs
       },
       content: [
         { type: 'paragraph', content: [

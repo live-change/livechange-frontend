@@ -10,7 +10,7 @@
   <!--    <div v-for="i in [1,2,3,4,5,6,7,8,9,10]">-->
         <div v-for="([ name, component ], index) in searchResults" :key="name"
              class="flex flex-wrap relative cursor-pointer hover:surface-100"
-             @click="() => emit('selected', name)" >
+             @click="() => emit('selected', name, component)" >
           <div class="w-3 ml-2 mr-2 my-1" style="aspect-ratio: 1/1">
             <div class="pointer-events-none w-6 absolute p-1"
                  style="aspect-ratio: 1/1; transform: scale(0.5); transform-origin: 0 0;">
@@ -66,6 +66,7 @@
       "attrs": {
         "is": name,
         "attrs": {
+          ...component.initialAttrs,
           ...component.previewAttrs
         }
       },

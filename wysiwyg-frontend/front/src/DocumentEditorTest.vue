@@ -35,7 +35,7 @@
 
   const emptyContent = {
     "type": "doc",
-    "content": [].concat(new Array(2).fill(
+    "content": [
       {
         "type": "paragraph",
         "content": [
@@ -53,8 +53,66 @@
             "text": "est"
           }
         ]
+      },
+      {
+        "type": "component",
+        "attrs": {
+          "is": "card",
+          "attrs": {
+            "class": "surface-card px-3 shadow-2 w-full f p-2"
+          }
+        },
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "test"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "content": [
+          {
+            "type": "text",
+            "text": "test"
+          },
+          {
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ],
+            "text": "est"
+          }
+        ]
+      },
+      {
+        "type": "component",
+        "attrs": {
+          "is": "card",
+          "attrs": {
+            "class": "surface-card py-1 px-3 shadow-2 w-full"
+          }
+        },
+        "content": [
+          {
+            "type": "paragraph",
+            "content": [
+              {
+                "type": "text",
+                "text": "test"
+              }
+            ]
+          }
+        ]
       }
-    ))
+    ]
   }
 
 </script>

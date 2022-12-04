@@ -3,21 +3,42 @@
     <slot v-if="editor" name="menu" :editor="editor" :saveState="saveState">
       <EditorMenu :editor="editor" :config="config" :saveState="saveState">
         <template #before="scope"><slot name="beforeMenu" v-bind="{ ...scope, editor, saveState }" /></template>
-        <template #after="scope"><slot name="afterMenu" v-bind="{ ...scope, editor, saveState }" /></template>
         <template #begin="scope"><slot name="menuBegin" v-bind="{ ...scope, editor, saveState }" /></template>
-        <template #end="scope"><slot name="menuEnd" v-bind="{ ...scope, editor, saveState }" /></template>
+        <template #end="scope">
+          <slot name="menuEnd" v-bind="{ ...scope, editor, saveState }" />
+          <Button v-if="config.nodes.component" label="Edit Buttons"
+                  :class="[
+                    'p-button-sm p-button-primary inline-block mr-1 mb-1', { 'p-button-outlined': !editButtons }
+                    ]"
+                  @click="toggleEditButtons" />
+        </template>
+        <template #after="scope">
+          <div v-if="componentControl"
+               class="surface-card p-1 shadow-2 border-round">
+            <StyleEditor v-if="componentControl.type == 'style'" :nodeControl="componentControl.nodeControl"
+                         :key="componentControl.uid" />
+            <SettingsEditor v-if="componentControl.type == 'settings'" :nodeControl="componentControl.nodeControl"
+                            :key="componentControl.uid" />
+          </div>
+          <slot name="afterMenu" v-bind="{ ...scope, editor, saveState }" />
+        </template>
       </EditorMenu>
     </slot>
-    <editor-content :editor="editor" class="content" />
+    <editor-content :editor="editor" :class="[content, { 'show-edit-buttons': editButtons }]" />
   </div>
 </template>
 
 <script setup>
+  import Button from "primevue/button"
+
+  import StyleEditor from "./StyleEditor.vue";
+  import SettingsEditor from "./SettingsEditor.vue";
 
   import { useEditor, EditorContent } from '@tiptap/vue-3'
   import { History } from '@tiptap/extension-history'
   import {
-    ref, computed, watch, provide, defineEmits, defineProps, getCurrentInstance, onUnmounted, inject, onMounted
+    ref, computed, watch, provide, defineEmits, defineProps, getCurrentInstance, onUnmounted, inject, onMounted,
+    shallowRef
   } from 'vue'
   import { toRefs, useDebounceFn } from '@vueuse/core'
   import EditorMenu from "./EditorMenu.vue"
@@ -139,6 +160,14 @@
     ? serializeSchema(editor.view.state.schema.spec)
     : getSchemaSpecFromConfig(props.config)
 
+  const editButtons = ref(true)
+  function toggleEditButtons() {
+    editButtons.value = !editButtons.value
+    if(!editButtons.value) {
+      componentControl.value = null
+    }
+  }
+
   if(typeof window != 'undefined') window.schemaSpecJson = JSON.stringify(schemaSpec, null, "  ")
 
   async function save() {
@@ -162,6 +191,20 @@
       transaction.apply(editor.value.view.state)
     }
   }
+
+  const componentControl = shallowRef()
+  provide('componentEditorControl', {
+    componentControl,
+    toggleEditor(type, nodeControl, event) {
+      const uid = nodeControl.value.uid
+      if(componentControl.value && componentControl.value.uid == uid && componentControl.value.type == type) {
+        componentControl.value = null
+      } else {
+        console.log("SET COMPONENT CONTROL", nodeControl.value)
+        componentControl.value = { type, nodeControl, uid }
+      }
+    }
+  })
 
 </script>
 
