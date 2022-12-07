@@ -109,6 +109,9 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/framework/lib/utils/validators.js',
       'debug',
       'pica'
+    ],
+    exclude: [
+      'primevue'
     ]
   },
 
