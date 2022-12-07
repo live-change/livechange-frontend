@@ -5,7 +5,7 @@
       <LimitedAccess :requiredRoles="['writer']" objectType="content_Page" :object="target" hidden>
         <PageAdminButtons :page="target" :style="style" :class="clazz" :name="urlPath.value" />
       </LimitedAccess>
-      <Content objectType="content_Page" :object="target" />
+      <Content objectType="content_Page" :object="target" class="w-full" />
     </template>
     <template #notFound="{ path, style, class: clazz }">
       <NotFoundAdminButtons v-if="canCreatePage" :path="urlPath" :style="style" :class="clazz" />
