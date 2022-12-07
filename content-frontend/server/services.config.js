@@ -43,7 +43,8 @@ module.exports = {
       name: 'prosemirror',
       path: '@live-change/prosemirror-service',
       documentTypes: {
-        content: require('./content.documentType.js'),
+        page: require('./page.documentType.js'),
+        rich: require('./rich.documentType.js'),
       },
       testLatency: 2000
     },

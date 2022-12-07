@@ -23,7 +23,7 @@
   </Accordion>
 
   <DocumentEditor v-if="pageData" targetType="content_Page" :target="pageId" purpose="page"
-                  :config="contentConfig" type="content" v-model:saveState="saveState" v-model:version="version">
+                  :config="contentConfig" type="page" v-model:saveState="saveState" v-model:version="version">
     <template #menuEnd="{}">
 
       <Button icon="pi pi-eye" label="Preview" class="p-button-secondary p-button-sm mr-1 mb-1" />
@@ -110,7 +110,7 @@
     live(liveCanonicalUrlPath),
     live(livePublicAccessPath),
     live(liveMetadataPath)
-  ])
+  ]).catch(e => [null, null, null, null])
 
   const publicAccessLevel = computed(() => {
     if(publicAccessData?.sessionRoles?.includes('reader')) return 'session'

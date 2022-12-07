@@ -1,6 +1,6 @@
 import { config } from "@live-change/wysiwyg-frontend"
 
-const { basicMarks, richEditorNodes } = config
+const { basicMarks, pageNodes } = config
 
 const contentConfig = {
   marks: {
@@ -8,7 +8,8 @@ const contentConfig = {
   },
   nodes: {
     //...messageNodes,
-    ...richEditorNodes
+    //...richEditorNodes
+    ...pageNodes
   }
 }
 
