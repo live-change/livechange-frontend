@@ -26,7 +26,10 @@
                   :config="contentConfig" type="page" v-model:saveState="saveState" v-model:version="version">
     <template #menuEnd="{}">
 
-      <Button icon="pi pi-eye" label="Preview" class="p-button-secondary p-button-sm mr-1 mb-1" />
+      <router-link :to="{name: 'content:pagePreview', params: { page: pageId }}" target="_blank"
+                   class="no-underline">
+        <Button icon="pi pi-eye" label="Preview" class="p-button-secondary p-button-sm mr-1 mb-1" />
+      </router-link>
 
       <div class="p-buttonset mr-1 mb-1 border-round">
         <button type="button"
@@ -129,7 +132,7 @@
       acceptClass: 'p-button-danger',
       accept: async () => {
         api.actions.content.publish({
-          objectType: 'content_Page', object: pageId.value, version: snapshotVersion, type: 'content'
+          objectType: 'content_Page', object: pageId.value, version: snapshotVersion, type: 'page'
         }).then(() => {
           toast.add({ severity: 'success', summary: 'Published', detail: 'Page published', life: 3000 })
         }).catch(e => {

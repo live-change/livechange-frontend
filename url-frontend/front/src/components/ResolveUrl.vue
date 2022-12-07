@@ -5,8 +5,9 @@
       <pre>{{ JSON.stringify(url, null, "  ") }}</pre>
     </div>
   </slot>
-  <slot v-else-if="url">
-    <NotAuthorized></NotAuthorized>
+  <slot v-else-if="url" name="notAuthorized" :path="urlPath" :class="clazz" :style="style"
+        :target="url.target" :access="url.access">
+    <NotAuthorized />
   </slot>
   <slot v-else name="notFound" :path="urlPath" :class="clazz" :style="style">
     <NotFound />
@@ -79,17 +80,17 @@
     () => liveUrlPath(targetType.value, '', urlPath.value, fetchMore.value)
   )
 
-  const [/*domainUrls,*/ globalUrls] = await Promise.all([
-  //  live(livePathWithDomain),
+  const [domainUrls, globalUrls] = await Promise.all([
+    live(livePathWithDomain),
     live(livePathWithoutDomain)
   ])
-  const domainUrls = ref([])
   console.log("OK!", domainUrls.value, globalUrls.value)
   const url = computed(() => {
     if(domainUrls.value.length > 0) return domainUrls.value[0]
     if(globalUrls.value.length > 0) return globalUrls.value[0]
     return null
   })
+  console.log("RESOLVED", url.value)
   const accessible = computed(() => {
     if(!(requiredRoles?.value?.length)) return true
     if(!url.value) return undefined

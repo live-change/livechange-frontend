@@ -11,6 +11,11 @@
       <NotFoundAdminButtons v-if="canCreatePage" :path="urlPath" :style="style" :class="clazz" />
       <NotFound :style="style" :class="clazz" />
     </template>
+    <template #notAuthorized="{ path, style, class: clazz, target, access }">
+      <NotAuthorizedAdminButtons v-if="(access?.roles ?? []).includes('writer')"
+                                 :path="urlPath" :style="style" :class="clazz" :target="target" />
+      <NotAuthorized :style="style" :class="clazz" />
+    </template>
   </ResolveUrl>
 </template>
 
@@ -18,8 +23,9 @@
   import Button from "primevue/button"
   import PageAdminButtons from "./PageAdminButtons.vue"
   import NotFoundAdminButtons from "./NotFoundAdminButtons.vue"
+  import NotAuthorizedAdminButtons from "./NotAuthorizedAdminButtons.vue"
 
-  import { ResolveUrl, NotFound } from "@live-change/url-frontend"
+  import { ResolveUrl, NotFound, NotAuthorized } from "@live-change/url-frontend"
   import { LimitedAccess } from "@live-change/access-control-frontend";
   import Content from "./Content.vue"
   import Metadata from "./Metadata.vue"
