@@ -1,5 +1,5 @@
 <template>
-  <UrlContent objectType="content_Page" :path="urlPath" :class="clazz" :style="style" />
+  <UrlContent objectType="blog_Post" :path="urlPath" :class="clazz" :style="style" />
 </template>
 
 <script setup>

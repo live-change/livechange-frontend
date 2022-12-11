@@ -24,7 +24,7 @@
         </template>
       </EditorMenu>
     </slot>
-    <editor-content :editor="editor" :class="[content, { 'show-edit-buttons': editButtons }]" />
+    <editor-content :editor="editor" :class="[className, { 'show-edit-buttons': editButtons }]" :style="style" />
   </div>
 </template>
 
@@ -76,6 +76,14 @@
       type: Object,
       default: () => ({ type: 'doc', content: [ ] })
     },
+    class: {
+      type: String,
+      default: ''
+    },
+    style: {
+      type: String,
+      default: ''
+    },
   })
 
   const emit = defineEmits(['update:saveState', 'update:version'])
@@ -87,7 +95,7 @@
   const api = useApi(appContext)
   const clientID = api.windowId
 
-  const { targetType, target } = props
+  const { targetType, target, class: className, style } = props
 
   const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
 

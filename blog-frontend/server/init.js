@@ -3,8 +3,8 @@ const App = require('@live-change/framework')
 const app = App.app()
 
 module.exports = async function(services) {
-  async function createPage(pageId) {
-    const documentId = App.encodeIdentifier(['content_Page', pageId])
+  async function createPost(postId) {
+    const documentId = App.encodeIdentifier(['blog_Post', pageId])
     const snapshotId = App.encodeIdentifier([documentId, (0).toFixed().padStart(10, '0')])
 
     const documentContent = {
@@ -32,15 +32,15 @@ module.exports = async function(services) {
     }
     const documentTime = new Date()
 
-    await services.content.models.Page.create({
-      id: pageId
+    await services.blog.models.Post.create({
+      id: postId
     })
 
     await services.prosemirror.models.Document.create({
       id: documentId,
-      ownerType: 'content_Page',
-      owner: pageId,
-      type: 'page',
+      ownerType: 'blog_Post',
+      owner: postId,
+      type: 'content',
       purpose: 'page',
       version: 1,
       content: documentContent,
@@ -57,8 +57,8 @@ module.exports = async function(services) {
 
     await services.content.models.Content.create({
       id: documentId,
-      objectType: 'content_Page',
-      object: pageId,
+      objectType: 'blog_Post',
+      object: postId,
       snapshot: snapshotId
     })
   }
@@ -66,39 +66,39 @@ module.exports = async function(services) {
   const user1 = await createUser(services,
     'Test User 1', 'test1@test.com', 'Testy123', 'u1', ['writer', 'administrator'])
 
-  await createPage('one')
+  await createPost('one')
 
   await services.accessControl.models.PublicAccess.create({
-    id: App.encodeIdentifier(['content_Page', 'one']),
-    objectType: 'content_Page',
+    id: App.encodeIdentifier(['blog_Post', 'one']),
+    objectType: 'blog_Post',
     object: 'one',
     sessionRoles: ['reader']  .concat(['writer'])
   })
   await services.accessControl.models.Access.create({
-    id: App.encodeIdentifier(['user_User', user1.id, 'content_Page', 'one']),
+    id: App.encodeIdentifier(['user_User', user1.id, 'blog_Post', 'one']),
     sessionOrUserType: 'user_User', sessionOrUser: user1.id,
-    objectType: 'content_Page', object: 'one',
+    objectType: 'blog_Post', object: 'one',
     roles: ['writer']
   })
 
   await services.url.models.Canonical.create({
-    id: App.encodeIdentifier(['content_Page', 'one']),
+    id: App.encodeIdentifier(['blog_Post', 'one']),
     domain: '',
     path: 'test',
-    targetType: 'content_Page',
+    targetType: 'blog_Post',
     target: 'one'
   })
   await services.url.models.Redirect.create({
     id: app.generateUid(),
     domain: 'localhost:8001',
     path: 'test-redirect',
-    targetType: 'content_Page',
+    targetType: 'blog_Post',
     target: 'one'
   })
 
   await services.content.models.Metadata.create({
-    id: App.encodeIdentifier(['content_Page', 'one']),
-    objectType: 'content_Page',
+    id: App.encodeIdentifier(['blog_Post', 'one']),
+    objectType: 'blog_Post',
     object: 'one',
     title: 'Test Page',
     description: 'Test Description',
@@ -130,13 +130,13 @@ module.exports = async function(services) {
     }
   })
 
-  await createPage('two')
+  await createPost('two')
 
   await services.url.models.Canonical.create({
-    id: App.encodeIdentifier(['content_Page', 'two']),
+    id: App.encodeIdentifier(['blog_Post', 'two']),
     domain: '',
     path: 'test2',
-    targetType: 'content_Page',
+    targetType: 'blog_Post',
     target: 'two'
   })
 }

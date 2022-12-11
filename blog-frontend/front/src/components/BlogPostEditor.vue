@@ -1,14 +1,15 @@
 <template>
-  <ContentSettings v-if="pageData" objectType="content_Page" :object="pageId" />
+  <ContentSettings v-if="pageData" objectType="blog_Post" :object="pageId" />
 
   <ContentEditor v-if="pageData"
-                 objectType="content_Page" :object="pageId"
+                 objectType="blog_Post" :object="pageId"
                  :publishTarget="`page `+`${canonicalUrlData.domain ?? '*'}/${canonicalUrlData.path}`"
                  contentType="page" purpose="page" />
   <NotFound v-if="pageData === null" />
 </template>
 
 <script setup>
+
   import { NotFound } from "@live-change/url-frontend";
 
   import ContentSettings from "./ContentSettings.vue"
@@ -21,7 +22,7 @@
   onMounted(() => isMounted.value = true)
 
   const props = defineProps({
-    pageId: {
+    postId: {
       type: String,
       required: true
     },
@@ -53,7 +54,6 @@
     live(livePublicAccessPath),
     live(liveMetadataPath)
   ]).catch(e => [null, null, null, null])
-
 
 </script>
 

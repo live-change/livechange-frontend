@@ -1,14 +1,16 @@
 <template>
-  <UrlContent objectType="content_Page" :path="urlPath" :class="clazz" :style="style" />
+
+  <ContentPreview objectType="blog_Post" :object="blogId" :style="style" :class="clazz" />
+
 </template>
 
 <script setup>
 
+  import ContentPreview from "./ContentPreview.vue";
   import { toRefs } from "@vueuse/core"
-  import UrlContent from "./UrlContent.vue";
 
   const props = defineProps({
-    path: {
+    postId: {
       type: String,
       required: true
     },
@@ -21,7 +23,7 @@
       default: ''
     }
   })
-  const { path: urlPath, class: clazz, style } = toRefs(props)
+  const { blogId, class: clazz, style } = toRefs(props)
 
 </script>
 

@@ -8,21 +8,15 @@ import { dbAdminRoutes } from "@live-change/db-admin"
 import { userRoutes } from "@live-change/user-frontend";
 import { catchAllPagesRoute, contentEditRoutes, pagesSitemap } from "./components/routes";
 
-export function contentRoutes(config = {}) {
+export function blogRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
     ...userRoutes({ ...config, prefix: prefix + 'user/' }),
 
-    route({
-      name: 'page:test', path: prefix, meta: { },
-      redirect: to => {
-        return { name: 'content:page', params: { path: 'test' } }
-      }
-    }),
-
     ...contentEditRoutes({ ...config }),
 
     ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) }),
+
     ...catchAllPagesRoute({ ...config })
   ]
 }
@@ -35,7 +29,7 @@ export async function sitemap(route, api) {
 export function createRouter(app, config) {
   const router = _createRouter({
     history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
-    routes: contentRoutes(config)
+    routes: blogRoutes(config)
   })
   return router
 }
