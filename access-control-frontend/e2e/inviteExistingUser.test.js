@@ -1,8 +1,8 @@
-const happyPath = false
+const happyPath = true
 
 Feature('access control invite')
 
-Scenario('invite user that already exists', async ({ I }) => {
+Scenario('invite user that already exists - path 1', async ({ I }) => {
 
   const adminUser = await I.haveUser()
   const anotherUser = await I.haveUser()

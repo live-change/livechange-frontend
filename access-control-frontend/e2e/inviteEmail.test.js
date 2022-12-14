@@ -4,7 +4,7 @@ const randomProfile = require('random-profile-generator')
 
 Feature('access control invite')
 
-Scenario('invite user that will register from invitation link', async ({ I }) => {
+Scenario('invite user that will register from invitation link - path 2', async ({ I }) => {
 
   const adminUser = await I.haveUser()
   await I.haveUserWithAccess(adminUser, 'example_Example', 'one', ['administrator'])
@@ -28,9 +28,10 @@ Scenario('invite user that will register from invitation link', async ({ I }) =>
     I.click('Invite')
   })
 
-  session('Invited', async () => {
-    I.useEmailLink(invitedEmail, '/user/link/')
-  })
+  session('Invited',
+      async () => {
+        await I.useEmailLink(invitedEmail, '/user/link/')
+      })
 
   session('Inviting', () => {
     I.see('Access Invitations')

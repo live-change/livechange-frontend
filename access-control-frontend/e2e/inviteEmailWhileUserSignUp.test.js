@@ -4,7 +4,7 @@ const randomProfile = require('random-profile-generator')
 
 Feature('access control invite')
 
-Scenario('invite user that will register itself at the same time', async ({ I }) => {
+Scenario('invite user that will register itself at the same time - path 3', async ({ I }) => {
 
   const adminUser = await I.haveUser()
   await I.haveUserWithAccess(adminUser, 'example_Example', 'one', ['administrator'])
@@ -42,7 +42,7 @@ Scenario('invite user that will register itself at the same time', async ({ I })
     console.log("AUTHENTICATION DATA", authenticationData)
     I.assert(!!authenticationData, true, 'authentication created')
 
-    const linkData = await I.useSecretLink(authentication, false, '/user')
+    const linkData = await I.useSecretLink(authentication, true, '/user')
 
     I.seeInCurrentUrl('/user/sign-up-finished')
     const clientSession = await I.executeScript(() => api.client.value.session)
@@ -59,7 +59,7 @@ Scenario('invite user that will register itself at the same time', async ({ I })
 
   session('Inviting', () => {
     I.see('Access Invitations')
-    I.see(invitedEmail)
+    I.see(invitedName)
     I.wait(23)
   })
 })
