@@ -12,7 +12,6 @@
       <NotFoundAdminButtons v-if="canCreateContent" :path="urlPath"
                             :objectType="objectType" :editorRoute="editorRoute"
                             :style="style" :class="clazz" />
-      <h2>kurwa</h2>
       <NotFound :style="style" :class="clazz" />
     </template>
     <template #notAuthorized="{ path, style, class: clazz, target, access }">
@@ -59,7 +58,7 @@
       default: (objectType, object) => {
         const [service, type] = objectType.split('_')
         const prop = type[0].toLowerCase()+type.slice(1)
-        return { name: `${service}:${prop}Editor`, params: { [prop]: object }}
+        return { name: `${service}:${prop}Editor`, params: { [prop+'Id']: object }}
       }
     },
     class: {},

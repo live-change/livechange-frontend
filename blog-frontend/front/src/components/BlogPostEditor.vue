@@ -1,19 +1,18 @@
 <template>
-  <ContentSettings v-if="pageData" objectType="blog_Post" :object="pageId" />
+  <ContentSettings v-if="objectData" :objectType="objectType" :object="object" />
 
-  <ContentEditor v-if="pageData"
-                 objectType="blog_Post" :object="pageId"
+  <ContentEditor v-if="objectData"
+                 :objectType="objectType" :object="object"
                  :publishTarget="`page `+`${canonicalUrlData.domain ?? '*'}/${canonicalUrlData.path}`"
-                 contentType="page" purpose="page" />
-  <NotFound v-if="pageData === null" />
+                 contentType="page" purpose="blog-post" />
+  <NotFound v-if="objectData === null" />
 </template>
 
 <script setup>
 
   import { NotFound } from "@live-change/url-frontend";
 
-  import ContentSettings from "./ContentSettings.vue"
-  import ContentEditor from "./ContentEditor.vue"
+  import { ContentSettings, ContentEditor } from "@live-change/content-frontend"
 
   import { computed, watch, ref, onMounted, inject } from 'vue'
   import { toRefs } from "@vueuse/core"
@@ -29,26 +28,29 @@
     class: {},
     style: {}
   })
-  const { pageId, class: clazz, style } = toRefs(props)
+  const { postId, class: clazz, style } = toRefs(props)
+
+  const objectType = "blog_Post"
+  const object = postId
 
   import { useApi, path, live } from '@live-change/vue3-ssr'
   const api = useApi()
   const p = path()
 
   const livePagePath = computed(
-    () =>  p.content.page({ page: pageId.value })
+    () =>  p.blog.post({ post: object.value })
   )
   const liveCanonicalUrlPath = computed(
-    () =>  p.url.targetOwnedCanonical({ targetType: 'content_Page', target: pageId.value })
+    () =>  p.url.targetOwnedCanonical({ targetType: objectType, target: object.value })
   )
   const livePublicAccessPath = computed(
-    () =>  p.accessControl.objectOwnedPublicAccess({ objectType: 'content_Page', object: pageId.value })
+    () =>  p.accessControl.objectOwnedPublicAccess({ objectType, object: object.value })
   )
   const liveMetadataPath = computed(
-    () =>  p.content.objectOwnedMetadata({ objectType: 'content_Page', object: pageId.value })
+    () =>  p.content.objectOwnedMetadata({ objectType, object: object.value })
   )
 
-  const [pageData, canonicalUrlData, publicAccessData, metadata] = await Promise.all([
+  const [objectData, canonicalUrlData, publicAccessData, metadata] = await Promise.all([
     live(livePagePath),
     live(liveCanonicalUrlPath),
     live(livePublicAccessPath),

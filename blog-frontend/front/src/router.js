@@ -5,8 +5,8 @@ import {
 } from 'vue-router'
 
 import { dbAdminRoutes } from "@live-change/db-admin"
-import { userRoutes } from "@live-change/user-frontend";
-import { catchAllPagesRoute, contentEditRoutes, pagesSitemap } from "./components/routes";
+import { userRoutes } from "@live-change/user-frontend"
+import { catchAllPagesRoute, contentEditRoutes, pagesSitemap } from "./components/routes.js"
 
 export function blogRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
@@ -14,6 +14,8 @@ export function blogRoutes(config = {}) {
     ...userRoutes({ ...config, prefix: prefix + 'user/' }),
 
     ...contentEditRoutes({ ...config }),
+
+
 
     ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) }),
 

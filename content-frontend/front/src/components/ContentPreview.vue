@@ -58,7 +58,7 @@
       default: (objectType, object) => {
         const [service, type] = objectType.split('_')
         const prop = type[0].toLowerCase()+type.slice(1)
-        return { name: `${service}:${prop}Editor`, params: { [prop]: object }}
+        return { name: `${service}:${prop}Editor`, params: { [prop+'Id']: object }}
       }
     },
   })

@@ -4,9 +4,9 @@ export function contentEditRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
 
   return [
-    route({ name: 'blog:editor', path: prefix + 'post-editor/:pageId', meta: { }, props: true,
+    route({ name: 'blog:postEditor', path: prefix + 'post-editor/:postId', meta: { }, props: true,
       component: () => import("./BlogPostEditor.vue") }),
-    route({ name: 'blog:preview', path: prefix + 'post-preview/:pageId', meta: { }, props: true,
+    route({ name: 'blog:postPreview', path: prefix + 'post-preview/:postId', meta: { }, props: true,
       component: () => import("./BlogPostPreview.vue") }),
   ]
 }
