@@ -1,6 +1,6 @@
 import { sitemap } from "@live-change/url-frontend"
 
-export function contentEditRoutes(config = {}) {
+export function blogEditRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
 
   return [
@@ -11,7 +11,7 @@ export function contentEditRoutes(config = {}) {
   ]
 }
 
-export function catchAllPagesRoute(config = {}) {
+export function catchAllBlogRoute(config = {}) {
   const { prefix = '/', route = (r) => r } = config
 
   return [
@@ -31,13 +31,13 @@ export function routes(config = {}) {
 
   return [
 
-      ...contentEditRoutes(config),
-      ...catchAllPagesRoute({ ...config, prefix: config.blogPrefix ?? '/blog/' })
+      ...blogEditRoutes(config),
+      ...catchAllBlogRoute({ ...config, prefix: config.blogPrefix ?? '/blog/' })
 
   ]
 }
 
-export async function pagesSitemap(route, api) {
+export async function blogSitemap(route, api) {
   await sitemap(route, api, 'blog_Post', '/blog/')
 }
 

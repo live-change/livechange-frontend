@@ -6,25 +6,25 @@ import {
 
 import { dbAdminRoutes } from "@live-change/db-admin"
 import { userRoutes } from "@live-change/user-frontend"
-import { catchAllPagesRoute, contentEditRoutes, pagesSitemap } from "./components/routes.js"
+import { catchAllBlogRoute, blogEditRoutes, blogSitemap } from "./components/routes.js"
 
 export function blogRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
     ...userRoutes({ ...config, prefix: prefix + 'user/' }),
 
-    ...contentEditRoutes({ ...config }),
+    ...blogEditRoutes({ ...config }),
 
 
 
     ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) }),
 
-    ...catchAllPagesRoute({ ...config })
+    ...catchAllBlogRoute({ ...config })
   ]
 }
 
 export async function sitemap(route, api) {
-  await pagesSitemap(route, api)
+  await blogSitemap(route, api)
 }
 
 
