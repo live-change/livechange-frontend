@@ -1,12 +1,12 @@
 <template>
 
-  <ContentPreview objectType="blog_Post" :object="blogId" :style="style" :class="clazz" />
+  <ContentPreview objectType="blog_Post" :object="postId" :style="style" :class="clazz" />
 
 </template>
 
 <script setup>
 
-  import ContentPreview from "./ContentPreview.vue";
+  import { ContentPreview } from "@live-change/content-frontend"
   import { toRefs } from "@vueuse/core"
 
   const props = defineProps({
@@ -17,7 +17,7 @@
     class: {},
     style: {}
   })
-  const { blogId, class: clazz, style } = toRefs(props)
+  const { postId, class: clazz, style } = toRefs(props)
 
 </script>
 

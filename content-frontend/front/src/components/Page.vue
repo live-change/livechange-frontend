@@ -12,14 +12,8 @@
       type: String,
       required: true
     },
-    class: {
-      type: String,
-      default: ''
-    },
-    style: {
-      type: String,
-      default: ''
-    }
+    class: { },
+    style: { }
   })
   const { path: urlPath, class: clazz, style } = toRefs(props)
 

@@ -1,4 +1,5 @@
 <template>
+
   <DocumentEditor :targetType="objectType" :target="object"
                   :purpose="purpose" :type="contentType"
                   :config="contentConfig || defaultContentConfig"
@@ -16,8 +17,8 @@
         <Button type="button"
                 class="p-button p-component p-button-sm p-button-outlined p-button-secondary cursor-auto inline-block"
                 :class="{ 'p-disabled': saveState == 'saving' }">
-          <span class="pi p-button-icon p-button-icon-left"
-                :class="[saveState == 'saving' ? 'pi-sync' : 'pi-hashtag' ]" />
+        <span class="pi p-button-icon p-button-icon-left"
+              :class="[saveState == 'saving' ? 'pi-sync' : 'pi-hashtag' ]" />
           <span class="p-button-label">{{ ( version ?? 0 ).toFixed().padStart(10, '0') }}</span>
         </Button>
         <Button icon="pi pi-save" label="Publish" class="p-button-success p-button-sm" type="button"
@@ -27,7 +28,9 @@
     </template>
 
   </DocumentEditor>
-  <div></div>
+
+  <div></div><!-- Because bug in vue -->
+
 </template>
 
 <script setup>

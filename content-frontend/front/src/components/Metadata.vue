@@ -11,10 +11,6 @@
     object: {
       type: String,
       required: true
-    },
-    url: {
-      type: Object,
-      required: true
     }
   })
 

@@ -1,11 +1,12 @@
 <template>
-  <ContentSettings v-if="pageData" objectType="content_Page" :object="pageId" />
+<!--  <ContentSettings v-if="pageData" objectType="content_Page" :object="pageId" />-->
 
   <ContentEditor v-if="pageData"
-                 objectType="content_Page" :object="pageId"
-                 :publishTarget="`page `+`${canonicalUrlData.domain ?? '*'}/${canonicalUrlData.path}`"
-                 contentType="page" purpose="page" />
+               objectType="content_Page" :object="pageId"
+               :publishTarget="`page `+`${canonicalUrlData.domain ?? '*'}/${canonicalUrlData.path}`"
+               contentType="page" purpose="page" />
   <NotFound v-if="pageData === null" />
+
 </template>
 
 <script setup>
@@ -54,6 +55,11 @@
     live(liveMetadataPath)
   ]).catch(e => [null, null, null, null])
 
+
+  const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms))
+
+  console.log("WAITING!")
+  await sleep(5000)
 
 </script>
 
