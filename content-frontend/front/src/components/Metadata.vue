@@ -65,7 +65,7 @@
       ]
     }
 
-    useMeta({
+    useMeta(JSON.parse(JSON.stringify({
       title: m.title,
       description: m.description,
       link: [
@@ -123,7 +123,7 @@
               { property: 'twitter:image', content: metadata.value.image },
               { property: 'twitter:url', content: metadata.value.url }*/
       ].filter(x => !!x)
-    })
+    })))
   }
 </script>
 

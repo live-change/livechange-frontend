@@ -49,7 +49,6 @@ export function serverEntry(App, createRouter, config = {}) {
     // components that have been instantiated during this render call.
     const ctx = {}
     const html = await renderToString(app, ctx)
-    await renderMetaToString(app, ctx)
 
     const data = api.prerenderCache.cacheData()
 
@@ -60,6 +59,7 @@ export function serverEntry(App, createRouter, config = {}) {
     const metaManager = app.config.globalProperties.$metaManager
     const activeMeta = metaManager.target.context.active
     console.log("ACTIVE META", activeMeta)
+    await renderMetaToString(app, ctx)
     ctx.teleports.head = [
       ...(activeMeta.title ? [`<title data-vm-ssr="true">${escapeHtml(activeMeta.title)}</title>`] : []),
       ...((activeMeta.meta || []).map(meta => `<meta ${Object.keys(meta).map(
