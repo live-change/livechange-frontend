@@ -4,7 +4,7 @@ const app = App.app()
 
 module.exports = async function(services) {
   async function createPost(postId) {
-    const documentId = App.encodeIdentifier(['blog_Post', pageId])
+    const documentId = App.encodeIdentifier(['blog_Post', postId])
     const snapshotId = App.encodeIdentifier([documentId, (0).toFixed().padStart(10, '0')])
 
     const documentContent = {

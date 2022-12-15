@@ -59,6 +59,10 @@ module.exports = {
     {
       name: 'content',
       path: '@live-change/content-service',
+    },
+    {
+      name: 'blog',
+      path: '@live-change/blog-service',
     }
 
   ]

@@ -2,7 +2,7 @@
   <div class="absolute top-0 right-0 pr-4 max-h-0 flex align-items-center z-5">
     <Button icon="pi pi-plus"
             class="p-button p-button-icon-only p-button-rounded p-button-danger"
-            @click="createPage" />
+            @click="createContent" />
   </div>
 </template>
 
@@ -13,15 +13,36 @@
     path: {
       type: String,
       required: true
+    },
+    objectType: {
+      type: String,
+      required: true
+    },
+    editorRoute: {
+      type: Function,
+      default: (objectType, object) => {
+        const [service, type] = objectType.split('_')
+        const prop = type[0].toLowerCase()+type.slice(1)
+        return { name: `${service}:${prop}Editor`, params: { [prop]: object }}
+      }
+    },
+    createActionName: {
+      type: String,
+      default: null
+    },
+    createActionParams: {
+      type: Object,
+      default: () => {}
     }
   })
 
   import { toRefs } from "@vueuse/core"
+  import { computed } from "vue"
 
   import { useHost } from "@live-change/frontend-base"
   const host = useHost()
 
-  const { path } = toRefs(props)
+  const { path, objectType } = toRefs(props)
 
   import { useToast } from 'primevue/usetoast'
   const toast = useToast()
@@ -31,20 +52,32 @@
   import { useRouter } from 'vue-router'
   const router = useRouter()
 
-  function createPage() {
+  const serviceName = computed(() => {
+    const [service, type] = objectType.value.split('_')
+    return service
+  })
+  const typeName = computed(() => {
+    const [service, type] = objectType.value.split('_')
+    return type
+  })
+  const typeNameLower = computed(() => typeName.value[0].toLowerCase()+typeName.value.slice(1))
+
+  function createContent() {
     confirm.require({
       target: event.currentTarget,
-      message: `Do you want to create page at ${host}/${path.value} ?`,
+      message: `Do you want to create ${typeNameLower.value} at ${host}/${path.value} ?`,
       icon: 'pi pi-info-circle',
       acceptClass: 'p-button-danger',
       accept: async () => {
-        const pageId = await api.actions.content.createPage()
-        await api.actions.url.takeUrl({
-          target: pageId, targetType: 'content_Page', path: path.value, domain: host, redirect: false
+        const contentId = await api.actions[serviceName.value][props.createActionName || `create${typeName.value}`]({
+          ...props.createActionParams
         })
-        toast.add({ severity:'success', summary: 'Page created', life: 1500 })
+        await api.actions.url.takeUrl({
+          target: contentId, targetType: objectType.value, path: path.value, domain: host, redirect: false
+        })
+        toast.add({ severity:'success', summary: `${typeName} created`, life: 1500 })
         setTimeout(() => {
-          router.push({ name: 'content:pageEditor', params: { pageId } })
+          router.push(props.editorRoute(objectType.value, contentId))
         }, 200)
       },
       reject: () => {

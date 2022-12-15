@@ -14,14 +14,8 @@
       type: String,
       required: true
     },
-    class: {
-      type: String,
-      default: ''
-    },
-    style: {
-      type: String,
-      default: ''
-    }
+    class: {},
+    style: {}
   })
   const { blogId, class: clazz, style } = toRefs(props)
 

@@ -3,17 +3,22 @@
     <template #default="{ target, style, class: clazz }">
       <Metadata :objectType="objectType" :object="target" />
       <LimitedAccess :requiredRoles="['writer']" :objectType="objectType" :object="target" hidden>
-        <PageAdminButtons :page="target" :style="style" :class="clazz" :name="urlPath.value" />
+        <ContentAdminButtons :objectType="objectType" :object="target" :style="style" :class="clazz"
+                             :name="urlPath.value" :editorRoute="editorRoute" />
       </LimitedAccess>
       <Content :objectType="objectType" :object="target" class="w-full" :style="style" :class="clazz" />
     </template>
     <template #notFound="{ path, style, class: clazz }">
-      <NotFoundAdminButtons v-if="canCreatePage" :path="urlPath" :style="style" :class="clazz" />
+      <NotFoundAdminButtons v-if="canCreateContent" :path="urlPath"
+                            :objectType="objectType" :editorRoute="editorRoute"
+                            :style="style" :class="clazz" />
+      <h2>kurwa</h2>
       <NotFound :style="style" :class="clazz" />
     </template>
     <template #notAuthorized="{ path, style, class: clazz, target, access }">
       <NotAuthorizedAdminButtons v-if="(access?.roles ?? []).includes('writer')"
-                                 :path="urlPath" :style="style" :class="clazz" :target="target" />
+                                 :path="urlPath" :style="style" :class="clazz" :object="target"
+                                 :objectType="objectType" :editorRoute="editorRoute"/>
       <NotAuthorized :style="style" :class="clazz" />
     </template>
   </ResolveUrl>
@@ -21,7 +26,7 @@
 
 <script setup>
   import Button from "primevue/button"
-  import PageAdminButtons from "./PageAdminButtons.vue"
+  import ContentAdminButtons from "./ContentAdminButtons.vue"
   import NotFoundAdminButtons from "./NotFoundAdminButtons.vue"
   import NotAuthorizedAdminButtons from "./NotAuthorizedAdminButtons.vue"
 
@@ -49,25 +54,26 @@
       type: String,
       required: true
     },
-    class: {
-      type: String,
-      default: ''
+    editorRoute: {
+      type: Function,
+      default: (objectType, object) => {
+        const [service, type] = objectType.split('_')
+        const prop = type[0].toLowerCase()+type.slice(1)
+        return { name: `${service}:${prop}Editor`, params: { [prop]: object }}
+      }
     },
-    style: {
-      type: String,
-      default: ''
-    }
+    class: {},
+    style: {}
   })
   const { objectType, path: urlPath, class: clazz, style } = toRefs(props)
 
   const urlMore = computed(() => [
-    url => p.content.page({ page: url.target }),
     url => p.content.content({ objectType: objectType.value, object: url.target }),
     url => p.content.objectOwnedMetadata({ objectType: objectType.value, object: url.target }),
     url => p.url.targetOwnedCanonical({ targetType: objectType.value, target: url.target })
   ])
 
-  const canCreatePage = computed(() => api.client.value.roles.includes('writer'))
+  const canCreateContent = computed(() => api.client.value.roles.includes('writer'))
 
 </script>
 
