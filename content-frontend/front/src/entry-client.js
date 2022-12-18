@@ -3,4 +3,4 @@ import App from './App.vue'
 import { createRouter } from './router'
 import config from './config.js'
 
-await clientEntry(App, createRouter, config)
+clientEntry(App, createRouter, config)
