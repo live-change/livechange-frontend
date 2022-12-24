@@ -7,6 +7,8 @@ import {
 
 import { createApp } from "./main.js"
 
+window.process = { env: {} }
+
 export async function clientEntry(App, createRouter, config = {}) {
 
   const windowId = window.__WINDOW_ID__

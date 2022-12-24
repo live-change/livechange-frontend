@@ -36,6 +36,7 @@
 
   import { useEditor, EditorContent } from '@tiptap/vue-3'
   import { History } from '@tiptap/extension-history'
+  import Gapcursor from '@tiptap/extension-gapcursor'
   import {
     ref, computed, watch, provide, defineEmits, defineProps, getCurrentInstance, onUnmounted, inject, onMounted,
     shallowRef
@@ -122,7 +123,7 @@
     const currentVersion = getVersion(state)
     console.log("COLLAB VERSION", currentVersion)
     let { steps, clientIDs } = authority.stepsSince(currentVersion, state.schema)
-    console.error("RECEIVE STEPS", steps, clientIDs, clientID)
+    console.log("RECEIVE STEPS", steps, clientIDs, clientID)
     const transaction = receiveTransaction(state, steps, clientIDs)
     view.dispatch(transaction)
     version.value = authority.remoteVersion
@@ -131,7 +132,7 @@
     const state = editor.value.reactiveState.value
     const sendable = sendableSteps(state)
     if (sendable) {
-      console.error("SEND STEPS", sendable.steps, sendable.version)
+      console.log("SEND STEPS", sendable.steps, sendable.version)
       authority.receiveSteps(sendable.version, sendable.steps, sendable.clientID)
     }
   })
@@ -146,6 +147,7 @@
     content: documentData.content,
     extensions: [
       ...extensions,
+      Gapcursor,
       ProseMirrorCollab.configure({
         version: documentData.version,
         clientID
@@ -182,7 +184,7 @@
     const state = editor.value.reactiveState.value
     const sendable = sendableSteps(state)
     if (sendable) {
-      console.error("SEND STEPS", sendable.steps, sendable.version)
+      console.log("SEND STEPS", sendable.steps, sendable.version)
       authority.receiveSteps(sendable.version, sendable.steps, sendable.clientID)
     }
   }
@@ -216,6 +218,8 @@
 
 </script>
 
-<style scoped>
-
+<style>
+  .cm-line, .cm-content {
+    padding: 0 !important;
+  }
 </style>

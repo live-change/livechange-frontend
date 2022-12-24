@@ -1,6 +1,6 @@
 <template>
   <node-view-wrapper>
-    <Image :image="image" width="100" dom-resize="width" />
+    <Image :image="image" width="100" dom-resize="width" class="w-full" />
   </node-view-wrapper>
 </template>
 

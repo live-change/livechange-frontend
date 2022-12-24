@@ -32,11 +32,13 @@ module.exports = {
       "content": "text*",
       "marks": "",
       "group": "block",
-      "code": true,
-      "defining": true,
+      "inline": false,
+      "atom": false,
+      "selectable": true,
+      "draggable": true,
       "attrs": {
         "language": {
-          "default": null
+          "default": "text"
         }
       }
     },
@@ -83,7 +85,7 @@ module.exports = {
       "selectable": false
     },
     "component": {
-      "content": "block*",
+      "content": "(block | slot)*",
       "marks": "",
       "group": "block",
       "inline": false,
@@ -92,6 +94,25 @@ module.exports = {
       "attrs": {
         "is": {
           "default": "card"
+        },
+        "attrs": {
+          "default": {}
+        }
+      }
+    },
+    "slot": {
+      "content": "block*",
+      "marks": "",
+      "group": "slot",
+      "inline": false,
+      "selectable": false,
+      "draggable": false,
+      "attrs": {
+        "name": {
+          "default": "default"
+        },
+        "tag": {
+          "default": "div"
         },
         "attrs": {
           "default": {}

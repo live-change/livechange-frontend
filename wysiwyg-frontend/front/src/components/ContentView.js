@@ -18,6 +18,7 @@ function ContentView(props, context) {
   return h('div', {}, [
     h('h1', {}, 'Empty document'),
   ])
+
 }
 
 export default ContentView

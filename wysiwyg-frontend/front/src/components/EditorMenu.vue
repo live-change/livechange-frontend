@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky" style="top: 90px; z-index: 1">
+  <div class="sticky" style="top: 90px; z-index: 10">
     <slot name="before" />
     <div class="surface-card p-1 shadow-2 border-round flex flex-row flex-wrap">
 
@@ -55,8 +55,13 @@
                 :class="{ 'p-button-outlined': !editor.isActive('blockquote')  }"
                 @click="editor.chain().focus().toggleBlockquote().run()" />
         <Button v-if="config.nodes.codeBlock" icon="fa-solid fa-code" class="p-button-sm"
-                :class="{ 'p-button-outlined': !editor.isActive('codeblock')  }"
+                :class="{ 'p-button-outlined': !editor.isActive('codeBlock')  }"
                 @click="editor.chain().focus().toggleCodeBlock().run()" />
+        <Dropdown v-if="editor.isActive('codeBlock')" class="editor-menu-dropdown"
+                  :options="languages"
+                  :modelValue="editor.getAttributes('codeBlock').language"
+                  :optionLabel="option => option[0].toUpperCase()+option.slice(1)"
+                  @update:modelValue="selected => editor.chain().focus().setCodeBlock({ language: selected }).run()" />
       </div>
 
       <div class="p-buttonset mr-1 mb-1">
@@ -76,9 +81,9 @@
         </FileInput>
   <!--    </div>-->
 
-      <Button v-if="config.nodes.component" label="Component"
+      <Button v-if="config.nodes.component" label="Insert"
               class="p-button-sm p-button-primary p-button-outlined inline-block mr-1 mb-1"
-              @click="openComponentMenu" />
+              @click="openTemplateMenu" />
 
       <span v-if="saveState"
             class="p-button p-component p-button-sm p-button-outlined p-button-secondary cursor-auto
@@ -99,12 +104,13 @@
 
     </div>
     <slot name="after" />
-    <OverlayPanel ref="insertComponentOverlay" style="width: 450px" :breakpoints="{'960px': '75vw'}">
-      <ComponentsMenu :config="config" @selected="(n,c) => handleComponentSelected(n,c)" />
+    <OverlayPanel ref="insertTemplateOverlay" style="width: 450px" :breakpoints="{'960px': '75vw'}">
+      <TemplatesMenu :config="config" @selected="t => handleTemplateSelected(t)" />
     </OverlayPanel>
+
 <!--    <div class="surface-card p-1 shadow-2" style="width: 450px">
       <h3>components:</h3>
-      <ComponentsMenu :config="config" />
+      <TemplatesMenu :config="config" />
     </div>-->
   </div>
 </template>
@@ -113,9 +119,10 @@
   import Button from "primevue/button"
   import ProgressSpinner from "primevue/progressspinner"
   import OverlayPanel from 'primevue/overlaypanel'
+  import Dropdown from "primevue/dropdown"
 
-  import ComponentsMenu from "./ComponentsMenu.vue"
-  import { inject, getCurrentInstance, ref } from "vue"
+  import TemplatesMenu from "./TemplatesMenu.vue"
+  import { inject, getCurrentInstance, ref, computed } from "vue"
   import { toRefs } from "@vueuse/core"
   import { uploadImage } from "@live-change/image-frontend"
   import { FileInput } from "@live-change/upload-frontend"
@@ -135,14 +142,12 @@
     saveState: {
       type: String,
       default: null
-    },
-    availableComponents: {
-      type: Array,
-      default: () => []
     }
   })
 
   const { editor, config, saveState } = toRefs(props)
+
+  const languages = computed(() => config.languages ?? ['plaintext', 'javascript'])
 
   async function handleImageUpload(file) {
     const upload = uploadImage('test', { file },
@@ -155,32 +160,28 @@
     await upload.upload()
   }
 
-  const insertComponentOverlay = ref()
-  function openComponentMenu(event) {
-    insertComponentOverlay.value.show(event)
+  const insertTemplateOverlay = ref()
+  function openTemplateMenu(event) {
+    insertTemplateOverlay.value.show(event)
   }
-  function handleComponentSelected(name, component) {
-    insertComponentOverlay.value.hide()
-    editor.value.chain().focus().insertContent({
-      type: 'component',
-      attrs: {
-        is: name,
-        attrs: component.initialAttrs
-      },
-      content: [
-        { type: 'paragraph', content: [
-            { type: 'text', text: 'test' }
-        ] }
-      ]
-    }).run()
+  function handleTemplateSelected(template) {
+    insertTemplateOverlay.value.hide()
+    editor.value.chain().focus().insertContent(template.content()).run()
     //editor.value.chain().focus().setNode('component', { is: component }).run()
   }
 
   if(typeof window != 'undefined') window.editor = editor.value
 </script>
 
-<style scoped>
+<style scoped lang="scss">
   .p-buttonset .p-button:not(:last-child) { /* buttonset bug fix */
     border-right: 0 none !important;
+  }
+</style>
+<style lang="scss">
+  .editor-menu-dropdown {
+    .p-dropdown-label {
+      padding: 0.345em 0.5em !important;
+    }
   }
 </style>

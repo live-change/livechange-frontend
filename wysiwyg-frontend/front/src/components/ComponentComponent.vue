@@ -1,7 +1,10 @@
 <template>
   <node-view-wrapper>
-    <ComponentEditor v-bind="{ ...attrs, class: ['relative', attrs.class] }">
-      <node-view-content class="content" />
+    <ComponentEditor v-bind="{
+      ...attrs, class: ['relative', editorClass]
+    }">
+      <node-view-content :class="[editorContentClass]"
+                         :style="style" />
       <div class="absolute top-0 right-0 pr-4 max-h-0 align-items-center z-5 edit-buttons ">
         <Button icon="pi pi-eye"
                 :class="[
@@ -43,7 +46,9 @@
   const is = computed(() => props.node.attrs.is)
   const attrs = computed(() => props.node.attrs.attrs)
 
-  const ComponentEditor = components[props.node.attrs.is].editor
+  const component = computed(() => components[props.node.attrs.is])
+
+  const ComponentEditor = computed(() => component.value.editor)
 
   const uid = getCurrentInstance().uid
 
@@ -68,6 +73,23 @@
       : null
   })
 
+  const editorClass = computed(() => [
+    component.value.editorClass
+      ? component.value.editorClass(attrs.value)
+      : attrs.value.class,
+    { 'selected-component-editor': selectedEditor.value },
+    { 'selected-component-editor-style': selectedEditor.value == 'style' },
+    { 'selected-component-editor-settings': selectedEditor.value == 'settings' }
+  ])
+  const editorContentClass = computed(() => [
+    component.value.editorContentClass
+      ? component.value.editorContentClass(attrs.value)
+      : 'content',
+    { 'selected-component-editor-content': selectedEditor.value },
+    { 'selected-component-editor-content-style': selectedEditor.value == 'style' },
+    { 'selected-component-editor-content-settings': selectedEditor.value == 'settings' }
+  ])
+
 </script>
 
 <style lang="scss">
@@ -76,6 +98,19 @@
   }
   .show-edit-buttons .edit-buttons {
     display: flex;
+  }
+  .selected-component-editor-content-settings {
+    & > [data-slot] {
+      &::before {
+        content: 'slot: ' attr(data-slot) ;
+        color: orangered;
+        border: orangered 1px solid;
+        font-size: 0.8em;
+        padding: 2px;
+        margin: 0;
+      };
+      border: 1px dashed orangered;
+    }
   }
 
 </style>

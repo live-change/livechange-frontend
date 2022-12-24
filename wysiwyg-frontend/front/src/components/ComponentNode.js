@@ -9,7 +9,7 @@ export default Node.create({
   inline: false,
   selectable: true,
   draggable: true,
-  content: 'block*',
+  content: '(block | slot)*',
   marks: '',
 
   addAttributes() {
@@ -54,7 +54,7 @@ export default Node.create({
     }
     htmlAttrs['data-is'] = this.options.is
     return ['component', mergeAttributes(HTMLAttributes, htmlAttrs)]*/
-    return ['component', HTMLAttributes]
+    return ['component', HTMLAttributes, 0]
   },
 
   addNodeView() {
@@ -63,12 +63,7 @@ export default Node.create({
 
   addCommands() {
     return {
-      setImage: options => ({ commands }) => {
-        return commands.insertContent({
-          type: this.name,
-          attrs: options
-        })
-      }
+
     }
   }
 })
