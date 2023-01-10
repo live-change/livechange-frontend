@@ -40,7 +40,7 @@ module.exports = async function(services) {
       id: documentId,
       ownerType: 'content_Page',
       owner: pageId,
-      type: 'content',
+      type: 'page',
       purpose: 'page',
       version: 1,
       content: documentContent,
@@ -94,6 +94,40 @@ module.exports = async function(services) {
     path: 'test-redirect',
     targetType: 'content_Page',
     target: 'one'
+  })
+
+  await services.content.models.Metadata.create({
+    id: App.encodeIdentifier(['content_Page', 'one']),
+    objectType: 'content_Page',
+    object: 'one',
+    title: 'Test Page',
+    description: 'Test Description',
+    "og": {
+      "locale": "en_US",
+      "localeAlternate": [],
+      "type": "website",
+      "music": {
+        "song": [],
+        "album": [],
+        "musician": [],
+        "creator": []
+      },
+      "video": {
+        "actor": [],
+        "director": [],
+        "writer": [],
+        "tag": []
+      },
+      "article": {
+        "author": [],
+        "tag": []
+      },
+      "profile": {},
+      "book": {
+        "author": [],
+        "tag": []
+      }
+    }
   })
 
   await createPage('two')

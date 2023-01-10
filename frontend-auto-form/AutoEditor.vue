@@ -6,6 +6,7 @@
                 :definition="definition.properties[property]"
                 :label="property"
                 :rootValue="props.rootValue" :propName="(propName ? propName + '.' : '') + property"
+                :i18n="i18n"
                 class="col-12" />
   </div>
 </template>
@@ -28,10 +29,14 @@
     propName: {
       type: String,
       default: ''
+    },
+    i18n: {
+      type: String,
+      default: ''
     }
   })
 
-  const { modelValue, definition } = toRefs(props)
+  const { modelValue, definition, propName } = toRefs(props)
 
   const emit = defineEmits(['update:modelValue'])
 

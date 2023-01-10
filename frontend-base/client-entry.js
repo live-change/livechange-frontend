@@ -7,7 +7,9 @@ import {
 
 import { createApp } from "./main.js"
 
-export function clientEntry(App, createRouter) {
+window.process = { env: {} }
+
+export async function clientEntry(App, createRouter, config = {}) {
 
   const windowId = window.__WINDOW_ID__
   console.error("CLIENT WINDOW ID", windowId)
@@ -18,8 +20,10 @@ export function clientEntry(App, createRouter) {
   })
 
   const host = document.location.host
-
-  const { app, router } = createApp(api, App, createRouter, host, false)
+  const url = document.location.pathname + document.location.search
+  const { app, router } = await createApp(
+    config, api, App, createRouter, host, null, null, url
+  )
 
   app.use(createSharedElementDirective())
   router.beforeEach(SharedElementRouteGuard)

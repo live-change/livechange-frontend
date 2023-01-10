@@ -26,8 +26,6 @@ class RemoteAuthority{
     this.sentSteps = []
     this.sentVersion = undefined
 
-    this.handleStepsTimeout = null
-
     this.waitingForResync = true
     this.blockNextResync = false
     this.pendingRequests = 0
@@ -70,15 +68,9 @@ class RemoteAuthority{
   handleSteps() {
     for(const listener of this.onNewSteps) listener()
     if(this.receivedSteps.length > 1000) this.receivedSteps = this.receivedSteps.slice(-100)
-    this.handleStepsTimeout = null
     this.blockNextResync = false
     if(this.waitingForResync) {
       this.resynchronize()
-    }
-  }
-  handleStepsThrottled() {
-    if(this.handleStepsTimeout === null) {
-      this.handleStepsTimeout = setTimeout(() => this.handleSteps(), stepsThrottle)
     }
   }
 
@@ -103,7 +95,7 @@ class RemoteAuthority{
         if(originalVersion != this.remoteVersion) throw new Error("message out of order!")
         this.remoteVersion = modifiedVersion
         this.receivedSteps.push(...message.steps.map(step => ({ step, window: message.window })))
-        this.handleStepsThrottled()
+        this.handleSteps()
       },
       inboxPrefix + JSON.stringify((this.remoteVersion - 1).toFixed().padStart(10, '0')),
       {
@@ -117,6 +109,7 @@ class RemoteAuthority{
     debug("LOAD DOCUMENT!")
     const identifier = { targetType: this.targetType, target: this.target }
     let documentData = await this.api.get(['prosemirror', 'document', identifier])
+    console.log("DOCUMENT DATA", documentData)
     if(!documentData) {
       documentData = {
         ...identifier,

@@ -8,7 +8,7 @@ import { dbAdminRoutes } from "@live-change/db-admin"
 import { userRoutes } from "@live-change/user-frontend";
 import { catchAllPagesRoute, contentEditRoutes, pagesSitemap } from "./components/routes";
 
-export function wysiwygRoutes(config = {}) {
+export function contentRoutes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
   return [
     ...userRoutes({ ...config, prefix: prefix + 'user/' }),
@@ -35,7 +35,7 @@ export async function sitemap(route, api) {
 export function createRouter(app, config) {
   const router = _createRouter({
     history: import.meta.env.SSR ? createMemoryHistory() : createWebHistory(),
-    routes: wysiwygRoutes(config)
+    routes: contentRoutes(config)
   })
   return router
 }

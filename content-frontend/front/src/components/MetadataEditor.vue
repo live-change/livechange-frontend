@@ -1,8 +1,10 @@
 <template>
-  <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ JSON.stringify(editable, null, '  ') }}</pre>
-  <auto-editor :definition="editableDefinition" v-model="editable" :rootValue="editable" />
+<!--  <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ JSON.stringify(editable, null, '  ') }}</pre>-->
+  <auto-editor :definition="editableDefinition" v-model="editable" :rootValue="editable" i18n="content.metadata." />
   <Button label="Save metadata" icon="pi pi-save" :disabled="!changed || error" @click="save" />
-  <small v-if="error" class="p-error">Fix errors above to save</small>
+  <div>
+    <small v-if="error" class="p-error">Fix errors above to save</small>
+  </div>
 </template>
 
 <script setup>

@@ -15,11 +15,12 @@ import StyleClass from 'primevue/styleclass'
 import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
 import VueLazyLoad from 'vue3-lazyload'
+import { createI18n } from 'vue-i18n'
 
 // SSR requires a fresh app instance per request, therefore we export a function
 // that creates a fresh app instance. If using Vuex, we'd also be creating a
 // fresh store here.
-export function createApp(api, App, createRouter, host, response) {
+export async function createApp(config, api, App, createRouter, host, headers, response, url) {
   const isSSR = response !== undefined
   const app = createSSRApp(App)
   app.config.devtools = true
@@ -73,6 +74,23 @@ export function createApp(api, App, createRouter, host, response) {
     isSSR
   })
   app.use(meta)
+
+  app.directive("focus", {
+    mounted: (el) => el.focus(),
+    updated: (el, binding) => value && app.nextTick(() => el.focus())
+  })
+
+  const defaultLocale = config.defaultLocale || 'en'
+  const i18n = createI18n({
+    legacy: false,
+    locale: config.localeSelector   // TODO: read stored language
+      ? await config.localeSelector({ api, host, url, headers })
+      : defaultLocale,
+    fallbackLocale: config.fallbackLocale || defaultLocale,
+    messages: config.i18nMessages || {}
+  })
+  console.log("I18N MESSAGES", config.i18nMessages)
+  app.use(i18n)
 
   return { app, router }
 }

@@ -1,11 +1,12 @@
 <template>
   <div v-if="visible" class="pl-3 border-left-3 border-400 mb-3" :class="fieldClass" :style="fieldStyle">
-    <h3>{{ label }}:</h3>
+    <h3>{{ t( i18n + label + ':title' ) }}</h3>
     <auto-input :modelValue="modelValue" :definition="definition" :name="props.name"
                  :class="props.inputClass" :style="props.inputStyle"
                  :properties="props.inputAttributes"
                  :rootValue="props.rootValue" :propName="props.propName"
-                 @update:modelValue="value => emit('update:modelValue', value)" />
+                 @update:modelValue="value => emit('update:modelValue', value)"
+                :i18n="props.i18n + props.propName.split('.').pop() + '.'" />
   </div>
 </template>
 
@@ -14,6 +15,9 @@
   import {inputs, types} from "./config";
   import { computed, inject } from 'vue'
   import { toRefs } from '@vueuse/core'
+
+  import { useI18n } from 'vue-i18n'
+  const { t } = useI18n()
 
   const props = defineProps({
     modelValue: {},
@@ -46,6 +50,10 @@
       default: () => ({})
     },
     propName: {
+      type: String,
+      default: ''
+    },
+    i18n: {
       type: String,
       default: ''
     }

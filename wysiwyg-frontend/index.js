@@ -11,3 +11,7 @@ import EditorMenu from "./front/src/components/EditorMenu.vue"
 import ImageComponent from "./front/src/components/ImageComponent.vue"
 import ImageNode from "./front/src/components/ImageNode.js"
 export { DocumentEditor, Editor, EditorMenu, ImageComponent, ImageNode }
+
+import components from "./front/src/components/components.js"
+
+

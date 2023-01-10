@@ -89,6 +89,7 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/frontend-utils',
       '@live-change/access-control-frontend',
       '@live-change/content-frontend',
+      '@live-change/blog-frontend',
       '@live-change/image-frontend',
       '@live-change/security-frontend',
       '@live-change/upload-frontend',
@@ -109,6 +110,9 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/framework/lib/utils/validators.js',
       'debug',
       'pica'
+    ],
+    exclude: [
+      'primevue'
     ]
   },
 

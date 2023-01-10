@@ -1,6 +1,6 @@
 {
   "name": "@live-change/frontend-auto-form",
-  "version": "0.2.8",
+  "version": "0.2.22",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --dbAccess",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -20,20 +20,16 @@
     "debug": "node --inspect-brk server"
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^6.1.1",
-    "@live-change/cli": "0.7.4",
+    "@fortawesome/fontawesome-free": "^6.2.0",
+    "@live-change/cli": "0.7.8",
     "@live-change/dao": "0.5.8",
     "@live-change/dao-vue3": "0.5.8",
     "@live-change/dao-websocket": "0.5.8",
-    "@live-change/framework": "0.7.4",
-    "@live-change/image-service": "0.3.2",
-    "@live-change/session-service": "0.3.2",
+    "@live-change/framework": "0.7.8",
+    "@live-change/image-service": "0.3.9",
+    "@live-change/session-service": "0.3.9",
     "@live-change/vue3-components": "0.2.16",
     "@live-change/vue3-ssr": "0.2.16",
-    "@tiptap/extension-highlight": "^2.0.0-beta.33",
-    "@tiptap/extension-underline": "2.0.0-beta.23",
-    "@tiptap/starter-kit": "^2.0.0-beta.185",
-    "@tiptap/vue-3": "2.0.0-beta.91",
     "@vueuse/core": "^9.1.0",
     "codeceptjs-assert": "^0.0.5",
     "compression": "^1.7.4",
@@ -51,10 +47,10 @@
     "v-shared-element": "3.1.0",
     "vue-meta": "^3.0.0-alpha.9",
     "vue-router": "^4.1.3",
-    "vue3-scroll-border": "0.1.2"
+    "vue3-scroll-border": "0.1.4"
   },
   "devDependencies": {
-    "@live-change/codeceptjs-helper": "0.7.4",
+    "@live-change/codeceptjs-helper": "0.7.8",
     "@wdio/selenium-standalone-service": "^7.20.8",
     "codeceptjs": "^3.3.4",
     "generate-password": "1.7.0",
@@ -66,5 +62,5 @@
   "author": "",
   "license": "ISC",
   "description": "",
-  "gitHead": "323185f6d910912093b3c92df102d0f938cef367"
+  "gitHead": "61ea1e9554f3bf8cb8f9debffdabd8a88855c3b2"
 }

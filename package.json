@@ -11,7 +11,9 @@
     "upload-frontend",
     "image-frontend",
     "url-frontend",
-    "content-frontend"
+    "content-frontend",
+    "blog-frontend"
   ],
-  "license": "BSD-3-Clause"
+  "license": "BSD-3-Clause",
+  "version": "0.0.1"
 }

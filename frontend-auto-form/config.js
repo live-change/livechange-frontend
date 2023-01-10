@@ -35,7 +35,14 @@ types.Array = inputs.list = input(() => import('./ArrayInput.vue'), {
 types.Date = inputs.datetime = input(() => import('primevue/calendar'), { attributes: { showTime: true } })
 
 inputs.select = input(() => import('primevue/dropdown'), {
-  attributes: (definition) => ({ options: definition.options })
+  attributes: (config) => {
+    const { definition, i18n, t } = config
+    console.log("SELECT", config)
+    return {
+      options: definition.options,
+      optionLabel: option => t(i18n + ':options.' + option)
+    }
+  }
 })
 
 inputs.duration = input(() => import('primevue/inputmask'), {

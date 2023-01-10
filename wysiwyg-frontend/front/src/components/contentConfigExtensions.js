@@ -5,7 +5,7 @@ import HardBreak from "@tiptap/extension-hard-break"
 import HorizontalRule from "@tiptap/extension-horizontal-rule"
 import Heading from '@tiptap/extension-heading'
 import Blockqoute from "@tiptap/extension-blockquote"
-import CodeBlock from "@tiptap/extension-code-block"
+//import CodeBlock from "@tiptap/extension-code-block"
 import BulletList from "@tiptap/extension-bullet-list"
 import OrderedList from "@tiptap/extension-ordered-list"
 import ListItem from "@tiptap/extension-list-item"
@@ -19,6 +19,10 @@ import Strike from "@tiptap/extension-strike"
 
 import ImageNode from "./ImageNode.js"
 
+import CodeBlockNode  from "./CodeBlockNode.js";
+
+import ComponentNode from "./ComponentNode.js"
+import SlotNode from "./SlotNode.js"
 
 export const marksExtensions = {
   bold: [Bold],
@@ -37,13 +41,18 @@ export const nodesExtensions = {
 
   heading: [Heading],
   blockquote: [Blockqoute],
-  codeBlock:  [CodeBlock],
+  //codeBlock:  [CodeBlock]
+  codeBlock: [CodeBlockNode],
 
   bulletList: [BulletList],
   orderedList: [OrderedList],
   listItem: [ListItem],
 
-  image: [ImageNode]
+  image: [ImageNode],
+
+  component: [ComponentNode],
+
+  slot: [SlotNode],
 }
 
 export function getExtensions(contentConfig) {

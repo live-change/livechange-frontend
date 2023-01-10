@@ -18,10 +18,15 @@ export function wysiwygRoutes(config = {}) {
     }),
 
     route({
-      name: 'wysiwyg:documentEditor', path: prefix + 'collab', meta: { },
+      name: 'wysiwyg:documentEditor', path: prefix + 'doc/:target', meta: { },
       component: () => import("./DocumentEditorTest.vue"),
-      props: {
-      }
+      props: true
+    }),
+
+    route({
+      name: 'wysiwyg:documentPreview', path: prefix + 'view/:target', meta: { },
+      component: () => import("./DocumentPreviewTest.vue"),
+      props: true
     }),
 
     ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })

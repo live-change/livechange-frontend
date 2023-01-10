@@ -24,6 +24,18 @@ export function wysiwygRoutes(config = {}) {
       }
     }),
 
+    route({
+      name: 'urls:exampleListPage',
+      path: prefix + 'list',
+      component: () => import("./UrlsListPage.vue"),
+      props: {
+        targetType: 'example_Example',
+      },
+      meta: {
+        wide: true
+      }
+    }),
+
     ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
 
   ]

@@ -10,10 +10,11 @@
     "user-frontend",
     "wysiwyg-frontend",
     "url-frontend",
-    "content-frontend"
+    "content-frontend",
+    "blog-frontend"
   ],
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.2.8"
+  "version": "0.2.22"
 }

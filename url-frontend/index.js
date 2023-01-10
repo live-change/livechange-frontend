@@ -16,5 +16,8 @@ export { ResolveUrl }
 import NotFound from "./front/src/components/NotFound.vue"
 export { NotFound }
 
+import NotAuthorized from "./front/src/components/NotAuthorized.vue"
+export { NotAuthorized }
+
 import sitemap from "./front/src/sitemap.js"
 export { sitemap }
