@@ -4,6 +4,9 @@ export { Urls }
 import UrlsInfo from "./front/src/components/UrlsInfo.vue"
 export { UrlsInfo }
 
+import UrlsList from "./front/src/components/UrlsList.vue"
+export { UrlsList }
+
 import TakeUrlForm from "./front/src/components/TakeUrlForm.vue"
 export { TakeUrlForm }
 
