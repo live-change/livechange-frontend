@@ -42,7 +42,7 @@ export const richEditorNodes = {
   heading: ({ content, attrs }, r) => h('h'+(+attrs.level), { }, r(content)),
   blockquote: ({ content }, r) => h('blockquote', { }, r(content)),
   codeBlock:  ({ content }, r) => {
-    const code = content.map(t => t.text).join('')
+    const code = (content ?? []).map(t => t.text).join('')
     const tree = javascriptParser.parse(code)
     let pos = 0
     let output = []

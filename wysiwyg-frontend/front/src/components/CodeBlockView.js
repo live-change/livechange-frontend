@@ -1,13 +1,30 @@
-import { TextSelection } from 'prosemirror-state'
-import {
-  EditorView, keymap as cmKeymap, drawSelection
-} from "@codemirror/view"
+import { Selection, TextSelection } from 'prosemirror-state'
+import { Node as PMNode } from 'prosemirror-model';
+import { EditorState as CMState, Transaction as CMTransaction } from '@codemirror/state';
+import { EditorView as CMView, keymap as cmKeymap, drawSelection } from '@codemirror/view';
 import {javascript} from "@codemirror/lang-javascript"
 import {defaultKeymap} from "@codemirror/commands"
 import {syntaxHighlighting, defaultHighlightStyle} from "@codemirror/language"
 
 import {exitCode} from "prosemirror-commands"
 import {undo, redo} from "prosemirror-history"
+
+const computeChange = (oldVal, newVal) => {
+  if (oldVal === newVal) {
+    return null
+  }
+  let start = 0
+  let oldEnd = oldVal.length
+  let newEnd = newVal.length
+  while (start < oldEnd && oldVal.charCodeAt(start) === newVal.charCodeAt(start)) {
+    start += 1
+  }
+  while (oldEnd > start && newEnd > start && oldVal.charCodeAt(oldEnd - 1) === newVal.charCodeAt(newEnd - 1)) {
+    oldEnd -= 1
+    newEnd -= 1
+  }
+  return { from: start, to: oldEnd, text: newVal.slice(start, newEnd) }
+}
 
 class CodeBlockView {
   constructor(node, editor, getPos) {
@@ -18,6 +35,17 @@ class CodeBlockView {
     this.getPos = getPos
 
     this.language = node.attrs.language
+
+    // This flag is used to avoid an update loop between the outer and
+    // inner editor
+    this.updating = false
+
+    const changeFilter = CMState.changeFilter.of((tr) => {
+      if (!tr.docChanged && !this.updating) {
+        this.forwardSelection()
+      }
+      return true
+    })
 
     // Select language plugin
     let languagePlugins = []
@@ -30,9 +58,16 @@ class CodeBlockView {
     }
 
     // Create a CodeMirror instance
-    this.cm = new EditorView({
+    this.cm = new CMView({
+      dispatch: this.dispatch.bind(this),
+    })
+    // The editor's outer node is our DOM representation
+    this.dom = this.cm.dom
+
+    const cmState = CMState.create({
       doc: this.node.textContent,
       extensions: [
+        changeFilter,
         cmKeymap.of([
           ...this.codeMirrorKeymap(),
           ...defaultKeymap
@@ -40,43 +75,82 @@ class CodeBlockView {
         drawSelection(),
         syntaxHighlighting(defaultHighlightStyle),
         ...languagePlugins,
-        EditorView.updateListener.of(update => this.forwardUpdate(update))
-      ]
+      ],
     })
-    // The editor's outer node is our DOM representation
-    this.dom = this.cm.dom
 
-    // This flag is used to avoid an update loop between the outer and
-    // inner editor
-    this.updating = false
+    this.cm.setState(cmState)
   }
 
-  forwardUpdate(update) {
-    if (this.updating || !this.cm.hasFocus) return
-    let offset = this.getPos() + 1, {main} = update.state.selection
-    let selection = TextSelection.create(this.view.state.doc,
-      offset + main.from, offset + main.to)
-    if (update.docChanged || !this.view.state.selection.eq(selection)) {
-      let tr = this.view.state.tr.setSelection(selection)
-      update.changes.iterChanges((fromA, toA, fromB, toB, text) => {
-        if (text.length)
-          tr.replaceWith(offset + fromA, offset + toA,
-            this.schema.text(text.toString()))
-        else
-          tr.delete(offset + fromA, offset + toA)
-        offset += (toB - fromB) - (toA - fromA)
-      })
+  forwardSelection() {
+    if (!this.cm.hasFocus) {
+      return;
+    }
+
+    const { state } = this.view;
+    const selection = this.asProseMirrorSelection(state.doc)
+
+    if (!selection.eq(state.selection)) {
+      this.view.dispatch(state.tr.setSelection(selection))
+    }
+  }
+
+  asProseMirrorSelection(doc) {
+    const offset = this.getPos() + 1
+    const { anchor, head } = this.cm.state.selection.main
+    return TextSelection.create(doc, anchor + offset, head + offset)
+  }
+
+  dispatch(cmTr) {
+    this.cm.setState(cmTr.state);
+
+    if (cmTr.docChanged && !this.updating) {
+      const start = this.getPos() + 1
+      const cmValue = cmTr.state.doc.toString()
+      const change = computeChange(this.node.textContent, cmValue)
+      if (!change) {
+        return
+      }
+      const content = change.text ? this.view.state.schema.text(change.text) : null
+      const tr = this.view.state.tr.replaceWith(change.from + start, change.to + start, content)
       this.view.dispatch(tr)
+      this.forwardSelection()
+    }
+  }
+
+  maybeEscape(unit, dir) {
+    return (view) => {
+      const { state } = view
+      const { selection } = state
+      console.log("maybeEscape", unit, dir, "AT", selection.from, selection.to)
+      const offsetToPos = () => {
+        const offset = selection.main.from
+        const line = state.doc.lineAt(offset)
+        return { line: line.number, ch: offset - line.from }
+      };
+      const pos = offsetToPos()
+      const hasSelection = state.selection.ranges.some((r) => !r.empty)
+      const firstLine = 1
+      const lastLine = state.doc.lineAt(state.doc.length).number
+      if (
+        hasSelection
+        || pos.line !== (dir < 0 ? firstLine : lastLine)
+        || (unit === 'char' && pos.ch !== (dir < 0 ? 0 : state.doc.line(pos.line).length))
+      ) return false
+      const targetPos = this.getPos() + (dir < 0 ? 0 : this.node.nodeSize)
+      const pmSelection = Selection.near(this.view.state.doc.resolve(targetPos), dir)
+      this.view.dispatch(this.view.state.tr.setSelection(pmSelection).scrollIntoView())
+      this.view.focus()
+      return true
     }
   }
 
   codeMirrorKeymap() {
     let view = this.view
     return [
-      {key: "ArrowUp", run: () => this.maybeEscape("line", -1)},
-      {key: "ArrowLeft", run: () => this.maybeEscape("char", -1)},
-      {key: "ArrowDown", run: () => this.maybeEscape("line", 1)},
-      {key: "ArrowRight", run: () => this.maybeEscape("char", 1)},
+      {key: "ArrowUp", run: this.maybeEscape("line", -1)},
+      {key: "ArrowLeft", run: this.maybeEscape("char", -1)},
+      {key: "ArrowDown", run: this.maybeEscape("line", 1)},
+      {key: "ArrowRight", run: this.maybeEscape("char", 1)},
       {key: "Ctrl-Enter", run: () => {
           if (!exitCode(view.state, view.dispatch)) return false
           view.focus()
@@ -91,48 +165,38 @@ class CodeBlockView {
     ]
   }
 
-  maybeEscape(unit, dir) {
-    let {state} = this.cm, {main} = state.selection
-    if (!main.empty) return false
-    if (unit == "line") main = state.doc.lineAt(main.head)
-    if (dir < 0 ? main.from > 0 : main.to < state.doc.length) return false
-    let targetPos = this.getPos() + (dir < 0 ? 0 : this.node.nodeSize)
-    let selection = Selection.near(this.view.state.doc.resolve(targetPos), dir)
-    let tr = this.view.state.tr.setSelection(selection).scrollIntoView()
-    this.view.dispatch(tr)
-    this.view.focus()
-  }
-
   update(node) {
     if (node.type != this.node.type) return false
     if (node.attrs.language != this.language) return false
-    if (this.updating) return true
-    let newText = node.textContent, curText = this.cm.state.doc.toString()
-    if (newText != curText) {
-      let start = 0, curEnd = curText.length, newEnd = newText.length
-      while (start < curEnd &&
-      curText.charCodeAt(start) == newText.charCodeAt(start)) {
-        ++start
-      }
-      while (curEnd > start && newEnd > start &&
-      curText.charCodeAt(curEnd - 1) == newText.charCodeAt(newEnd - 1)) {
-        curEnd--
-        newEnd--
-      }
+    //if (this.updating) return true
+    this.node = node
+    const change = computeChange(this.cm.state.doc.toString(), node.textContent)
+    if (change) {
       this.updating = true
       this.cm.dispatch({
-        changes: {
-          from: start, to: curEnd,
-          insert: newText.slice(start, newEnd)
-        }
+        changes: { from: change.from, to: change.to, insert: change.text },
       })
       this.updating = false
     }
     return true
   }
 
-  selectNode() { this.cm.focus() }
-  stopEvent() { return true }
+  focus() {
+    this.cm.focus()
+    this.forwardSelection()
+  }
+
+  selectNode() {
+    this.focus()
+  }
+
+  stopEvent() {
+    return true
+  }
+
+  destroy() {
+    this.cm.destroy()
+  }
 }
 
 

@@ -8,7 +8,7 @@ export function blogEditRoutes(config = {}) {
       component: () => import("./BlogPostEditor.vue") }),
     route({ name: 'blog:postPreview', path: prefix + 'post-preview/:postId', meta: { }, props: true,
       component: () => import("./BlogPostPreview.vue") }),
-    route({ name: 'blog:postPreview', path: prefix + 'posts-list', meta: { }, props: true,
+    route({ name: 'blog:postsList', path: prefix + 'posts-list', meta: { }, props: true,
       component: () => import("./BlogPostsList.vue") }),
   ]
 }

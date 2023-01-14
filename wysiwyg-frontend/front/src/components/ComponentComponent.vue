@@ -3,8 +3,7 @@
     <ComponentEditor v-bind="{
       ...attrs, class: ['relative', editorClass]
     }">
-      <node-view-content :class="[editorContentClass]"
-                         :style="style" />
+      <node-view-content :class="[editorContentClass]" />
       <div class="absolute top-0 right-0 pr-4 max-h-0 align-items-center z-5 edit-buttons ">
         <Button icon="pi pi-eye"
                 :class="[

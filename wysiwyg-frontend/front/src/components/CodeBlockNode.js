@@ -3,7 +3,7 @@ import CodeBlockView from "./CodeBlockView.js"
 
 function arrowHandler(dir) {
   return (state, dispatch, view) => {
-    if (state.selection.empty && view.endOfTextblock(dir)) {
+    if (state.selection?.empty && view.endOfTextblock(dir)) {
       let side = dir == "left" || dir == "up" ? -1 : 1
       let $head = state.selection.$head
       let nextPos = Selection.near(
