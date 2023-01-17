@@ -94,17 +94,7 @@
     }
 
     pre {
-      border-radius: 5px;
-      color: #333;
-    }
-
-    code {
-      display: block;
-      white-space: pre-wrap;
-      font-size: 0.8rem;
-      padding: 0.75rem 1rem;
-      background-color:#e9ecef;
-      color: #495057;
+      overflow-x: auto;
     }
 
     img {

@@ -34,4 +34,10 @@
   api.validators.email = emailValidator
   api.validators.password = passwordValidator
 
+  import { defaultHighlightStyle } from "@codemirror/language"
+  import { StyleModule } from "style-mod"
+  if(typeof window != 'undefined') {
+    StyleModule.mount(window.document, defaultHighlightStyle.module)
+  }
+
 </script>

@@ -87,7 +87,7 @@ export async function createApp(config, api, App, createRouter, host, headers, r
       ? await config.localeSelector({ api, host, url, headers })
       : defaultLocale,
     fallbackLocale: config.fallbackLocale || defaultLocale,
-    messages: config.i18nMessages || {}
+    ...config.i18n
   })
   console.log("I18N MESSAGES", config.i18nMessages)
   app.use(i18n)

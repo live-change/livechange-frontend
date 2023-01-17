@@ -1,6 +1,8 @@
 import { Node } from '@tiptap/core'
 import CodeBlockView from "./CodeBlockView.js"
 
+import "./code-block-node.scss"
+
 function arrowHandler(dir) {
   return (state, dispatch, view) => {
     if (state.selection?.empty && view.endOfTextblock(dir)) {
