@@ -61,9 +61,24 @@ module.exports = {
     {
       name: 'secretLink',
       path: '@live-change/secret-link-service'
-    }
-
-    /// TODO: add cms when ready
+    },
+    {
+      name: 'url',
+      path: '@live-change/url-service'
+    },
+    {
+      name: 'prosemirror',
+      path: '@live-change/prosemirror-service',
+      documentTypes: {
+        page: require('./page.documentType.js'),
+        /*rich: require('./rich.documentType.js'),*/
+      },
+      testLatency: 2000
+    },
+    {
+      name: 'content',
+      path: '@live-change/content-service',
+    },
 
   ]
 }
