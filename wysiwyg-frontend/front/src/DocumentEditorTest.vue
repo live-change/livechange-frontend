@@ -10,7 +10,7 @@
 
   import DocumentEditor from "./components/DocumentEditor.vue"
   import { ref } from 'vue'
-  import { basicMarks, messageNodes, richEditorNodes, pageNodes } from "./components/contentConfig.js"
+  import { basicMarks, messageNodes, richEditorNodes, pageNodes } from "./tiptap/contentConfig.js"
   import { toRefs } from '@vueuse/core'
 
   const props = defineProps({

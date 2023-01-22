@@ -8,7 +8,12 @@ export const basicMarks = {
   bold: (m, c) => h('strong', {}, [ c ]),
   italic: (m, c) => h('em', {}, [ c ]),
   underline: (m, c) => h('u', {}, [ c ]),
-  strike: (m, c) => h('s', {}, [ c ])
+  strike: (m, c) => h('s', {}, [ c ]),
+  link: (m, c) => h('a', {
+    href: m.attrs.href,
+    target: m.attrs.target || '_blank',
+    rel: 'noopener noreferrer nofollow'
+  }, [c]),
 }
 
 export const plainTextNodes = {

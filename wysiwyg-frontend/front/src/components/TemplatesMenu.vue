@@ -33,7 +33,7 @@
   import InputText from "primevue/inputtext"
 
   import ContentView from "./ContentView.js"
-  import templates from "./templates.js"
+  import templates from "../tiptap/templates.js"
 
   import { ref, computed } from 'vue'
 

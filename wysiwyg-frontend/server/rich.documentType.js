@@ -1,5 +1,19 @@
 module.exports = {
   "marks": {
+    "link": {
+      "inclusive": true,
+      "attrs": {
+        "href": {
+          "default": null
+        },
+        "target": {
+          "default": "_blank"
+        },
+        "class": {
+          "default": null
+        }
+      }
+    },
     "bold": {},
     "italic": {},
     "underline": {},

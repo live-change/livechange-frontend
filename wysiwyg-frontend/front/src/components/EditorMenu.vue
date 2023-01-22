@@ -20,6 +20,10 @@
                 @click="editor.chain().focus().toggleStrike().run()" />
       </div>
 
+      <Button v-if="config.marks.link" icon="fa-solid fa-link" class="p-button-sm  mr-1 mb-1"
+              :class="{ 'p-button-outlined': !editor.isActive('link')  }"
+              @click="openLinkOverlay" />
+
       <div class="p-buttonset mr-1 mb-1">
         <Button v-if="config.nodes.bulletList" icon="fa-solid fa-list-ul" class="p-button-sm"
                 :class="{ 'p-button-outlined': !editor.isActive('bulletlist')  }"
@@ -108,6 +112,10 @@
       <TemplatesMenu :config="config" @selected="t => handleTemplateSelected(t)" />
     </OverlayPanel>
 
+    <OverlayPanel ref="linkOverlay">
+      <LinkEditor :config="config" :editor="editor" />
+    </OverlayPanel>
+
 <!--    <div class="surface-card p-1 shadow-2" style="width: 450px">
       <h3>components:</h3>
       <TemplatesMenu :config="config" />
@@ -122,6 +130,8 @@
   import Dropdown from "primevue/dropdown"
 
   import TemplatesMenu from "./TemplatesMenu.vue"
+  import LinkEditor from "./LinkEditor.vue"
+
   import { inject, getCurrentInstance, ref, computed } from "vue"
   import { toRefs } from "@vueuse/core"
   import { uploadImage } from "@live-change/image-frontend"
@@ -168,6 +178,11 @@
     insertTemplateOverlay.value.hide()
     editor.value.chain().focus().insertContent(template.content()).run()
     //editor.value.chain().focus().setNode('component', { is: component }).run()
+  }
+
+  const linkOverlay = ref()
+  function openLinkOverlay(event) {
+    linkOverlay.value.show(event)
   }
 
   if(typeof window != 'undefined') window.editor = editor.value

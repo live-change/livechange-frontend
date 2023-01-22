@@ -1,4 +1,3 @@
-
 export function previewContent(component, title) {
   return [
     {type: 'heading', attrs:{ level: 3 }, content: [{type: 'text', text: title || component.name }]},

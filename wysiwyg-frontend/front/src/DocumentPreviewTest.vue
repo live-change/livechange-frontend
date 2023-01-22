@@ -14,7 +14,7 @@
     }
   })
 
-  import { basicMarks, messageNodes, richEditorNodes, pageNodes } from "./components/contentConfig.js"
+  import { basicMarks, messageNodes, richEditorNodes, pageNodes } from "./tiptap/contentConfig.js"
 
   const contentConfig = {
     marks: {

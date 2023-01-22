@@ -20,8 +20,8 @@
   import { ref, computed, watch, provide, defineEmits, defineProps } from 'vue'
   import { toRefs } from '@vueuse/core'
   import EditorMenu from "./EditorMenu.vue"
-  import { getExtensions } from "./contentConfigExtensions.js"
-  import { getSchemaSpecFromConfig } from "./schemaJson.js"
+  import { getExtensions } from "../tiptap/contentConfigExtensions.js"
+  import { getSchemaSpecFromConfig } from "../tiptap/schemaJson.js"
 
   const props = defineProps({
     modelValue: {

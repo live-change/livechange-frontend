@@ -43,8 +43,8 @@
   } from 'vue'
   import { toRefs, useDebounceFn } from '@vueuse/core'
   import EditorMenu from "./EditorMenu.vue"
-  import { getExtensions } from "./contentConfigExtensions.js"
-  import { getSchemaSpecFromConfig, serializeSchema } from "./schemaJson.js"
+  import { getExtensions } from "../tiptap/contentConfigExtensions.js"
+  import { getSchemaSpecFromConfig, serializeSchema } from "../tiptap/schemaJson.js"
 
   import { live, path, useApi, inboxReader } from '@live-change/vue3-ssr'
   import ProseMirrorCollab from "./ProseMirrorCollab.js"

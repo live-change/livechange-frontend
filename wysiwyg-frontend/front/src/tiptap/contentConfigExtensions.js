@@ -9,6 +9,7 @@ import Blockqoute from "@tiptap/extension-blockquote"
 import BulletList from "@tiptap/extension-bullet-list"
 import OrderedList from "@tiptap/extension-ordered-list"
 import ListItem from "@tiptap/extension-list-item"
+import Link from "@tiptap/extension-link"
 
 import Text from '@tiptap/extension-text'
 
@@ -28,7 +29,10 @@ export const marksExtensions = {
   bold: [Bold],
   italic: [Italic],
   underline: [Underline],
-  strike: [Strike]
+  strike: [Strike],
+  link: [Link.configure({
+    openOnClick: false,
+  })],
 }
 
 export const nodesExtensions = {
