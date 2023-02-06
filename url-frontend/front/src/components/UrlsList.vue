@@ -73,7 +73,7 @@
 
   import { computed } from 'vue'
   import { path, live, actions, api, rangeBuckets, reverseRange } from '@live-change/vue3-ssr'
-  import {useHost} from "../../../../frontend-base";
+  import {useHost} from "@live-change/frontend-base";
   const urlApi = actions().url
 
   const urlPathBaseFunction = computed(() => domain.value

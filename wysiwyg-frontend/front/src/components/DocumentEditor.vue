@@ -47,10 +47,10 @@
   import { getSchemaSpecFromConfig, serializeSchema } from "../tiptap/schemaJson.js"
 
   import { live, path, useApi, inboxReader } from '@live-change/vue3-ssr'
-  import ProseMirrorCollab from "./ProseMirrorCollab.js"
+  import ProseMirrorCollab from "../tiptap/ProseMirrorCollab.js"
   import { sendableSteps, receiveTransaction, getVersion } from 'prosemirror-collab'
   import { Step } from 'prosemirror-transform'
-  import RemoteAuthority from "./RemoteAuthority";
+  import RemoteAuthority from "../tiptap/RemoteAuthority";
 
   const props = defineProps({
     targetType: {
