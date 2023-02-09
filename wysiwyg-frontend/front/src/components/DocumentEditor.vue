@@ -48,8 +48,8 @@
 
   import { live, path, useApi, inboxReader } from '@live-change/vue3-ssr'
   import ProseMirrorCollab from "../tiptap/ProseMirrorCollab.js"
-  import { sendableSteps, receiveTransaction, getVersion } from 'prosemirror-collab'
-  import { Step } from 'prosemirror-transform'
+  import { sendableSteps, receiveTransaction, getVersion } from '@tiptap/pm/collab'
+  import { Step } from '@tiptap/pm/transform'
   import RemoteAuthority from "../tiptap/RemoteAuthority";
 
   const props = defineProps({

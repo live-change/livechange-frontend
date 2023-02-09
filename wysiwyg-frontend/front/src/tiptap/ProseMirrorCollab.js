@@ -1,5 +1,5 @@
 import { Extension } from '@tiptap/core'
-import { collab } from 'prosemirror-collab'
+import { collab } from '@tiptap/pm/collab'
 
 const ProseMirrorCollab = Extension.create({
   addOptions() {

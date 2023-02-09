@@ -1,7 +1,7 @@
 import { useApi, inboxReader } from '@live-change/vue3-ssr'
 import { ref } from 'vue'
 
-import { Step } from "prosemirror-transform"
+import { Step } from "@tiptap/pm/transform"
 
 import Debug from "debug"
 const debug = Debug("wysiwyg:collab")

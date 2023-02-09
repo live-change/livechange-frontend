@@ -1,13 +1,12 @@
-import { Selection, TextSelection } from 'prosemirror-state'
-import { Node as PMNode } from 'prosemirror-model';
-import { EditorState as CMState, Transaction as CMTransaction } from '@codemirror/state';
+import { Selection, TextSelection } from '@tiptap/pm/state'
+import { EditorState as CMState } from '@codemirror/state';
 import { EditorView as CMView, keymap as cmKeymap, drawSelection } from '@codemirror/view';
 import {javascript} from "@codemirror/lang-javascript"
 import {defaultKeymap} from "@codemirror/commands"
 import {syntaxHighlighting, defaultHighlightStyle} from "@codemirror/language"
 
-import {exitCode} from "prosemirror-commands"
-import {undo, redo} from "prosemirror-history"
+import {exitCode} from "@tiptap/pm/commands"
+import {undo, redo} from "@tiptap/pm/history"
 
 const computeChange = (oldVal, newVal) => {
   if (oldVal === newVal) {
