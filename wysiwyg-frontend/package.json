@@ -1,6 +1,6 @@
 {
   "name": "@live-change/wysiwyg-frontend",
-  "version": "0.2.28",
+  "version": "0.2.29",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --dbAccess",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -59,9 +59,8 @@
     "@tiptap/extension-strike": "^2.0.0-beta.217",
     "@tiptap/extension-text": "^2.0.0-beta.217",
     "@tiptap/extension-underline": "2.0.0-beta.217",
-    "@tiptap/vue-3": "2.0.0-beta.217",
     "@tiptap/pm": "2.0.0-beta.217",
-    "prosemirror-view": "^1.28.2",
+    "@tiptap/vue-3": "2.0.0-beta.217",
     "@vueuse/core": "^9.1.0",
     "codeceptjs-assert": "^0.0.5",
     "compression": "^1.7.4",
@@ -71,6 +70,7 @@
     "primeicons": "^6.0.1",
     "primevue": "^3.18.1",
     "prismjs": "^1.28.0",
+    "prosemirror-view": "^1.28.2",
     "rollup-plugin-node-builtins": "^2.1.2",
     "rollup-plugin-visualizer": "5.6.0",
     "serve-static": "^1.15.0",
