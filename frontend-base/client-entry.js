@@ -6,10 +6,12 @@ import {
 } from 'v-shared-element'
 
 import { createApp } from "./main.js"
+import { setTime, startRealTime } from "./time";
 
 window.process = { env: {} }
 
 export async function clientEntry(App, createRouter, config = {}) {
+  setTime(window.__NOW__)
 
   const windowId = window.__WINDOW_ID__
   console.error("CLIENT WINDOW ID", windowId)
@@ -33,6 +35,8 @@ export async function clientEntry(App, createRouter, config = {}) {
   router.isReady().then(() => {
     const instance = app.mount('#app', true)
     app._container._vnode = instance.$.vnode
+
+    startRealTime()
   })
 
 }

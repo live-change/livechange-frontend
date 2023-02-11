@@ -12,3 +12,6 @@ export { useHost }
 
 import { useResponse } from "./response.js"
 export { useResponse }
+
+import { now, realTime, currentTime } from "./time.js"
+export { now, realTime, currentTime }

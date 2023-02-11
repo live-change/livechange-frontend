@@ -4,6 +4,7 @@ import { renderMetaToString } from 'vue-meta/ssr'
 import { serverApi } from '@live-change/vue3-ssr/serverApi.js'
 
 import { createApp } from "./main.js"
+import { setTime } from "./time.js";
 
 function escapeHtml(unsafe) {
   return (''+unsafe)
@@ -15,7 +16,9 @@ function escapeHtml(unsafe) {
 }
 
 export function serverEntry(App, createRouter, config = {}) {
-  return async function({ url, headers, dao, windowId }) {
+  return async function({ url, headers, dao, windowId, now }) {
+    setTime(now)
+
     const host = headers['host']
     console.error('URL', host, url)
     const api = await serverApi(dao, {
