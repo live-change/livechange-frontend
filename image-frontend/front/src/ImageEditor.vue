@@ -157,6 +157,7 @@
       emit('update:modelValue', upload.value.id)
       if(sourceUpload.value) await sourceUpload.value.upload()
       await upload.value.upload()
+      state.value = 'edit'
       emit('close')
     })())
   }

@@ -96,14 +96,14 @@
   function getSuffix() {
     if(props.noResize) return ''
     const domSize = stableDomSize.value
-    let width = (domSize.width * dpr)|0
-    let height = (domSize.height * dpr)|0
-    if(imageData.value) {
-      width = Math.min(width, imageData.value.width)
-      height = Math.min(height, imageData.value.height)
-    }
     if(props.domResize && domSize) {
       console.log("DOM SIZE", domSize)
+      let width = (domSize.width * dpr)|0
+      let height = (domSize.height * dpr)|0
+      if(imageData.value) {
+        width = Math.min(width, imageData.value.width)
+        height = Math.min(height, imageData.value.height)
+      }
       if(props.domResize == 'width') {
         return `/width-${width}`
       } else if(props.domResize == 'height') {
