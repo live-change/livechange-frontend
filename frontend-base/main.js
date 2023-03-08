@@ -1,4 +1,4 @@
-import { createSSRApp } from 'vue'
+import { createSSRApp, createApp as createSPAApp } from 'vue'
 import { createMetaManager } from 'vue-meta'
 
 import { registerComponents } from '@live-change/vue3-components'
@@ -22,7 +22,9 @@ import { createI18n } from 'vue-i18n'
 // fresh store here.
 export async function createApp(config, api, App, createRouter, host, headers, response, url) {
   const isSSR = response !== undefined
-  const app = createSSRApp(App)
+  const isSPA = (typeof window !== 'undefined') && !window.__DAO_CACHE__
+  console.log("IS SPA", isSPA)
+  const app = isSPA ? createSPAApp(App) : createSSRApp(App)
   app.config.devtools = true
 
   app.config.globalProperties.$response = response
@@ -31,6 +33,7 @@ export async function createApp(config, api, App, createRouter, host, headers, r
   api.installInstanceProperties(app.config.globalProperties)
 
   registerComponents(app)
+
   app.use(ReactiveDaoVue, { dao: api })
 
   const router = createRouter(app)
