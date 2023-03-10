@@ -1,5 +1,5 @@
 <template>
-  <div v-if="synchronizedAccessInvitations.length > 0" class="mb-4">
+  <div v-if="synchronizedAccessInvitations.length > 0" class="mb-4 access-invitations">
     <div class="text-900 font-medium text-xl mb-2">Access Invitations</div>
     <div v-for="access of synchronizedAccessInvitations" :key="access.to"
          class="flex flex-row flex-wrap align-items-center">

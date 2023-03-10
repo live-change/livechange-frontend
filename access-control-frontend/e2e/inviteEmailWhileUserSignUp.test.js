@@ -26,6 +26,8 @@ Scenario('invite user that will register itself at the same time - path 3', asyn
     I.see('Email address')
     I.fillField('input[id="email"]', invitedEmail)
     I.click('Invite')
+    I.see('Access Invitations')
+    I.see(invitedEmail, '.access-invitations')
   })
 
   session('Invited', async () => {
@@ -42,7 +44,7 @@ Scenario('invite user that will register itself at the same time - path 3', asyn
     console.log("AUTHENTICATION DATA", authenticationData)
     I.assert(!!authenticationData, true, 'authentication created')
 
-    const linkData = await I.useSecretLink(authentication, false, '/user')
+    const linkData = await I.useSecretLink(authentication, true, '/user')
 
     I.seeInCurrentUrl('/user/sign-up-finished')
     const clientSession = await I.executeScript(() => api.client.value.session)
@@ -58,8 +60,8 @@ Scenario('invite user that will register itself at the same time - path 3', asyn
   })
 
   session('Inviting', () => {
-    I.see('Access Invitations')//jak juz uzytkownik jest zarejsestrowany to nie widzisz zaproszenia i emaila tylko imie
-    I.see(invitedName)
+    I.see('Authorized')//jak juz uzytkownik jest zarejsestrowany to nie widzisz zaproszenia i emaila tylko imie
+    I.see(invitedEmail, '.access-invitations')
     I.wait(23)
   })
 })
