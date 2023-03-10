@@ -26,6 +26,8 @@ Scenario('invite user that will register from invitation link - path 2', async (
     I.see('Email address')
     I.fillField('input[id="email"]', invitedEmail)
     I.click('Invite')
+    I.see('Access Invitations')
+    I.see(invitedEmail) //specify that it is in Access Invitations
   })
 
   session('Invited',
@@ -34,8 +36,8 @@ Scenario('invite user that will register from invitation link - path 2', async (
       })
 
   session('Inviting', () => {
-    I.see('Access Invitations')
-    I.see(invitedEmail)
-    I.wait(23)
+    I.see('Authorized')
+    I.see(invitedName) //specify that it is in Authorized
+    I.wait(7)
   })
 })

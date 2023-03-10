@@ -26,7 +26,6 @@ Scenario('invite user that already exists - path 1', async ({ I }) => {
     I.see('Email address')
     I.fillField('input[id="email"]', anotherUser.email)
     I.click('Invite')
-    I.wait(5)
     I.see('Access Invitations')
     //I.see(anotherUser.name)
   })
@@ -38,7 +37,8 @@ Scenario('invite user that already exists - path 1', async ({ I }) => {
   })
   session('X', () =>{
   I.see('Authorized')
+    pause()
   I.see(anotherUser.name)
-  I.wait(23)
+  I.wait(3)
   })
 })
