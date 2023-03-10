@@ -16,9 +16,12 @@ export async function clientEntry(App, createRouter, config = {}) {
   const windowId = window.__WINDOW_ID__
   console.error("CLIENT WINDOW ID", windowId)
 
+  const clientConfig = (typeof config.client == 'function' ? config.client() : config.client) || {}
+
   const api = clientApi({
     use: [],
-    windowId
+    windowId,
+    ...clientConfig.api
   })
   window.api = api
   await api.readyPromise
