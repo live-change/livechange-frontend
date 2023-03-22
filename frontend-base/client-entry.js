@@ -25,6 +25,7 @@ export async function clientEntry(App, createRouter, config = {}) {
   })
   window.api = api
   await api.readyPromise
+  console.log("API READY")
 
   const host = document.location.host
   const url = document.location.pathname + document.location.search
