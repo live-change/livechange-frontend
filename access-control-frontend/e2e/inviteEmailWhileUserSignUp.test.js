@@ -19,6 +19,7 @@ Scenario('invite user that will register itself at the same time - path 3', asyn
     await I.amOnPage('/')
     await I.amLoggedIn(adminUser)
     I.see('Access Granted!')
+    pause()
     I.click('Share')
     I.see('Access Control')
     I.click('Invite with email')

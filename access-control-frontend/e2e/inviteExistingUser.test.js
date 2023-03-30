@@ -37,7 +37,6 @@ Scenario('invite user that already exists - path 1', async ({ I }) => {
   })
   session('X', () =>{
   I.see('Authorized')
-    pause()
   I.see(anotherUser.name)
   I.wait(3)
   })

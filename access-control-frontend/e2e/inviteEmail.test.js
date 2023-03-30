@@ -27,17 +27,20 @@ Scenario('invite user that will register from invitation link - path 2', async (
     I.fillField('input[id="email"]', invitedEmail)
     I.click('Invite')
     I.see('Access Invitations')
-    I.see(invitedEmail, '.access-invitations') //specify that it is in Access Invitations
+    I.see(invitedEmail, '.access-invitations')
   })
 
   session('Invited',
       async () => {
         await I.useEmailLink(invitedEmail, '/user/link/')
+        I.click('i.pi.pi-bell')
+        I.click('Accept')
       })
 
   session('Inviting', () => {
     I.see('Authorized')
-    I.see(invitedName, '.authorized') //specify that it is in Authorized
-    I.wait(7)
+    I.see(invitedName, '.authorized')
+    I.wait(23)
   })
+
 })

@@ -36,7 +36,7 @@ exports.config = {
         } : undefined,
       },
       chromium: {
-        args: [`--force-device-scale-factor=${device.deviceScaleFactor}`]
+        //args: [`--force-device-scale-factor=${device.deviceScaleFactor}`]
       }
     }
   },
