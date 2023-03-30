@@ -63,6 +63,7 @@ module.exports = async ({ command, mode }) => ({
         /live-change-dao\/dao\//,
         /live-change-dao\/dao-sockjs\//,
         /live-change-dao\/dao-websocket\//,
+        /live-change-dao\/dao-message\//,
       ]
     },
   },
@@ -105,6 +106,7 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/dao',
       '@live-change/dao-sockjs',
       '@live-change/dao-websocket',
+      '@live-change/dao-message',
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
