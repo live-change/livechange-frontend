@@ -19,7 +19,6 @@ Scenario('invite user that will register itself at the same time - path 3', asyn
     await I.amOnPage('/')
     await I.amLoggedIn(adminUser)
     I.see('Access Granted!')
-    pause()
     I.click('Share')
     I.see('Access Control')
     I.click('Invite with email')
@@ -29,11 +28,13 @@ Scenario('invite user that will register itself at the same time - path 3', asyn
     I.click('Invite')
     I.see('Access Invitations')
     I.see(invitedEmail, '.access-invitations')
+
   })
 
   session('Invited', async () => {
-    I.amOnPage('/user/sign-up')
-
+    await I.amOnPage('/user/sign-up')
+    I.see('Sign Up')
+    I.see('Email address')
     I.fillField('input[id="email"]', invitedEmail)
     I.click('button[type="submit"]')
 
@@ -58,11 +59,14 @@ Scenario('invite user that will register itself at the same time - path 3', asyn
     I.assert(clientUser, authenticatedUserData.user, 'user authenticated')
 
 
+    I.see('Signed Up')
+    I.click('i.pi.pi-bell')
+    I.click('Accept')
   })
 
   session('Inviting', () => {
-    I.see('Authorized')//jak juz uzytkownik jest zarejsestrowany to nie widzisz zaproszenia i emaila tylko imie
-    I.see(invitedEmail, '.access-invitations')
-    I.wait(23)
+    I.see('Authorized')
+    I.see(invitedName, '.authorized')
+    I.wait(10)
   })
 })
