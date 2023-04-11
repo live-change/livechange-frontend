@@ -509,36 +509,36 @@
   resolved "https://registry.yarnpkg.com/@linaria/core/-/core-3.0.0-beta.13.tgz#049c5be5faa67e341e413a0f6b641d5d78d91056"
   integrity sha512-3zEi5plBCOsEzUneRVuQb+2SAx3qaC1dj0FfFAI6zIJQoDWu0dlSwKijMRack7oO9tUWrchfj3OkKQAd1LBdVg==
 
-"@live-change/access-control-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/access-control-service/-/access-control-service-0.3.16.tgz#6835c20bcba3db9dbfb5b5dd967aa82373d20464"
-  integrity sha512-h46xIMlyFk90QCam9egfE7f+n/N8qV4VV2+Vr2TykstxxNg1gUuCkQyB0uNXOuDW9/zp00MUX96qCB9MNJ4Opw==
+"@live-change/access-control-service@0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/access-control-service/-/access-control-service-0.3.17.tgz#aa5a83888f37ce7bbf9c4e412a11c3aa9851c2a2"
+  integrity sha512-JmJplFJqEmAYbpEOLqBD9ce43cn7eFBNM8+qXGmXWgqIpquceqjmptmJdA2hrmONJcukdtT4zJwwFq2S8XXTGw==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
 
-"@live-change/blog-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/blog-service/-/blog-service-0.3.16.tgz#ba7179606dc144e033b5056d1d6cbbe89a8e4d9a"
-  integrity sha512-4ED8Rn3eJH/GIURTobIX/vtgbt+qyWYpolBcYDEM1wHezKMNGlzl+LUG6NNtM5gAtYtw2A3pIWuEry2SMe7AAw==
+"@live-change/blog-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/blog-service/-/blog-service-0.3.17.tgz#d3c8717e3b5ca6239f69957377438c2ba7412bb2"
+  integrity sha512-R+Li/7tGqqhzhkvDpW5jgPLlD0fU6IlkwvIyodVCrYzbZoI69h59G59nZxG9HYDyALPk8CYSFP9qlMGnoHiyCw==
   dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     lru-cache "^7.12.0"
     pluralize "8.0.0"
     progress-stream "^2.0.0"
     prosemirror-model "^1.18.1"
 
-"@live-change/cli@0.7.10":
-  version "0.7.10"
-  resolved "https://registry.yarnpkg.com/@live-change/cli/-/cli-0.7.10.tgz#45c134aac18783ba652cac196b63b183606096a2"
-  integrity sha512-SdIozrNWsB1nTOvJIeSS8+6xU1Z3ARWagqPC7fao6mk4IRW3l16D+ponshvCZciq5bje2K96vDH4oDKlU7L5sg==
+"@live-change/cli@0.7.18", "@live-change/cli@^0.7.16", "@live-change/cli@^0.7.18":
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/@live-change/cli/-/cli-0.7.18.tgz#db577de458c3af160865171d46fec3760cae3d7e"
+  integrity sha512-TyhXxXhj1hr4zNkmiabALby0VPsmEM7I2Admq8MW1VaFDTq91QI9et5E1dgZDaXPkWVIJLDsQN5w5fLWPg/TJQ==
   dependencies:
-    "@live-change/dao" "0.5.8"
-    "@live-change/dao-sockjs" "0.5.8"
-    "@live-change/dao-websocket" "0.5.8"
-    "@live-change/db-server" "0.5.22"
-    "@live-change/framework" "^0.7.10"
-    "@live-change/server" "^0.7.10"
+    "@live-change/dao" "^0.5.10"
+    "@live-change/dao-sockjs" "^0.5.10"
+    "@live-change/dao-websocket" "^0.5.10"
+    "@live-change/db-server" "^0.5.25"
+    "@live-change/framework" "^0.7.18"
+    "@live-change/server" "^0.7.18"
     dotenv "^16.0.1"
     express "^4.18.1"
     http-proxy-middleware "2.0.6"
@@ -549,56 +549,14 @@
     websocket "^1.0.34"
     yargs "^17.5.1"
 
-"@live-change/cli@0.7.16":
-  version "0.7.16"
-  resolved "https://registry.yarnpkg.com/@live-change/cli/-/cli-0.7.16.tgz#dc26c08e527034651ad4f4053523c95f6f4dd0b7"
-  integrity sha512-qKAIFsfQ52Rg8P3hagNVvUvobuu9CJZiaB/H7l4GoxhqTyC3btKSFarWQ2x4wlOOzRWjqZlXnSgkS/k8JW8DWg==
-  dependencies:
-    "@live-change/dao" "0.5.10"
-    "@live-change/dao-sockjs" "0.5.10"
-    "@live-change/dao-websocket" "0.5.10"
-    "@live-change/db-server" "0.5.23"
-    "@live-change/framework" "^0.7.16"
-    "@live-change/server" "^0.7.16"
-    dotenv "^16.0.1"
-    express "^4.18.1"
-    http-proxy-middleware "2.0.6"
-    resolve "^1.22.1"
-    segfault-handler "^1.3.0"
-    serialize-javascript "^6.0.0"
-    sockjs "^0.3.24"
-    websocket "^1.0.34"
-    yargs "^17.5.1"
-
-"@live-change/cli@0.7.6":
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@live-change/cli/-/cli-0.7.6.tgz#b5c1ee433c0bdc44e2b70a1596bb25bff01b127d"
-  integrity sha512-kgn9DqLFUH/vFWAFtOhJAECJJfo07qaNNXDj/9ULGAI1M/ACqWctiUC/xK6OIW0hickDguey7Ye5us60cqXBPQ==
-  dependencies:
-    "@live-change/dao" "0.5.8"
-    "@live-change/dao-sockjs" "0.5.8"
-    "@live-change/dao-websocket" "0.5.8"
-    "@live-change/db-server" "0.5.20"
-    "@live-change/framework" "^0.7.6"
-    "@live-change/server" "^0.7.6"
-    dotenv "^16.0.1"
-    express "^4.18.1"
-    http-proxy-middleware "2.0.6"
-    resolve "^1.22.1"
-    segfault-handler "^1.3.0"
-    serialize-javascript "^6.0.0"
-    sockjs "^0.3.24"
-    websocket "^1.0.34"
-    yargs "^17.5.1"
-
-"@live-change/codeceptjs-helper@0.7.16":
-  version "0.7.16"
-  resolved "https://registry.yarnpkg.com/@live-change/codeceptjs-helper/-/codeceptjs-helper-0.7.16.tgz#597ea42c1125361511dc6e77111fc1931a3f894b"
-  integrity sha512-Mmbpb9VxSBAQtGE1laueir1hwVCGrwUKbwd/Yt+0k6sZTwIXARMJv+6hDz18MaL6Ri2k0Oe3Irx8f0k85Z4Fug==
+"@live-change/codeceptjs-helper@0.7.18":
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/@live-change/codeceptjs-helper/-/codeceptjs-helper-0.7.18.tgz#8ab7a2a3729f95c038dd1883eda78fec0a4acf76"
+  integrity sha512-Nru7OQHzn136Hwqxf2FF+YutPchRVrbwkzJbsPluLYL12eN6GpKbLlbyPLUrP+XXkpEHZs+2H3DLMAdfzBAcmw==
   dependencies:
     "@codeceptjs/helper" "^2.0.1"
 
-"@live-change/dao-sockjs@0.5.10":
+"@live-change/dao-sockjs@^0.5.10":
   version "0.5.10"
   resolved "https://registry.yarnpkg.com/@live-change/dao-sockjs/-/dao-sockjs-0.5.10.tgz#31c3182c4572dbf7303fbc9a43bfe646bb485ecf"
   integrity sha512-ix5npoUxR7Lg+dGsZ0h7jRxlR3T9HLWWbn2q4LZpPoPzcjVl2S3YAqFEfgT3GbxKVrPdAbNR1LFYeBvxT7tWcQ==
@@ -608,39 +566,12 @@
     sockjs-client "git+https://github.com/sockjs/sockjs-client.git"
     supports-color "^7.2.0"
 
-"@live-change/dao-sockjs@0.5.8":
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/@live-change/dao-sockjs/-/dao-sockjs-0.5.8.tgz#1b4652c5e25f6f84b9c7e6273949b372ea252255"
-  integrity sha512-0rWdb+QCrXUfeqYAU4sOmeTa2QF5IuL0GgJvmeXoXUC/gy7XnQTNN66uYqGUYlyL6qGagWqc8BIwVEWw2XE53Q==
-  dependencies:
-    "@live-change/dao" "^0.5.8"
-    debug "^4.3.4"
-    sockjs-client "git+https://github.com/sockjs/sockjs-client.git"
-    supports-color "^7.2.0"
-
-"@live-change/dao-sockjs@0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@live-change/dao-sockjs/-/dao-sockjs-0.5.9.tgz#66cc439c8696eed5e463290a8828469e4c5de50c"
-  integrity sha512-B31cIuuYaf7HKDlxQRvpx/zgp/YNiRv4+XjlPntj166GXkr/UEt4ZaoCnwMnX1mHmk5+/Bue9F/VlGfMB64Wcw==
-  dependencies:
-    "@live-change/dao" "^0.5.9"
-    debug "^4.3.4"
-    sockjs-client "git+https://github.com/sockjs/sockjs-client.git"
-    supports-color "^7.2.0"
-
-"@live-change/dao-vue3@0.5.10":
+"@live-change/dao-vue3@0.5.10", "@live-change/dao-vue3@^0.5.10":
   version "0.5.10"
   resolved "https://registry.yarnpkg.com/@live-change/dao-vue3/-/dao-vue3-0.5.10.tgz#efd36e2275055d13fb6efba3665e3a6199b71ef1"
   integrity sha512-RdiWOCrR03DJdcEAjniw8fEYSdfj6h25IkyaBlz0p05vz0bFTbiH6mxO8xcBF4/343Tmp0/36L4pyusGnDfoOg==
   dependencies:
     "@live-change/dao" "^0.5.10"
-
-"@live-change/dao-vue3@0.5.8":
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/@live-change/dao-vue3/-/dao-vue3-0.5.8.tgz#c9d90f33211aaab3353f2b1fbd1b4f9ddd30f412"
-  integrity sha512-+OU8eqT9g/DDhDbnpsIn2ZuI+Lv3ufNVgyygH0X17jd3UaNPGKYCr+SWJYzRhAqKUnkbyFMYVt3Qy9wRxW6VkA==
-  dependencies:
-    "@live-change/dao" "^0.5.8"
 
 "@live-change/dao-vue3@0.5.9":
   version "0.5.9"
@@ -649,38 +580,12 @@
   dependencies:
     "@live-change/dao" "^0.5.9"
 
-"@live-change/dao-websocket@0.5.10":
+"@live-change/dao-websocket@0.5.10", "@live-change/dao-websocket@^0.5.10":
   version "0.5.10"
   resolved "https://registry.yarnpkg.com/@live-change/dao-websocket/-/dao-websocket-0.5.10.tgz#e705d7aa135086a29c423a6f94a9b1c367d16ca3"
   integrity sha512-p7hZbJYwAVbqvqPpvd1xXnIdrSsJuIe7/t+Rx0rsEjfP67QkTZJlqBbBmdWNTxfgqbKJlwR5IRbRYm62Ucpx7A==
   dependencies:
     "@live-change/dao" "^0.5.10"
-    bufferutil "^4.0.3"
-    debug "^4.3.4"
-    supports-color "^7.2.0"
-    universal-websocket-client "^1.0.1"
-    utf-8-validate "^5.0.4"
-    websocket "^1.0.34"
-
-"@live-change/dao-websocket@0.5.8":
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/@live-change/dao-websocket/-/dao-websocket-0.5.8.tgz#b8bed4e3d6545761a73606fb3a019fe856e2da7f"
-  integrity sha512-LKTiNy/t0bAtvi30R+4uFSaYHmfSlLZm8afdAIQGFy347GFVoV7wRwEAN56eCy1WbO3SMGYMf0XPz3xKLBejQw==
-  dependencies:
-    "@live-change/dao" "^0.5.8"
-    bufferutil "^4.0.3"
-    debug "^4.3.4"
-    supports-color "^7.2.0"
-    universal-websocket-client "^1.0.1"
-    utf-8-validate "^5.0.4"
-    websocket "^1.0.34"
-
-"@live-change/dao-websocket@0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@live-change/dao-websocket/-/dao-websocket-0.5.9.tgz#0336a94d6b7198baacf05827cbe6e751d2b3f765"
-  integrity sha512-kw6xBscii/sSbDyxbnNHgaQu9m2Fh4gHxqa3jYh4HIeppWxLECOWxea6Mqf0WyNSc2seneRAMxWGorvZfyUwLQ==
-  dependencies:
-    "@live-change/dao" "^0.5.9"
     bufferutil "^4.0.3"
     debug "^4.3.4"
     supports-color "^7.2.0"
@@ -695,32 +600,18 @@
   dependencies:
     debug "^4.3.4"
 
-"@live-change/dao@0.5.8", "@live-change/dao@^0.5.8":
-  version "0.5.8"
-  resolved "https://registry.yarnpkg.com/@live-change/dao/-/dao-0.5.8.tgz#48d1d10db97c9ab70b5002ac837d439a76075f82"
-  integrity sha512-GLQb5Qv2dmCkfu5MmRpnrFu4OiVFI+lpsfTouVip/hge1CtGvq1dyWbsUd14XSTz7NyxZyAHqHIDICyCPb6S1w==
+"@live-change/db-admin@0.5.25", "@live-change/db-admin@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db-admin/-/db-admin-0.5.25.tgz#ef3a6c607d17b5e36786cfeb91b8bab52dcedf16"
+  integrity sha512-TXxUQdtC2brxvnQLHRDeCAl09PybfR82Fa2ho+wDGDKZ5OAPpRvKpj74oUZPDvfOG2rfTvFmXlR5WGYB7LCsew==
   dependencies:
-    debug "^4.3.4"
-
-"@live-change/dao@0.5.9":
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/@live-change/dao/-/dao-0.5.9.tgz#8d4f8c41f7a1dd16a69e8dc31e42096b1f53d40c"
-  integrity sha512-gObqfaNKLlZO1nlAGWNiM1g8G/qX9mrDPaHB6NsUcEqa1eKrzYHWhtz5rhWJENxmK6BPvCuwK6HJbLeRvSRDtA==
-  dependencies:
-    debug "^4.3.4"
-
-"@live-change/db-admin@0.5.23", "@live-change/db-admin@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db-admin/-/db-admin-0.5.23.tgz#8f23b680d2036b47114c61a0dfbaf5c3942d8192"
-  integrity sha512-ie5EfISAFyqrO1DwHmueTAmf1y24OvcnyIBdlLBzC+0IMI6ST3NzR23pA6+4AEvBw/Vzw9FzONhA1P+V7OZNcA==
-  dependencies:
-    "@live-change/cli" "0.7.10"
-    "@live-change/dao" "0.5.9"
-    "@live-change/dao-vue3" "0.5.9"
-    "@live-change/dao-websocket" "0.5.9"
-    "@live-change/framework" "0.7.10"
-    "@live-change/vue3-components" "0.2.16"
-    "@live-change/vue3-ssr" "0.2.16"
+    "@live-change/cli" "^0.7.16"
+    "@live-change/dao" "^0.5.10"
+    "@live-change/dao-vue3" "^0.5.10"
+    "@live-change/dao-websocket" "^0.5.10"
+    "@live-change/framework" "^0.7.16"
+    "@live-change/vue3-components" "^0.2.17"
+    "@live-change/vue3-ssr" "^0.2.17"
     "@vitejs/plugin-vue" "^2.3.1"
     "@vitejs/plugin-vue-jsx" "^1.3.10"
     "@vueuse/core" "^9.1.0"
@@ -741,89 +632,39 @@
     v-shared-element "3.1.0"
     vite-plugin-compression "0.5.1"
     vite-plugin-vue-images "^0.6.1"
-    vue "^3.2.45"
+    vue "^3.2.47"
     vue-meta "^3.0.0-alpha.9"
     vue-prism-editor "2.0.0-alpha.2"
     vue-router "^4.1.3"
-    vue3-scroll-border "0.1.4"
+    vue3-scroll-border "0.1.5"
 
-"@live-change/db-admin@^0.5.20", "@live-change/db-admin@^0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db-admin/-/db-admin-0.5.22.tgz#02405fc8638f2c81c36eec89206150a6b35e4c7b"
-  integrity sha512-ygWOEsjE3z/Y04v9e2Pv2jniooGHt4zIpEY3YXI/Bs1Ie+nNUDiSJx6XROmnEqYZhoxeurCM0rgzjxbkUfOAaw==
+"@live-change/db-client@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db-client/-/db-client-0.5.25.tgz#32918c45d713ef5117c1dc66cc2eded42fc8c546"
+  integrity sha512-SneBljEZROk2tDH1A4/jZdu9DI28+Mcfy2sFEl1lVBAO58K8zYnM548e23n+beTs4sLD1qDfv1rt3RrIuhiFVw==
   dependencies:
-    "@live-change/cli" "0.7.6"
-    "@live-change/dao" "0.5.8"
-    "@live-change/dao-vue3" "0.5.8"
-    "@live-change/dao-websocket" "0.5.8"
-    "@live-change/framework" "0.7.6"
-    "@live-change/vue3-components" "0.2.16"
-    "@live-change/vue3-ssr" "0.2.16"
-    "@vitejs/plugin-vue" "^2.3.1"
-    "@vitejs/plugin-vue-jsx" "^1.3.10"
-    "@vueuse/core" "^9.1.0"
-    codeceptjs-assert "^0.0.5"
-    compression "^1.7.4"
-    cross-env "^7.0.3"
-    find-free-ports "^3.0.0"
-    javascript-stringify "^2.1.0"
-    primeflex "^3.2.1"
-    primeicons "^6.0.1"
-    primevue "^3.18.1"
-    prism-es6 "^1.2.0"
-    prismjs "^1.28.0"
-    rollup-plugin-node-builtins "^2.1.2"
-    rollup-plugin-visualizer "5.6.0"
-    serialize-javascript "^6.0.0"
-    serve-static "^1.15.0"
-    v-shared-element "3.1.0"
-    vite-plugin-compression "0.5.1"
-    vite-plugin-vue-images "^0.6.1"
-    vue "^3.2.45"
-    vue-meta "^3.0.0-alpha.9"
-    vue-prism-editor "2.0.0-alpha.2"
-    vue-router "^4.1.3"
-    vue3-scroll-border "0.1.4"
-
-"@live-change/db-client@^0.5.20", "@live-change/db-client@^0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db-client/-/db-client-0.5.22.tgz#871ab313499edbd9f35038bdb4a32bc99b0c8b68"
-  integrity sha512-G2SCFGtmkr2pOB6WhnYIZq60aNhdYlIXmoqsYsWJ0Xe1EZDdDqOrlBsr1mBsaG5LhoKqaLPT+6WY1bMZeX7Fgw==
-  dependencies:
-    "@live-change/dao" "0.5.8"
-    "@live-change/dao-websocket" "0.5.8"
+    "@live-change/dao" "^0.5.10"
+    "@live-change/dao-websocket" "0.5.10"
     line-reader "^0.4.0"
     segfault-handler "^1.3.0"
     websocket "^1.0.34"
     yargs "^17.5.1"
 
-"@live-change/db-client@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db-client/-/db-client-0.5.23.tgz#511a77d6c727fc00b5d4a2fa5e299583e885c496"
-  integrity sha512-94bdLijzSK8I+ODq4vmDzn9d9C8J8JhqhPhvls6g1LmN8n4JTHMexT1UgXS44Mk0lQta4edImcCL7ZwBqElXuA==
+"@live-change/db-server@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db-server/-/db-server-0.5.25.tgz#44a2bef890e2ea2ac10a003dfecf8001baf51c39"
+  integrity sha512-6naDsQ2BvnfXSezE8cOf5m7iA0HPJDq80ykZdsomHmcPxmAAgAXPYPyPegFqlD9QXEIGLOdAEEBtlWF+MB7ksQ==
   dependencies:
-    "@live-change/dao" "0.5.9"
-    "@live-change/dao-websocket" "0.5.9"
-    line-reader "^0.4.0"
-    segfault-handler "^1.3.0"
-    websocket "^1.0.34"
-    yargs "^17.5.1"
-
-"@live-change/db-server@0.5.20":
-  version "0.5.20"
-  resolved "https://registry.yarnpkg.com/@live-change/db-server/-/db-server-0.5.20.tgz#fd10a3d20f94744add85a5dc5f1fe008d3d41efa"
-  integrity sha512-XMPLj7M7aBDHBSsjlg5Mv/acUbnq5kDpXXMbJ6z9B8idIdxay+m5RnZfCrVOS5Zyvyh9Qd31Na8RdwFtiUTY3Q==
-  dependencies:
-    "@live-change/dao" "0.5.8"
-    "@live-change/dao-sockjs" "0.5.8"
-    "@live-change/dao-websocket" "0.5.8"
-    "@live-change/db" "^0.5.20"
-    "@live-change/db-admin" "^0.5.20"
-    "@live-change/db-client" "^0.5.20"
-    "@live-change/db-store-level" "^0.5.20"
-    "@live-change/db-store-lmdb" "^0.5.20"
-    "@live-change/db-store-observable-db" "^0.5.20"
-    "@live-change/db-store-rbtree" "^0.5.20"
+    "@live-change/dao" "^0.5.10"
+    "@live-change/dao-sockjs" "^0.5.10"
+    "@live-change/dao-websocket" "0.5.10"
+    "@live-change/db" "^0.5.25"
+    "@live-change/db-admin" "^0.5.25"
+    "@live-change/db-client" "^0.5.25"
+    "@live-change/db-store-level" "^0.5.25"
+    "@live-change/db-store-lmdb" "^0.5.25"
+    "@live-change/db-store-observable-db" "^0.5.25"
+    "@live-change/db-store-rbtree" "^0.5.25"
     "@live-change/sockjs" "0.4.1"
     express "^4.18.1"
     line-reader "^0.4.0"
@@ -835,199 +676,96 @@
     websocket "^1.0.34"
     yargs "^17.5.1"
 
-"@live-change/db-server@0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db-server/-/db-server-0.5.22.tgz#1d6890efb5b78fa8de5c8d102dade62eae86445b"
-  integrity sha512-ML8w2mYloVS1fn7uCU6JJiqPWgLG3P6M2OoMg4xZ5grBS2b7XNO0XbSXNVOnx61mbno3O0rLO0Zpdk57GmNnCg==
+"@live-change/db-store-level@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db-store-level/-/db-store-level-0.5.25.tgz#bf25275a39cb14cba3eb9bd93c297a8402773fae"
+  integrity sha512-ZQomB5HmpY9bTTJlEeXep/jf97xJWuSFdZkOqGoe1UpnwpqfgB5N/ZJ+W8LsBqUpPVK/hMIby7xXrEpo8SNQcg==
   dependencies:
-    "@live-change/dao" "0.5.8"
-    "@live-change/dao-sockjs" "0.5.8"
-    "@live-change/dao-websocket" "0.5.8"
-    "@live-change/db" "^0.5.22"
-    "@live-change/db-admin" "^0.5.22"
-    "@live-change/db-client" "^0.5.22"
-    "@live-change/db-store-level" "^0.5.22"
-    "@live-change/db-store-lmdb" "^0.5.22"
-    "@live-change/db-store-observable-db" "^0.5.22"
-    "@live-change/db-store-rbtree" "^0.5.22"
-    "@live-change/sockjs" "0.4.1"
-    express "^4.18.1"
-    line-reader "^0.4.0"
-    node-interval-tree "^1.3.3"
-    os-service "^2.2.0"
-    rimraf "^3.0.2"
-    rimraf-promise "^2.0.0"
-    segfault-handler "^1.3.0"
-    websocket "^1.0.34"
-    yargs "^17.5.1"
-
-"@live-change/db-server@0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db-server/-/db-server-0.5.23.tgz#3e8455b2c3133028b4edbea6ffecda8cb8dd24a6"
-  integrity sha512-kQWOT866G/fG0GK1FDTb1vwsrwE/uU9X1ITAcV8ZYWR6EDgdBu65RWzhe8tAydOFLFq17V5ouY+uE7H4Y2oiKw==
-  dependencies:
-    "@live-change/dao" "0.5.9"
-    "@live-change/dao-sockjs" "0.5.9"
-    "@live-change/dao-websocket" "0.5.9"
-    "@live-change/db" "^0.5.23"
-    "@live-change/db-admin" "^0.5.23"
-    "@live-change/db-client" "^0.5.23"
-    "@live-change/db-store-level" "^0.5.23"
-    "@live-change/db-store-lmdb" "^0.5.23"
-    "@live-change/db-store-observable-db" "^0.5.23"
-    "@live-change/db-store-rbtree" "^0.5.23"
-    "@live-change/sockjs" "0.4.1"
-    express "^4.18.1"
-    line-reader "^0.4.0"
-    node-interval-tree "^1.3.3"
-    os-service "^2.2.0"
-    rimraf "^3.0.2"
-    rimraf-promise "^2.0.0"
-    segfault-handler "^1.3.0"
-    websocket "^1.0.34"
-    yargs "^17.5.1"
-
-"@live-change/db-store-level@^0.5.20", "@live-change/db-store-level@^0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-level/-/db-store-level-0.5.22.tgz#aaa65ec11211eed2871cb2fe337be1aded25e98b"
-  integrity sha512-ksYFhM/p4CrKKPpZUqkLTJd6AarNiS05MIMexLg0epFURJ03Os1/zcrz8OpP39vpXP/575Xs4s6HzQj7XJTcIA==
-  dependencies:
-    "@live-change/dao" "0.5.8"
+    "@live-change/dao" "^0.5.10"
     "@live-change/interval-tree" "^1.0.12"
 
-"@live-change/db-store-level@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-level/-/db-store-level-0.5.23.tgz#289f255aeb2c3862322151229fd0721624b61120"
-  integrity sha512-Ap4SFCMI7Zh5gfyD+1lSB5hjUiFkWlVYLQWUscvQFNHcqabfmhfhHW3PaaKLalXVIZJcDIpJp7ZlZ32rpopi2A==
+"@live-change/db-store-lmdb@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db-store-lmdb/-/db-store-lmdb-0.5.25.tgz#47109cf401fbb5ee512400fed9d5e3be579b64e2"
+  integrity sha512-j8rrhuAdS8NTEaqIqDU8yNe0rwNaPmi4KjaS/anC/az8kEqva1OU/AamU3AiIuaM1/Jjh4I5Ke72aQ4sJiGCig==
   dependencies:
-    "@live-change/dao" "0.5.9"
-    "@live-change/interval-tree" "^1.0.12"
-
-"@live-change/db-store-lmdb@^0.5.20", "@live-change/db-store-lmdb@^0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-lmdb/-/db-store-lmdb-0.5.22.tgz#a35bafaaf470af6fc4cc6cfb3f5f535b393d0a8b"
-  integrity sha512-JwV21y69DzV0HjBkfZ5e6G1vgDfo7e735V9KCA2LpVEzzALO0J3C9fbT1w4DxaW59/ClMiEyDvq/NK4iNyHVNA==
-  dependencies:
-    "@live-change/dao" "0.5.8"
+    "@live-change/dao" "^0.5.10"
     "@live-change/interval-tree" "^1.0.12"
     napi-macros "^2.0.0"
     node-lmdb "^0.9.6"
 
-"@live-change/db-store-lmdb@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-lmdb/-/db-store-lmdb-0.5.23.tgz#02eafa498d05b0159871e26c5a36cee2cc380d96"
-  integrity sha512-LbFv6X/iN+gCNsT/yo8eQJJg0V7C55lbg6fiQG8TxAKL1fGFbvELdkDwn4fYtb4OEc5xH2BLmn2JiP1nAcA0yQ==
+"@live-change/db-store-observable-db@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db-store-observable-db/-/db-store-observable-db-0.5.25.tgz#9d86290d7b5f5529aa84e35b8c0ca62859523875"
+  integrity sha512-mhxttpeDGpMzmmRJevJCLJNptzaaEAw6CKkHmOkiuyzKPkFGBd0IPVej0vUMuhJEABf9QUvvE9cSzCQg2XSAkw==
   dependencies:
-    "@live-change/dao" "0.5.9"
-    "@live-change/interval-tree" "^1.0.12"
-    napi-macros "^2.0.0"
-    node-lmdb "^0.9.6"
-
-"@live-change/db-store-observable-db@^0.5.20", "@live-change/db-store-observable-db@^0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-observable-db/-/db-store-observable-db-0.5.22.tgz#a54b662d1cf9f6f7e7c12c17becef90596b8bc5f"
-  integrity sha512-1nQjurA011xAOKni/fDhdK4xaQhEvuLd/+s8kfNJNpfVbgSUgxS/Nkh2OLQOqCw0Km9Stc3CWLWDEQhJzwb60w==
-  dependencies:
-    "@live-change/dao" "0.5.8"
+    "@live-change/dao" "^0.5.10"
     bufferutil "^4.0.3"
     utf-8-validate "^5.0.4"
     ws "^7.4.5"
 
-"@live-change/db-store-observable-db@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-observable-db/-/db-store-observable-db-0.5.23.tgz#b3b835e4da03b487d0a8b3ad840faec9bc57d523"
-  integrity sha512-bVY8k5KNgJei5/+U1IsQY9MfnpaZTSbKIMv83Ba8DOFZ7c82rTBec79QfTk4qlZew93wc6mIzMFHSOgYKt/ftw==
+"@live-change/db-store-rbtree@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db-store-rbtree/-/db-store-rbtree-0.5.25.tgz#a9f9404872d50411a6b3b39eb177189157f36c41"
+  integrity sha512-yyFsr/Z6tH+O55C2Rw6vhyXU5rtzbd9ZofW1aDQQPTn8V7YtL14lPoWro6dLZmM5ifYr/bHRsUYAgWrq8Xsdzg==
   dependencies:
-    "@live-change/dao" "0.5.9"
-    bufferutil "^4.0.3"
-    utf-8-validate "^5.0.4"
-    ws "^7.4.5"
-
-"@live-change/db-store-rbtree@^0.5.20", "@live-change/db-store-rbtree@^0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-rbtree/-/db-store-rbtree-0.5.22.tgz#7739406fdd75049ca165d4c8beed7063ff16d681"
-  integrity sha512-f+IWcZvGJihPAl1uJrZssaz2IuCplRytIdwjfVUA7U02QVzK4lUqeas+o8vxuqPn4ecmycE71N1c3ThqINF3gA==
-  dependencies:
-    "@live-change/dao" "0.5.8"
+    "@live-change/dao" "^0.5.10"
     "@live-change/interval-tree" "^1.0.12"
     functional-red-black-tree "^1.0.1"
 
-"@live-change/db-store-rbtree@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db-store-rbtree/-/db-store-rbtree-0.5.23.tgz#32dff14e384b39fd8d1ac48f24a01648000db209"
-  integrity sha512-3h5btsY6xl2bUbQx1zEYousXIdWOeiHoAvLymhXKNiEOjrXxX9qs0kgEDWX7HUTJhlvNwIya26OqZkQnz2DVTQ==
+"@live-change/db@^0.5.25":
+  version "0.5.25"
+  resolved "https://registry.yarnpkg.com/@live-change/db/-/db-0.5.25.tgz#77146d1cd54b79ab0b017ee8b4b8f38cfeecf6a5"
+  integrity sha512-tIF2ENm7MTGSzB4cp0Z6/Gvua92AoMvBv54A46fv3gYRPYHYheHawCzV+jHmaSSv/13hqzrWL8Ix6uSd962elg==
   dependencies:
-    "@live-change/dao" "0.5.9"
-    "@live-change/interval-tree" "^1.0.12"
-    functional-red-black-tree "^1.0.1"
-
-"@live-change/db@^0.5.20", "@live-change/db@^0.5.22":
-  version "0.5.22"
-  resolved "https://registry.yarnpkg.com/@live-change/db/-/db-0.5.22.tgz#b2f58198c02d1abd30c82cbad29e3fb60fd8af46"
-  integrity sha512-HEcf31b71diCiju6BqhIm9eXm6LJNgp9xxxOpXsAmuOsbaE5wyKaxUws/tf/sACypUZTS2Ygh5DEsXHl2WD9Dg==
-  dependencies:
-    "@live-change/dao" "0.5.8"
+    "@live-change/dao" "^0.5.10"
     get-random-values "^1.2.2"
     node-interval-tree "^1.3.3"
 
-"@live-change/db@^0.5.23":
-  version "0.5.23"
-  resolved "https://registry.yarnpkg.com/@live-change/db/-/db-0.5.23.tgz#b8c4d43609b1d51c8379a04fef8d51ef3d0abae3"
-  integrity sha512-mzqn5/aYZYJtqvYTToGlpg91uWyUfgb4IF9AdNvagEHznCY3wSsNkCpvz686zzMFex86qo5pMBBPCNFzkRXUBA==
+"@live-change/email-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/email-service/-/email-service-0.3.17.tgz#6725055f011214de2fb2f48c9a629cf419e667aa"
+  integrity sha512-i9kHN51J6r+dM+0jWZBmdsxmmwGv/ICDoccNeCY7NfHjKi2wYkHOWR9z9I+oNq5uyNVea/cXLC2xd2XrjeuRRg==
   dependencies:
-    "@live-change/dao" "0.5.9"
-    get-random-values "^1.2.2"
-    node-interval-tree "^1.3.3"
-
-"@live-change/email-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/email-service/-/email-service-0.3.16.tgz#81135ba1ff48f1f4c8aaa85d0912daf8c7624df6"
-  integrity sha512-iVKqOcEAdkfX797CkVcVK4g0o+4PV3Ju3l5IOoh1Nbb2JwzGF7GRNMjdj/IMl4Xnq6row9JzegVrG1yvG5P3Bw==
-  dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
     got "^11.8.3"
     html-to-text "8.1.0"
     inline-css "3.0.0"
     jsdom "^18.1.1"
     nodemailer "^6.7.2"
 
-"@live-change/framework@0.7.10":
-  version "0.7.10"
-  resolved "https://registry.yarnpkg.com/@live-change/framework/-/framework-0.7.10.tgz#863d709a87165c3c00a18d3b2c734ef9f5b1a0c9"
-  integrity sha512-ch1Y2P0rJW0Bi0E2NmR2KOAJFA24mp49UOxE5pI/U2CRYjmeqm5TKvlEJeQfiJ2mMKWHvPE52tXQJHQxHOYvng==
+"@live-change/framework@0.7.17", "@live-change/framework@^0.7.17":
+  version "0.7.17"
+  resolved "https://registry.yarnpkg.com/@live-change/framework/-/framework-0.7.17.tgz#e90c5cf5dd79ddfa1d29fcb6a066c50ca2317b48"
+  integrity sha512-VluU2WJ0Wg0pQzb1sB29P3r5OaT7RHElB7tEIJzHLBV0iI53Jpie7Kueu/F7uA4+f/tdepG/uaLRPVHexUVzYA==
 
-"@live-change/framework@0.7.16", "@live-change/framework@^0.7.10", "@live-change/framework@^0.7.16":
+"@live-change/framework@0.7.18", "@live-change/framework@^0.7.18":
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/@live-change/framework/-/framework-0.7.18.tgz#c1b82ce98aa9a1e7c05a7c648914cfd00623ffbf"
+  integrity sha512-4qtIqwrjMBjDRsepuQoXKHBJStifhrG2nBe4GRszR3jiJ3NIcOI+BKbkOR0xb2ZxWVOnVqnxFyPG1TQ5X4usRA==
+
+"@live-change/framework@^0.7.16":
   version "0.7.16"
   resolved "https://registry.yarnpkg.com/@live-change/framework/-/framework-0.7.16.tgz#01a9fba0300caaea8d17a5f82060f5fc8f04e250"
   integrity sha512-veEEz02xdxriNEimVcryw6qD6WHOrAmG4TwiE6M9OcqGSGqG4tvmZkVluDwgVsVFYCdHIvN4UXgTh85OtBq8fQ==
 
-"@live-change/framework@0.7.6":
-  version "0.7.6"
-  resolved "https://registry.yarnpkg.com/@live-change/framework/-/framework-0.7.6.tgz#d245102015d8114cab8ee627fe02b3588a82a44a"
-  integrity sha512-VTZcQqiNP025V9jef9o6nIEpiRmiS0H3lym65Ew/R7UgusVAiTh9nck8WgLvRdv686ws/Rn6pqmJe5swf/OoHA==
-
-"@live-change/framework@^0.7.6", "@live-change/framework@^0.7.8":
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/@live-change/framework/-/framework-0.7.8.tgz#5d3b35f4af11d0bfa73231c628fa21f6ea17c3b8"
-  integrity sha512-FvVZZKzyv/myrsijQNC9UhwRDsl1ebgRselldyGoU7sTro0dOtvj3reZopNi6DWpyB0refxYGKTdebcA0aWMoQ==
-
-"@live-change/identicon-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/identicon-service/-/identicon-service-0.3.16.tgz#1472b58afa1f71dcf5018c0d1297e90dc82e1329"
-  integrity sha512-BPouuECGqTVhFb7A7MzXNgbmGnim1aPEBnsyATsHlfHWlUcSpXiPhdsJxI8ZulP8GxG9NvFoaRjPS56ppUon6w==
+"@live-change/identicon-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/identicon-service/-/identicon-service-0.3.17.tgz#c61b0978ec00462ce5fa3ea3bdf91c31c34770e7"
+  integrity sha512-wQWP5NJ/11ivzqTbz1OehePuD2HMUYOFA/oJp6Ct+cKfRAnf3nCRmHuncgasZTIzVJq2MIAxpWB+o0vhqPfXOg==
   dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     identicon.js "2.3.3"
     jdenticon "3.1.1"
 
-"@live-change/image-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/image-service/-/image-service-0.3.16.tgz#cb4ac1111e83cd45cc3fed245389712911f48ab8"
-  integrity sha512-EM/WbhGnlgwwpucvz2qPWqekw4tUpXzDgHwHgR83hoJena/N9OwdRD4A62TCRsdZ35ESh7f9UC+MwfWUi5DZkA==
+"@live-change/image-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/image-service/-/image-service-0.3.17.tgz#051a5ebf43b02e7a6577330f0573c84666205e85"
+  integrity sha512-1GWPiqgG7h3h8X0LxGNK0A3HIZaboN/YaC+9+vxHsIBzt8gPH9ZYX92Gz+mYQAsJrjPfDz6LodRh70nx6zAM/g==
   dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     download "^8.0.0"
     pluralize "8.0.0"
     sharp "^0.30.6"
@@ -1037,27 +775,27 @@
   resolved "https://registry.yarnpkg.com/@live-change/interval-tree/-/interval-tree-1.0.12.tgz#770523fa5e165e32bc8b5e9d8844f95f0d43b9ee"
   integrity sha512-Q5pdBp3zVZeqJP+UJIdnGRoBJrM7wJMV5lzzoCgxaJ/fSrVUzUjM34N4OXoVJWwQFpgxTYyfA28hI8LnUtmCLQ==
 
-"@live-change/message-authentication-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/message-authentication-service/-/message-authentication-service-0.3.16.tgz#2d4c67028a0af46a0a02bcdf2b279674652f408f"
-  integrity sha512-jQ5sRPgCvi13g5pWixVcTjh2UUP4N98MFRJBeOHKw7YcqikCVEmqvVUFRBVyFM6G4dkUPSX8DGVYaHSVGieFHw==
+"@live-change/message-authentication-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/message-authentication-service/-/message-authentication-service-0.3.17.tgz#0d39c0bac1a6e5d4eff6c583089100756493aa69"
+  integrity sha512-ySslkdudu6INh57ZD38NJOGhXRb3Wgu2BpAr621Gn+Y3vV2jIE5WfX2Rc2LRWV+kVN4EWVVEov5VU5b3fSUdqg==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
     nodemailer "^6.7.2"
 
-"@live-change/notification-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/notification-service/-/notification-service-0.3.16.tgz#2fbdc131ea434066006ac8f1ddef001e21ef82f3"
-  integrity sha512-EkuCICqJ5+nmrYC2X+jjswnEL99DTbzU7T8aNKFFTR6seCippiFwyeCB2R7//HaL/xhfzX0WoNdHhgUTI2/4hA==
+"@live-change/notification-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/notification-service/-/notification-service-0.3.17.tgz#53c65ec99035544c2978b826f31e35e40e10910a"
+  integrity sha512-rs7/bcdtzUwVajuHn1vrSYX07vmLyJtDhTtbUipahS1Lzzkyi22oVxVN/Lt5oF0nzq4jfWpnT5m2LVdiPHEpyA==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
 
-"@live-change/password-authentication-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/password-authentication-service/-/password-authentication-service-0.3.16.tgz#82c00c1d9d2b1be28ac616c1efae31646cf4a20a"
-  integrity sha512-TGdGHkLUCfZ+pVriFTX6nehWeNCm9kHCOqEVqiDfoGPZko1pxTxUY+rkkeXXt880lT/d17TjpUhY47QuMrHU4g==
+"@live-change/password-authentication-service@0.3.17", "@live-change/password-authentication-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/password-authentication-service/-/password-authentication-service-0.3.17.tgz#ff85ad206fb990c420b8e03c02e5f842fb777936"
+  integrity sha512-c0kgt39c8/ZGHHS1IrkkmuT4OO1itIoawAgT2znnA6je/wrFJyCAmbW8LSq0oiz6oPULy3adlkEc10DK502vzQ==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
     nodemailer "^6.7.2"
 
 "@live-change/pattern-db@0.2.2":
@@ -1067,7 +805,7 @@
   dependencies:
     "@live-change/pattern" "^0.1.0"
 
-"@live-change/pattern@0.2.1":
+"@live-change/pattern@0.2.1", "@live-change/pattern@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@live-change/pattern/-/pattern-0.2.1.tgz#fce9a835338470b30986d9d5a4d0cff8c2d25d69"
   integrity sha512-bK0Fmx0iuOVoh6iRzUrj8gfS9IGJSOpydRgHQ6d9m9zpXS9JMl7M8yBFuB3DmhmPkQeaaJCFC13mpbW2FupITg==
@@ -1077,63 +815,63 @@
   resolved "https://registry.yarnpkg.com/@live-change/pattern/-/pattern-0.1.0.tgz#9c8b4513d136b4010b11619a1fd314264ca5518a"
   integrity sha512-UbN7FiP9G8jxkjJTUeE/t1p68Fe+k1+wi19Uo/K1OMZOG91lnjLGAJ85wlwmPz/4WBHByCG/x2XjfM/gMg1o4A==
 
-"@live-change/prosemirror-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/prosemirror-service/-/prosemirror-service-0.3.16.tgz#427cd6e7ba7efaf8125162259a8f9787d018767a"
-  integrity sha512-+lQcNtkOKP+uSS2Nr/DV4TM0bm2JWpNeR/idHRewW9qBnYvAZ5lcEbcKDAWNrTzYyPLAbUSo0gYv1ymjn9U0zw==
+"@live-change/prosemirror-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/prosemirror-service/-/prosemirror-service-0.3.17.tgz#5dba57ff63964f933fb3ad1eab478eb8a7c1553c"
+  integrity sha512-u7QAb+wRFUdm1Y7C9lUTLXi99azvQN+Y2sUkKh2jObn1z3ROlOC9G3b/J2DW28tTmhWepTvvvKOCUN+yaFFShg==
   dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     lru-cache "^7.12.0"
     pluralize "8.0.0"
     progress-stream "^2.0.0"
     prosemirror-model "^1.18.1"
 
-"@live-change/relations-plugin@0.7.16":
-  version "0.7.16"
-  resolved "https://registry.yarnpkg.com/@live-change/relations-plugin/-/relations-plugin-0.7.16.tgz#574932b7d84b47c6bd0c50c1e202bd2cb61cf25d"
-  integrity sha512-P+U9JsE5juINY08F3zmkx3p91Eea0vPKl4ouPN+Kb5vBKm3zDpE7Pnib8aGL3tRZeZFLrpVomn91OITr6dD51g==
+"@live-change/relations-plugin@0.7.17":
+  version "0.7.17"
+  resolved "https://registry.yarnpkg.com/@live-change/relations-plugin/-/relations-plugin-0.7.17.tgz#e9f68d26fd993f65be20c94bab1dea797831e48d"
+  integrity sha512-wkDudYfzGcBwT6cOSCautHFp13JyJYhPpgYPlfGdOmD6sRtgd52qHE3g4u3VRS7enRdeEJgUqqRNyR8GWHOnKA==
   dependencies:
-    "@live-change/framework" "^0.7.16"
+    "@live-change/framework" "^0.7.17"
     pluralize "8.0.0"
 
-"@live-change/secret-code-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/secret-code-service/-/secret-code-service-0.3.16.tgz#674cabf6cc08c5c54bd69d196082f25e0eca5f3f"
-  integrity sha512-5EGF6UNZq71PWPMFWlj8ijRBulIcb189BkI6wRpjlDU7Qng2JLCkyIo2kJwqXZ5/r0kX/S1DyHCFVM+vHAhr2A==
+"@live-change/secret-code-service@0.3.17", "@live-change/secret-code-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/secret-code-service/-/secret-code-service-0.3.17.tgz#5434ca0e3156e7232de6b198ea61a3b3f4e9edf7"
+  integrity sha512-GkZKAlWd4aK6FHxNPIMRK0YY8pWaYFJoEgRCgIDu0ITdd5+vqAhnfXn6BvZmcHPM508b+lFELRq8UOBoAe99RQ==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
     nodemailer "^6.7.2"
 
-"@live-change/secret-link-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/secret-link-service/-/secret-link-service-0.3.16.tgz#2157933810ef52b10ea74bbd250b82d78f60723c"
-  integrity sha512-yTUzbgDSWQg+jQAaxvy38Yd/bbXbeN2ZovNAJkveT+ZqRXSDbTwBm4Tjk8M+U6zPFoIFTFnJnBTUMTjWL0AIiQ==
+"@live-change/secret-link-service@0.3.17", "@live-change/secret-link-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/secret-link-service/-/secret-link-service-0.3.17.tgz#7c0fe217a84d678334fec358dfbae3727388fad2"
+  integrity sha512-vIiSGRlEeUSgXxrzsODsqPP7gTdakhn/1N6Gi6QNeielGEkGhDj/ahRk7V4GVQpSzuZz59/uZQwXZXfdCmF96Q==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
     nodemailer "^6.7.2"
 
-"@live-change/security-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/security-service/-/security-service-0.3.16.tgz#39efc5994f0abf3508efb7d27db85b015025bf34"
-  integrity sha512-gimoXGlBbIHXQz31ZV+54Wp/dAG4Mgzpu7vGFTxJ6uSvyeCKMZzgEdXvnBTCDIDvDMyg9CwkKuVRpfRVYg7ZzQ==
+"@live-change/security-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/security-service/-/security-service-0.3.17.tgz#4182bed61c20e9b56af425f72a5a7e0b50af2c3b"
+  integrity sha512-fSi3jZO5IbM62WsjZymdNzWX1xYfX7bXlT0o4ihLP3VLdZHnnnkRKXAkShNuU2viQJwJSXhipPNrjBYlnTqleg==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
     "@live-change/pattern" "0.2.1"
     "@live-change/pattern-db" "0.2.2"
     nodemailer "^6.7.2"
 
-"@live-change/server@^0.7.10", "@live-change/server@^0.7.16":
-  version "0.7.16"
-  resolved "https://registry.yarnpkg.com/@live-change/server/-/server-0.7.16.tgz#7c8c7115a1defd73c0ac162ae5383f47ceeec217"
-  integrity sha512-lewmMknP7ZFsmAmrVH5n435WnWFinQ5Q9zd0mubqYpBT25pPBaRV/KH147unyyg0agUEUIK2IwLvr8E2Um/AMA==
+"@live-change/server@^0.7.18":
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/@live-change/server/-/server-0.7.18.tgz#2acb69eb78da5d05b45bc1c7a45ff740d87e1ac4"
+  integrity sha512-dmsFM4kJM+BcUcMQLMEEJEgLhaFZOS9rGjVCmiEVquykg654P4x9AYu5p4F9EGqSoFE0neJgJoAFTPhmgHMZnQ==
   dependencies:
-    "@live-change/dao" "0.5.10"
-    "@live-change/dao-sockjs" "0.5.10"
-    "@live-change/db-server" "0.5.23"
-    "@live-change/framework" "^0.7.16"
-    "@live-change/sockjs" "0.4.1"
-    "@live-change/uid" "^0.7.16"
+    "@live-change/dao" "^0.5.10"
+    "@live-change/dao-sockjs" "^0.5.10"
+    "@live-change/db-server" "^0.5.25"
+    "@live-change/framework" "^0.7.18"
+    "@live-change/sockjs" "^0.4.1"
+    "@live-change/uid" "^0.7.18"
     dotenv "^16.0.1"
     express "^4.18.1"
     express-static-gzip "2.1.7"
@@ -1146,39 +884,16 @@
     websocket "^1.0.34"
     yargs "^17.5.1"
 
-"@live-change/server@^0.7.6":
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/@live-change/server/-/server-0.7.8.tgz#ba9b611019f24239ad678916879a2490b2e2aa32"
-  integrity sha512-/f3YBKtcOGPS4DIW+uE3yl9Zn1JSKeZpp+ez1qWInFg5/iVzOgfX0Dns0IeSFDuoywIu7TXOjdue6PCmyjXSOQ==
+"@live-change/session-service@0.3.17", "@live-change/session-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/session-service/-/session-service-0.3.17.tgz#da8dd43572d6666c52c80a89f01a27e860089fcf"
+  integrity sha512-RfJe8H6U42pt7iA1Losacds0hbLYBj+FO2R/8A/mVwT8lKC6p+CPrFmx8t2PTuoQcJ/jSSgVlb741MvnBcEBYQ==
   dependencies:
-    "@live-change/dao" "0.5.8"
-    "@live-change/dao-sockjs" "0.5.8"
-    "@live-change/db-server" "0.5.22"
-    "@live-change/framework" "^0.7.8"
-    "@live-change/sockjs" "0.4.1"
-    "@live-change/uid" "^0.7.8"
-    dotenv "^16.0.1"
-    express "^4.18.1"
-    express-static-gzip "2.1.7"
-    http-proxy-middleware "2.0.6"
-    resolve "^1.22.1"
-    segfault-handler "^1.3.0"
-    serialize-javascript "^6.0.0"
-    sitemap "^7.1.1"
-    vite "^2.9.6"
-    websocket "^1.0.34"
-    yargs "^17.5.1"
-
-"@live-change/session-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/session-service/-/session-service-0.3.16.tgz#026f431a1f913ca9256443c7c8a17dc96df4d925"
-  integrity sha512-ucILfBLyv+tml9ibpJmlz2vtNK1l52RmhJlsEgY2LZlX5vR5MwgJE8fykpHmCqlWu9ezkpqwG6RhW3iI8N2c7A==
-  dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     pluralize "8.0.0"
 
-"@live-change/sockjs@0.4.1":
+"@live-change/sockjs@0.4.1", "@live-change/sockjs@^0.4.1":
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/@live-change/sockjs/-/sockjs-0.4.1.tgz#98e139c2465b22768cbcc641c28b86e3a189e3b8"
   integrity sha512-1se2FyxOL/PX9Tg3aGFU3TeN/hmZzW/MU9cM1TMvzxBVWDX/MbCOBosxytZ2CJ8qJmgFy0XFQQWgtOT/9+H1Ow==
@@ -1187,72 +902,67 @@
     faye-websocket "^0.11.3"
     uuid "^8.1.0"
 
-"@live-change/timer-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/timer-service/-/timer-service-0.3.16.tgz#4d07fb8d993c73a56a7c4f50afad96e7be418ccc"
-  integrity sha512-Syu3oF3OR/ml0Lpy30kJ3l5xEljODpjr3x407Wsag5XudR+WZjuZRhDsctzftvhgkf1UviuJncUxYTd8v11J4g==
+"@live-change/timer-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/timer-service/-/timer-service-0.3.17.tgz#5cb114c04d7fdfcb4aa79f21b7ce29eb6835c5ba"
+  integrity sha512-armwJv+k7xUIPzRvtGFw4aXvum5oZ9Kdb2nLzcnB138G5wiyLRqF1rciDAr22lBO6R2vz/qerRZ7Hi3umqY+Hw==
   dependencies:
-    "@live-change/framework" "0.7.16"
+    "@live-change/framework" "0.7.17"
 
 "@live-change/uid@0.7.15":
   version "0.7.15"
   resolved "https://registry.yarnpkg.com/@live-change/uid/-/uid-0.7.15.tgz#1ea5062a170c3644b1c64646653b66751b08007e"
   integrity sha512-rETfkgGTKlfDpqxE3FIDUGCkoeCqRdAOvMhxpos3ckGKcSchHUX/aEGP93VDcKw6XDHAM49VRxnl6kCIHfujow==
 
-"@live-change/uid@0.7.4":
-  version "0.7.4"
-  resolved "https://registry.yarnpkg.com/@live-change/uid/-/uid-0.7.4.tgz#861efb0dd437ab5d10795fdc29c1b8c1715c99e2"
-  integrity sha512-Izq9+UK96nMc+67DjnCBG6OImDVi6zgFCsjTEtO2wFHh0Aokx4BfExaOYxMFg1BLTGqaUh0Ddj8blCRsTRBHXA==
-
-"@live-change/uid@^0.7.16":
+"@live-change/uid@0.7.16":
   version "0.7.16"
   resolved "https://registry.yarnpkg.com/@live-change/uid/-/uid-0.7.16.tgz#649d89cc558419bb68eb0e02b349f61973935d03"
   integrity sha512-VvnxEJ6lW0o6xFMvAbzIS4/SAdDBeD1nZdrmy1ra466pMSnr5QX9Bb8m/DR+RIt4n6Uu2TiKjTRabFc9mhcprQ==
 
-"@live-change/uid@^0.7.8":
-  version "0.7.8"
-  resolved "https://registry.yarnpkg.com/@live-change/uid/-/uid-0.7.8.tgz#9ce5bbb83bc96fb94cf1839ca16749119418822d"
-  integrity sha512-3+PtYYkAyHLmvnGfK0jZk4hflqKf5g/8F2PChpZwEonI7DhqpI1l2uhKtMio09ujvpfy0zsZ/JfOSNvw0fcZ/g==
+"@live-change/uid@^0.7.18":
+  version "0.7.18"
+  resolved "https://registry.yarnpkg.com/@live-change/uid/-/uid-0.7.18.tgz#fdb941d5b97a4b4e34ef34bd9922a79046791d45"
+  integrity sha512-+8dagMUC4YyH0BX/A8RqoKtv8KPHYXaY3X9DFwAEP3PQzEjlSVTlrzmTwRZzAriHQE0wO0oqcBWQTbFsgZhctw==
 
-"@live-change/upload-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/upload-service/-/upload-service-0.3.16.tgz#ee4483e75f58a781c457561afb367bc9d0dbbbef"
-  integrity sha512-9Xj4WQEiJDjNfSjB1fb4SKSiLKAQ9ezPrD4g+ZuAuOvHjeyQloqQgPzkdUFFfpfEvmJIKpJ3npeBY9Wsk+gRGg==
+"@live-change/upload-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/upload-service/-/upload-service-0.3.17.tgz#b2b1b06db7090706afec28b22f7130e0ca850644"
+  integrity sha512-ofngMi1tusL4aaWXB8VCjUr3MlSMser/2WJxJHXU/kPueciwB7brONCGqMhJPlYFMKBwpTfj8iKX4jElVWJYbg==
   dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     pluralize "8.0.0"
     progress-stream "^2.0.0"
 
-"@live-change/user-identification-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/user-identification-service/-/user-identification-service-0.3.16.tgz#f4d7161e82702448f80c79da84b45387b7a3827b"
-  integrity sha512-xNLyAN0YXTLIFn6PV79xdvJ4fDeg6xdiwemT6KoQD+1aNQGo25lKhEqsKzILC2XAv8t+sciSO03VJb/guB30YQ==
+"@live-change/user-identification-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/user-identification-service/-/user-identification-service-0.3.17.tgz#d7022d95e5b23dc43b5081cc3dca7b20d0cd7afc"
+  integrity sha512-ZgS76qpb5wbMQ+3iAUdef4eiXkst0nb74N80+CieyKD431vek664/NEMGHLpapFR6F0qc52u5WxWwN4gagXyyg==
   dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     pluralize "8.0.0"
 
-"@live-change/user-service@0.3.16":
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/@live-change/user-service/-/user-service-0.3.16.tgz#54c951c5a3985fa19c961c4f58fd23fe6369e21c"
-  integrity sha512-Fcekf/07uSxABP3RlCUVEy38rqfkpibOmbzG6drL1X/QN2wIn7kO9CTUB2/jZ3Ms2xnHJGKIuqNCa/k5qNpAqQ==
+"@live-change/user-service@0.3.17", "@live-change/user-service@^0.3.17":
+  version "0.3.17"
+  resolved "https://registry.yarnpkg.com/@live-change/user-service/-/user-service-0.3.17.tgz#cc51265a722ee65c9cd92318067b253230d61b6f"
+  integrity sha512-awQHRJj8DYofThGu6PTFqg28AP+jLMOFwpkyvtkSsxZIUwiTFwYwBskcBKfsslg9h5Vd5DHrqZ/WFURHv1Rbug==
   dependencies:
-    "@live-change/framework" "0.7.16"
-    "@live-change/relations-plugin" "0.7.16"
+    "@live-change/framework" "0.7.17"
+    "@live-change/relations-plugin" "0.7.17"
     pluralize "8.0.0"
 
-"@live-change/vue3-components@0.2.16":
-  version "0.2.16"
-  resolved "https://registry.yarnpkg.com/@live-change/vue3-components/-/vue3-components-0.2.16.tgz#be5d05ecb8080658b5dbc2f9425ec98ad2f591a4"
-  integrity sha512-6INnsnn+t4UmZ5GhVwPAUNCEQqy/rfStkAs9xW+SZ1n0zo+0KylhL65AbBkqEeE3HcRMLw8JmgrsOG7WvJgShw==
+"@live-change/vue3-components@0.2.18", "@live-change/vue3-components@^0.2.18":
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/@live-change/vue3-components/-/vue3-components-0.2.18.tgz#c20aaafab9527ab0b6b8e532e5770a963ab16a0f"
+  integrity sha512-NuK0yyofY1uNpLvIGAqbBQgBYOUS0SciBsHf1vJ+ApmRxEzF1ieC0Wvy6zO/s6MvHFaylctPPNeSbGBnQ+CSng==
   dependencies:
-    "@live-change/vue3-ssr" "^0.2.16"
+    "@live-change/vue3-ssr" "^0.2.18"
     debug "^4.3.4"
     mitt "3.0.0"
-    vue "^3.2.37"
+    vue "^3.2.47"
 
-"@live-change/vue3-components@0.2.17":
+"@live-change/vue3-components@^0.2.17":
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/@live-change/vue3-components/-/vue3-components-0.2.17.tgz#f97a8b18fbfe7e346aee5376fc07bb3754776c7d"
   integrity sha512-AMUumXizb1f+opLVL2E1Xf8OeoUCBWgUBR8GqsnS8nJea7Bap8e2WGsJuSEXBC94RPtD1DEJ/tC40C3Pm+DIlg==
@@ -1262,17 +972,17 @@
     mitt "3.0.0"
     vue "^3.2.45"
 
-"@live-change/vue3-ssr@0.2.16", "@live-change/vue3-ssr@^0.2.16":
-  version "0.2.16"
-  resolved "https://registry.yarnpkg.com/@live-change/vue3-ssr/-/vue3-ssr-0.2.16.tgz#9591b4a6ef76eb6fbc8a31a4b46d3ccbfe7ed803"
-  integrity sha512-mXXRyXwpm9pJELDanvoJrV+qizZvDwymDeVAyLCgtYostU0kO30NDY208QmftK0PxCxOaf2mdyeJmYfAQjVabA==
+"@live-change/vue3-ssr@0.2.18", "@live-change/vue3-ssr@^0.2.18":
+  version "0.2.18"
+  resolved "https://registry.yarnpkg.com/@live-change/vue3-ssr/-/vue3-ssr-0.2.18.tgz#db10f86e2b80fda0b9d84477287d8f7bf9e05717"
+  integrity sha512-urqkzO5mshBE5f3iIi1IWtp+6nTGrarMa5h9C+cnmwsKz0uijA5IF1uo8VS3No74LLYe3R1gHijkR3eKmf4p3g==
   dependencies:
-    "@live-change/dao-vue3" "0.5.8"
-    "@live-change/uid" "0.7.4"
+    "@live-change/dao-vue3" "0.5.10"
+    "@live-change/uid" "0.7.16"
     "@vueuse/core" "^9.1.0"
     debug "^4.3.4"
 
-"@live-change/vue3-ssr@0.2.17", "@live-change/vue3-ssr@^0.2.17":
+"@live-change/vue3-ssr@^0.2.17":
   version "0.2.17"
   resolved "https://registry.yarnpkg.com/@live-change/vue3-ssr/-/vue3-ssr-0.2.17.tgz#724fa30ef2ebf4130bf16201a7cf9da08655d0fa"
   integrity sha512-R9JyEr5WdUIY+MuIV/cCyC8Uo0KaDbjNG9KgaYh0tp78CoZ01r+z8jTVMPTBsxEH9hiNCq6IEbLH3m6yf9JubQ==
@@ -1718,6 +1428,16 @@
     estree-walker "^2.0.2"
     source-map "^0.6.1"
 
+"@vue/compiler-core@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-core/-/compiler-core-3.2.47.tgz#3e07c684d74897ac9aa5922c520741f3029267f8"
+  integrity sha512-p4D7FDnQb7+YJmO2iPEv0SQNeNzcbHdGByJDsT4lynf63AFkOTFN07HsiRSvjGo0QrxR/o3d0hUyNCUnBU2Tig==
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/shared" "3.2.47"
+    estree-walker "^2.0.2"
+    source-map "^0.6.1"
+
 "@vue/compiler-dom@3.2.45":
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.45.tgz#c43cc15e50da62ecc16a42f2622d25dc5fd97dce"
@@ -1725,6 +1445,14 @@
   dependencies:
     "@vue/compiler-core" "3.2.45"
     "@vue/shared" "3.2.45"
+
+"@vue/compiler-dom@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-dom/-/compiler-dom-3.2.47.tgz#a0b06caf7ef7056939e563dcaa9cbde30794f305"
+  integrity sha512-dBBnEHEPoftUiS03a4ggEig74J2YBZ2UIeyfpcRM2tavgMWo4bsEfgCGsu+uJIL/vax9S+JztH8NmQerUo7shQ==
+  dependencies:
+    "@vue/compiler-core" "3.2.47"
+    "@vue/shared" "3.2.47"
 
 "@vue/compiler-sfc@3.2.45", "@vue/compiler-sfc@^3.2.37":
   version "3.2.45"
@@ -1742,6 +1470,22 @@
     postcss "^8.1.10"
     source-map "^0.6.1"
 
+"@vue/compiler-sfc@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-sfc/-/compiler-sfc-3.2.47.tgz#1bdc36f6cdc1643f72e2c397eb1a398f5004ad3d"
+  integrity sha512-rog05W+2IFfxjMcFw10tM9+f7i/+FFpZJJ5XHX72NP9eC2uRD+42M3pYcQqDXVYoj74kHMSEdQ/WmCjt8JFksQ==
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/compiler-core" "3.2.47"
+    "@vue/compiler-dom" "3.2.47"
+    "@vue/compiler-ssr" "3.2.47"
+    "@vue/reactivity-transform" "3.2.47"
+    "@vue/shared" "3.2.47"
+    estree-walker "^2.0.2"
+    magic-string "^0.25.7"
+    postcss "^8.1.10"
+    source-map "^0.6.1"
+
 "@vue/compiler-ssr@3.2.45":
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.2.45.tgz#bd20604b6e64ea15344d5b6278c4141191c983b2"
@@ -1749,6 +1493,14 @@
   dependencies:
     "@vue/compiler-dom" "3.2.45"
     "@vue/shared" "3.2.45"
+
+"@vue/compiler-ssr@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/compiler-ssr/-/compiler-ssr-3.2.47.tgz#35872c01a273aac4d6070ab9d8da918ab13057ee"
+  integrity sha512-wVXC+gszhulcMD8wpxMsqSOpvDZ6xKXSVWkf50Guf/S+28hTAXPDYRTbLQ3EDkOP5Xz/+SY37YiwDquKbJOgZw==
+  dependencies:
+    "@vue/compiler-dom" "3.2.47"
+    "@vue/shared" "3.2.47"
 
 "@vue/devtools-api@^6.2.1", "@vue/devtools-api@^6.4.5":
   version "6.4.5"
@@ -1766,12 +1518,30 @@
     estree-walker "^2.0.2"
     magic-string "^0.25.7"
 
+"@vue/reactivity-transform@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity-transform/-/reactivity-transform-3.2.47.tgz#e45df4d06370f8abf29081a16afd25cffba6d84e"
+  integrity sha512-m8lGXw8rdnPVVIdIFhf0LeQ/ixyHkH5plYuS83yop5n7ggVJU+z5v0zecwEnX7fa7HNLBhh2qngJJkxpwEEmYA==
+  dependencies:
+    "@babel/parser" "^7.16.4"
+    "@vue/compiler-core" "3.2.47"
+    "@vue/shared" "3.2.47"
+    estree-walker "^2.0.2"
+    magic-string "^0.25.7"
+
 "@vue/reactivity@3.2.45":
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.45.tgz#412a45b574de601be5a4a5d9a8cbd4dee4662ff0"
   integrity sha512-PRvhCcQcyEVohW0P8iQ7HDcIOXRjZfAsOds3N99X/Dzewy8TVhTCT4uXpAHfoKjVTJRA0O0K+6QNkDIZAxNi3A==
   dependencies:
     "@vue/shared" "3.2.45"
+
+"@vue/reactivity@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/reactivity/-/reactivity-3.2.47.tgz#1d6399074eadfc3ed35c727e2fd707d6881140b6"
+  integrity sha512-7khqQ/75oyyg+N/e+iwV6lpy1f5wq759NdlS1fpAhFXa8VeAIKGgk2E/C4VF59lx5b+Ezs5fpp/5WsRYXQiKxQ==
+  dependencies:
+    "@vue/shared" "3.2.47"
 
 "@vue/runtime-core@3.2.45":
   version "3.2.45"
@@ -1780,6 +1550,14 @@
   dependencies:
     "@vue/reactivity" "3.2.45"
     "@vue/shared" "3.2.45"
+
+"@vue/runtime-core@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/runtime-core/-/runtime-core-3.2.47.tgz#406ebade3d5551c00fc6409bbc1eeb10f32e121d"
+  integrity sha512-RZxbLQIRB/K0ev0K9FXhNbBzT32H9iRtYbaXb0ZIz2usLms/D55dJR2t6cIEUn6vyhS3ALNvNthI+Q95C+NOpA==
+  dependencies:
+    "@vue/reactivity" "3.2.47"
+    "@vue/shared" "3.2.47"
 
 "@vue/runtime-dom@3.2.45":
   version "3.2.45"
@@ -1790,6 +1568,15 @@
     "@vue/shared" "3.2.45"
     csstype "^2.6.8"
 
+"@vue/runtime-dom@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/runtime-dom/-/runtime-dom-3.2.47.tgz#93e760eeaeab84dedfb7c3eaf3ed58d776299382"
+  integrity sha512-ArXrFTjS6TsDei4qwNvgrdmHtD930KgSKGhS5M+j8QxXrDJYLqYw4RRcDy1bz1m1wMmb6j+zGLifdVHtkXA7gA==
+  dependencies:
+    "@vue/runtime-core" "3.2.47"
+    "@vue/shared" "3.2.47"
+    csstype "^2.6.8"
+
 "@vue/server-renderer@3.2.45":
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/@vue/server-renderer/-/server-renderer-3.2.45.tgz#ca9306a0c12b0530a1a250e44f4a0abac6b81f3f"
@@ -1798,10 +1585,23 @@
     "@vue/compiler-ssr" "3.2.45"
     "@vue/shared" "3.2.45"
 
+"@vue/server-renderer@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/server-renderer/-/server-renderer-3.2.47.tgz#8aa1d1871fc4eb5a7851aa7f741f8f700e6de3c0"
+  integrity sha512-dN9gc1i8EvmP9RCzvneONXsKfBRgqFeFZLurmHOveL7oH6HiFXJw5OGu294n1nHc/HMgTy6LulU/tv5/A7f/LA==
+  dependencies:
+    "@vue/compiler-ssr" "3.2.47"
+    "@vue/shared" "3.2.47"
+
 "@vue/shared@3.2.45":
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.45.tgz#a3fffa7489eafff38d984e23d0236e230c818bc2"
   integrity sha512-Ewzq5Yhimg7pSztDV+RH1UDKBzmtqieXQlpTVm2AwraoRL/Rks96mvd8Vgi7Lj+h+TH8dv7mXD3FRZR3TUvbSg==
+
+"@vue/shared@3.2.47":
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/@vue/shared/-/shared-3.2.47.tgz#e597ef75086c6e896ff5478a6bfc0a7aa4bbd14c"
+  integrity sha512-BHGyyGN3Q97EZx0taMQ+OLNuZcW3d37ZEVmEAyeoA9ERdGvm9Irc/0Fua8SNyOtV1w6BS4q25wbMzJujO9HIfQ==
 
 "@vueuse/core@^9.1.0":
   version "9.10.0"
@@ -8313,15 +8113,15 @@ vue3-lazyload@0.2.5-beta:
   resolved "https://registry.yarnpkg.com/vue3-lazyload/-/vue3-lazyload-0.2.5-beta.tgz#cf81237cd487ce14aa7c21af8bfd8b83fc1f5360"
   integrity sha512-GVhJfL9Hcu+AvWsYmUwODivvt+gzpT0ztgAzZaUduoiTaGCv/qzhr0VwAQXfjGF3XFYFyOJsHlAi3/WE0P8XTQ==
 
-vue3-scroll-border@0.1.4:
-  version "0.1.4"
-  resolved "https://registry.yarnpkg.com/vue3-scroll-border/-/vue3-scroll-border-0.1.4.tgz#c51eb62b448d7b7539d61375878a847668c838aa"
-  integrity sha512-a1KmXaXa68k8aaPqBUMzGLS19UgTKIl8QuYM+s1PBzgnQGFnCsym+w8bM8b70GIPZGpgS3GNX4svAbTaBphVyQ==
+vue3-scroll-border@0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/vue3-scroll-border/-/vue3-scroll-border-0.1.5.tgz#1810d6dc426653decf1523669f358d3c91e7bedb"
+  integrity sha512-ES45OvXYAJIugdzXHWhANIoMurB9zKfFKdPMSb3QhyA4mKd1uAE8ar424j46AgHD/cNRDw4R04B2ZLVn2UFT1A==
   dependencies:
     "@vueuse/core" "^9.1.0"
-    vue "^3.2.45"
+    vue "^3.2.47"
 
-vue@^3.2.37, vue@^3.2.45:
+vue@^3.2.45:
   version "3.2.45"
   resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.45.tgz#94a116784447eb7dbd892167784619fef379b3c8"
   integrity sha512-9Nx/Mg2b2xWlXykmCwiTUCWHbWIj53bnkizBxKai1g61f2Xit700A1ljowpTIM11e3uipOeiPcSqnmBg6gyiaA==
@@ -8331,6 +8131,17 @@ vue@^3.2.37, vue@^3.2.45:
     "@vue/runtime-dom" "3.2.45"
     "@vue/server-renderer" "3.2.45"
     "@vue/shared" "3.2.45"
+
+vue@^3.2.47:
+  version "3.2.47"
+  resolved "https://registry.yarnpkg.com/vue/-/vue-3.2.47.tgz#3eb736cbc606fc87038dbba6a154707c8a34cff0"
+  integrity sha512-60188y/9Dc9WVrAZeUVSDxRQOZ+z+y5nO2ts9jWXSTkMvayiWxCWOWtBQoYjLeccfXkiiPZWAHcV+WTPhkqJHQ==
+  dependencies:
+    "@vue/compiler-dom" "3.2.47"
+    "@vue/compiler-sfc" "3.2.47"
+    "@vue/runtime-dom" "3.2.47"
+    "@vue/server-renderer" "3.2.47"
+    "@vue/shared" "3.2.47"
 
 w3c-hr-time@^1.0.2:
   version "1.0.2"

@@ -66,9 +66,9 @@
     "compression": "^1.7.4",
     "cross-env": "^7.0.3",
     "get-port-sync": "1.0.1",
-    "primeflex": "^3.3.0",
+    "primeflex": "^3.2.1",
     "primeicons": "^6.0.1",
-    "primevue": "^3.25.0",
+    "primevue": "^3.18.1",
     "prismjs": "^1.28.0",
     "prosemirror-view": "^1.28.2",
     "rollup-plugin-node-builtins": "^2.1.2",
@@ -81,7 +81,7 @@
     "vue3-scroll-border": "0.1.5"
   },
   "devDependencies": {
-    "@live-change/codeceptjs-helper": "0.7.18",
+    "@live-change/codeceptjs-helper": "0.7.16",
     "@wdio/selenium-standalone-service": "^7.20.8",
     "codeceptjs": "^3.3.4",
     "generate-password": "1.7.0",
