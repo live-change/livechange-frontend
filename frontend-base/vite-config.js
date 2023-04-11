@@ -59,10 +59,13 @@ module.exports = async ({ command, mode }) => ({
       include: [
         /node_modules/,
         /live-change-framework\/framework\//,
+        /live-change-framework\/relations-plugin\//,
         /live-change-framework\/uid\//,
+        //live-change-db\/db-web\//,
         /live-change-dao\/dao\//,
         /live-change-dao\/dao-sockjs\//,
         /live-change-dao\/dao-websocket\//,
+        /live-change-dao\/dao-message\//,
       ]
     },
   },
@@ -72,6 +75,8 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
+      '@live-change/relations-plugin',
+      '@live-change/db-web',
       'debug',
       'vite',
       'pica'
@@ -105,9 +110,12 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/dao',
       '@live-change/dao-sockjs',
       '@live-change/dao-websocket',
+      '@live-change/dao-message',
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
+      '@live-change/relations-plugin',
+      '@live-change/db-web',
       'debug',
       'pica'
     ],
