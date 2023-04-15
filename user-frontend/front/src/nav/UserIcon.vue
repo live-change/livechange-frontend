@@ -6,10 +6,10 @@
       <li class="border-top-none">
         <span class="flex p-0 px-3 align-items-center hover:surface-100 font-medium border-round
            cursor-pointer transition-colors transition-duration-150 p-ripple">
-          <img v-if="ownerType == 'session_Session'" src="/images/empty-user-photo.svg"
+          <Image v-if="myIdentification?.image" :image="myIdentification.image"
+                 class="mr-0 border-circle border-1 surface-border" style="width: 38px; height: 38px" />
+          <img v-else-if="ownerType == 'session_Session'" src="/images/empty-user-photo.svg"
                class="mr-0 border-circle" style="width: 38px; height: 38px" />
-          <Image v-else-if="myIdentification?.image" :image="userData.image"
-                 class="mr-0 border-circle border-1 surface-border" />
           <img v-else :src="identiconUrl"
                class="mr-0 border-circle border-1 surface-border" style="width: 38px; height: 38px" />
         </span>
@@ -62,7 +62,6 @@
   import { toRefs } from '@vueuse/core'
 
   const client = useClient()
-
 
   const ownerData = computed(
     () => client.value.user
