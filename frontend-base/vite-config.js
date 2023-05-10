@@ -19,7 +19,7 @@ module.exports = async ({ command, mode }) => ({
   },
   server: {
     hmr: {
-      port: +(env.HMR_PORT ?? (await findFreePorts())[0])
+      port: +(process.env.HMR_PORT ?? (await findFreePorts())[0])
     },
     fs: {
       allow: [
