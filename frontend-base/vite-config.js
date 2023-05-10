@@ -130,7 +130,10 @@ module.exports = async ({ command, mode }) => ({
       'pica'
     ],
     exclude: [
-      'primevue'
+      'primevue',
+      'primevue/usetoast',
+      'primevue/useconfirm',
+      'primevue/usedialog',
     ]
   },
 
