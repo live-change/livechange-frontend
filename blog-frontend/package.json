@@ -1,6 +1,6 @@
 {
   "name": "@live-change/blog-frontend",
-  "version": "0.2.43",
+  "version": "0.2.44",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js --dbAccess",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -21,15 +21,15 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.2.0",
-    "@live-change/blog-service": "0.3.21",
-    "@live-change/cli": "0.7.22",
-    "@live-change/content-frontend": "^0.2.43",
+    "@live-change/blog-service": "0.3.22",
+    "@live-change/cli": "0.7.23",
+    "@live-change/content-frontend": "^0.2.44",
     "@live-change/dao": "0.5.18",
     "@live-change/dao-vue3": "0.5.18",
     "@live-change/dao-websocket": "0.5.18",
-    "@live-change/framework": "0.7.22",
-    "@live-change/image-service": "0.3.21",
-    "@live-change/session-service": "0.3.21",
+    "@live-change/framework": "0.7.23",
+    "@live-change/image-service": "0.3.22",
+    "@live-change/session-service": "0.3.22",
     "@live-change/vue3-components": "0.2.26",
     "@live-change/vue3-ssr": "0.2.26",
     "@vueuse/core": "^9.1.0",
@@ -53,7 +53,7 @@
     "vue3-scroll-border": "0.1.5"
   },
   "devDependencies": {
-    "@live-change/codeceptjs-helper": "0.7.22",
+    "@live-change/codeceptjs-helper": "0.7.23",
     "@wdio/selenium-standalone-service": "^7.20.8",
     "codeceptjs": "^3.3.4",
     "generate-password": "1.7.0",
