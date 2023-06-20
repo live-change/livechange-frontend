@@ -4,7 +4,10 @@
       <div class="text-900 font-medium mb-3 text-xl mb-4">Signed In</div>
       <p class="mt-0 p-0 line-height-3">Congratulations! You have successfully logged in to your account.</p>
       <div v-if="afterSignIn" class="flex flex-row align-items-center">
-        <Button label="Next" />
+        <router-link :to="afterSignIn" class="no-underline">
+          <Button label="Next" v-ripple />
+        </router-link>
+
       </div>
     </div>
   </div>

@@ -41,7 +41,7 @@ export async function clientEntry(App, createRouter, config = {}) {
     const instance = app.mount('#app', true)
     app._container._vnode = instance.$.vnode
 
-    startRealTime()
+    setTimeout(() => startRealTime(), 100) /// TODO: fix this dirty hack
   })
 
 }
