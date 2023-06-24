@@ -27,7 +27,7 @@
     "@live-change/email-service": "0.3.23",
     "@live-change/framework": "0.7.24",
     "@live-change/identicon-service": "0.3.23",
-    "@live-change/image-frontend": "^0.2.46",
+    "@live-change/image-frontend": "0.2.46",
     "@live-change/message-authentication-service": "0.3.23",
     "@live-change/notification-service": "0.3.23",
     "@live-change/password-authentication-service": "0.3.23",

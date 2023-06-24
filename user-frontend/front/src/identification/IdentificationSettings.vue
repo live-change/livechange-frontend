@@ -7,8 +7,8 @@
         </div>
       </div>
 
-      <div class="flex flex-wrap align-items-center" v-if="userData !== undefined">
-        <div class="relative" @click="openImageEditor">
+      <div class="flex flex-wrap align-items-center justify-content-center" v-if="userData !== undefined">
+        <div class="relative mb-3" @click="openImageEditor">
           <Image v-if="userData?.image" :image="userData.image" class="mr-2 border-circle profile-image"
                  domResize width="200" height="200" />
           <img v-else :src="identiconUrl" class="mr-2 border-circle profile-image">

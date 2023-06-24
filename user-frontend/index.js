@@ -10,5 +10,4 @@ export { NotificationsIcon, SimpleNotification, notificationTypes }
 import UserIcon from "./front/src/nav/UserIcon.vue"
 export { UserIcon }
 
-import { userRoutes, installUserRedirects } from "./front/src/router.js"
-export { userRoutes, installUserRedirects }
+export * from "./front/src/router.js"
