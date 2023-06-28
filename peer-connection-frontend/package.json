@@ -29,7 +29,7 @@
     "@live-change/secret-code-service": "0.3.23",
     "@live-change/secret-link-service": "0.3.23",
     "@live-change/session-service": "0.3.23",
-    "@live-change/user-frontend": "^0.2.47",
+    "@live-change/user-frontend": "0.2.47",
     "@live-change/user-service": "0.3.23",
     "@live-change/vue3-components": "0.2.26",
     "@live-change/vue3-ssr": "0.2.26",
