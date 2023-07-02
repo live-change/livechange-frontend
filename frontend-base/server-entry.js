@@ -4,7 +4,9 @@ import { renderMetaToString } from 'vue-meta/ssr'
 import { serverApi } from '@live-change/vue3-ssr/serverApi.js'
 
 import { createApp } from "./main.js"
-import { setTime } from "./time.js";
+import { setTime } from "./time.js"
+
+import { renderHeadToString } from "@vueuse/head"
 
 function escapeHtml(unsafe) {
   return (''+unsafe)
@@ -33,7 +35,7 @@ export function serverEntry(App, createRouter, config = {}) {
       }
     }
 
-    const { app, router } = await createApp(
+    const { app, router, head } = await createApp(
       config, api, App, createRouter, host, headers, response, url
     )
 
@@ -59,20 +61,23 @@ export function serverEntry(App, createRouter, config = {}) {
     // which we can then use to determine what files need to be preloaded for this
     // request.
 
-    const metaManager = app.config.globalProperties.$metaManager
-    const activeMeta = metaManager.target.context.active
-    console.log("ACTIVE META", activeMeta)
-    await renderMetaToString(app, ctx)
-    ctx.teleports.head = [
-      ...(activeMeta.title ? [`<title data-vm-ssr="true">${escapeHtml(activeMeta.title)}</title>`] : []),
-      ...((activeMeta.meta || []).map(meta => `<meta ${Object.keys(meta).map(
-        key => `${escapeHtml(key)}="${escapeHtml(meta[key])}"`
-      ).join(' ')}>`)),
-      ...((activeMeta.link || []).map(meta => `<link ${Object.keys(meta).map(
-        key => `${escapeHtml(key)}="${escapeHtml(meta[key])}"`
-      ).join(' ')}>`))
-    ].join('\n')
+    const renderedHead = await renderHeadToString(head)
+    console.log("HEAD", renderedHead)
 
-    return {html, data, meta: ctx.teleports, modules: ctx.modules, response}
+    const hed=  {
+      headTags: '<title>IPI Swap</title>\n' +
+      '<link rel="icon" href="/icon/icon256.png" type="image/png" sizes="256x256">\n' +
+      '<link rel="icon" href="/icon/icon128.png" type="image/png" sizes="128x128">\n' +
+      '<link rel="icon" href="/icon/icon64.png" type="image/png" sizes="64x64">\n' +
+      '<link rel="icon" href="/icon/icon32.png" type="image/png" sizes="32x32">\n' +
+      '<link rel="icon" href="/icon/icon16.png" type="image/png" sizes="16x16">',
+        bodyTags: '',
+        bodyTagsOpen: '',
+        htmlAttrs: ' lang="en" amp=""',
+        bodyAttrs: ''
+    }
+
+
+    return {html, data, meta: renderedHead, modules: ctx.modules, response}
   }
 }

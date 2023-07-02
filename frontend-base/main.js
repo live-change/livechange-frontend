@@ -16,6 +16,7 @@ import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
 import VueLazyLoad from 'vue3-lazyload'
 import { createI18n } from 'vue-i18n'
+import { createHead } from "@vueuse/head"
 
 // SSR requires a fresh app instance per request, therefore we export a function
 // that creates a fresh app instance. If using Vuex, we'd also be creating a
@@ -73,10 +74,13 @@ export async function createApp(config, api, App, createRouter, host, headers, r
     // options...
   })
 
-  const meta = createMetaManager({
+  const meta = createMetaManager({ // TODO: remove this after switching to unhead
     isSSR
   })
   app.use(meta)
+
+  const head = createHead()
+  app.use(head)
 
   app.directive("focus", {
     mounted: (el) => el.focus(),
@@ -95,5 +99,5 @@ export async function createApp(config, api, App, createRouter, host, headers, r
   console.log("I18N MESSAGES", config.i18nMessages)
   app.use(i18n)
 
-  return { app, router }
+  return { app, router, head }
 }
