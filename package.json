@@ -1,0 +1,19 @@
+{
+  "private": true,
+  "workspaces": [
+    "frontend-base",
+    "frontend-auto-form",
+    "user-frontend",
+    "security-frontend",
+    "access-control-frontend",
+    "peer-connection-frontend",
+    "wysiwyg-frontend",
+    "upload-frontend",
+    "image-frontend",
+    "url-frontend",
+    "content-frontend",
+    "blog-frontend"
+  ],
+  "license": "BSD-3-Clause",
+  "version": "0.0.1"
+}
