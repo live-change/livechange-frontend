@@ -67,6 +67,10 @@ module.exports = {
     {
       name: 'image',
       path: '@live-change/image-service'
+    },
+    {
+      name: 'backup',
+      path: '@live-change/backup-server',
     }
 
     //  { path: '@live-change/google-account-service' },
