@@ -23,10 +23,6 @@ export function serverEntry(App, createRouter, config = {}) {
 
     const host = headers['host']
     console.error('URL', host, url)
-    const api = await serverApi(dao, {
-      use: [],
-      windowId
-    })
 
     const response = {
       status: 200,
@@ -35,9 +31,15 @@ export function serverEntry(App, createRouter, config = {}) {
       }
     }
 
+    const api = await serverApi(dao, {
+      use: [],
+      windowId
+    })
+
     const { app, router, head } = await createApp(
       config, api, App, createRouter, host, headers, response, url
     )
+
 
     app.directive('shared-element', {})
 
@@ -47,7 +49,6 @@ export function serverEntry(App, createRouter, config = {}) {
 
     // prefetch data
     await api.preFetchRoute(router.currentRoute, router)
-
     // passing SSR context object which will be available via useSSRContext()
     // @vitejs/plugin-vue injects code into a component's setup() that registers
     // itself on ctx.modules. After the render, ctx.modules would contain all the
@@ -62,21 +63,11 @@ export function serverEntry(App, createRouter, config = {}) {
     // request.
 
     const renderedHead = await renderHeadToString(head)
-    console.log("HEAD", renderedHead)
 
-    const hed=  {
-      headTags: '<title>IPI Swap</title>\n' +
-      '<link rel="icon" href="/icon/icon256.png" type="image/png" sizes="256x256">\n' +
-      '<link rel="icon" href="/icon/icon128.png" type="image/png" sizes="128x128">\n' +
-      '<link rel="icon" href="/icon/icon64.png" type="image/png" sizes="64x64">\n' +
-      '<link rel="icon" href="/icon/icon32.png" type="image/png" sizes="32x32">\n' +
-      '<link rel="icon" href="/icon/icon16.png" type="image/png" sizes="16x16">',
-        bodyTags: '',
-        bodyTagsOpen: '',
-        htmlAttrs: ' lang="en" amp=""',
-        bodyAttrs: ''
-    }
-
+/*    const html = 'html'
+    const renderedHead= 'head'
+    const data = {}
+    const ctx = { modules: [] }*/
 
     return {html, data, meta: renderedHead, modules: ctx.modules, response}
   }

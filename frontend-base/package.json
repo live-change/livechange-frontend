@@ -30,7 +30,7 @@
     "@live-change/password-authentication-service": "0.3.28",
     "@live-change/secret-code-service": "0.3.28",
     "@live-change/secret-link-service": "0.3.28",
-    "@live-change/security-frontend": "^0.2.51",
+    "@live-change/security-frontend": "0.2.51",
     "@live-change/session-service": "0.3.28",
     "@live-change/user-service": "0.3.28",
     "@live-change/vue3-components": "0.2.28",

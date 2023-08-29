@@ -26,6 +26,8 @@ export async function createApp(config, api, App, createRouter, host, headers, r
   const isSPA = (typeof window !== 'undefined') && !window.__DAO_CACHE__
   console.log("IS SPA", isSPA)
   const app = isSPA ? createSPAApp(App) : createSSRApp(App)
+
+
   app.config.devtools = true
 
   app.config.globalProperties.$response = response
