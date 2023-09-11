@@ -41,10 +41,10 @@
 
   import ProgressSpinner from 'primevue/progressspinner'
 
-  import { useMeta } from 'vue-meta'
+  import { useHead } from '@vueuse/head'
   import Page from "./Page.vue"
 
-  const { meta } = useMeta({
+  const { meta } = useHead({
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport',
