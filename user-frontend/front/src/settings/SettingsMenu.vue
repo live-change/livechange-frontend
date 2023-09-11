@@ -10,7 +10,7 @@
 
         <SettingsMenuItem name="user:settings" icon="id-card" label="General Settings" class="hidden md:block" />
 
-        <SettingsMenuItem name="user:notificationsSettings" icon="exclamation-circle" label="Notifications" />
+<!--        <SettingsMenuItem name="user:notificationsSettings" icon="exclamation-circle" label="Notifications" />-->
 
       </ul>
 
@@ -21,7 +21,7 @@
 
         <SettingsMenuItem name="user:connected" icon="users" label="Connected Accounts" />
 
-        <SettingsMenuItem name="user:changePassword" icon="key" label="ChangePassword" />
+        <SettingsMenuItem name="user:changePassword" icon="key" label="Change Password" />
 
       </ul>
 

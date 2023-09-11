@@ -37,6 +37,11 @@ export function routes(config = {}) {
       }
     }),
 
+    route({
+      name: 'accessControl:invitationAccepted', path: prefix + '', meta: { },
+      redirect: { name: 'accessControl:testPage' }
+    }),
+
     ...dbAdminRoutes({ prefix: '/_db', route: r => ({ ...r, meta: { ...r.meta, raw: true }}) })
   ]
 }

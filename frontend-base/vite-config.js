@@ -19,7 +19,7 @@ module.exports = async ({ command, mode }) => ({
   },
   server: {
     hmr: {
-      port: (await findFreePorts())[0]
+      port: +(process.env.HMR_PORT ?? (await findFreePorts())[0])
     },
     fs: {
       allow: [
@@ -38,7 +38,8 @@ module.exports = async ({ command, mode }) => ({
             'ripple': ssrTransformCustomDir,
             'styleclass': ssrTransformCustomDir,
             'badge': ssrTransformCustomDir,
-            'shared-element': ssrTransformCustomDir
+            'shared-element': ssrTransformCustomDir,
+            'lazy': ssrTransformCustomDir
           }
         }
       },
@@ -58,10 +59,17 @@ module.exports = async ({ command, mode }) => ({
       include: [
         /node_modules/,
         /live-change-framework\/framework\//,
+        /live-change-framework\/relations-plugin\//,
         /live-change-framework\/uid\//,
+        /live-change-db\/db-web\//,
+        /live-change-db\/db\//,
+        /live-change-db\/db-store-rbtree\//,
+        /live-change-db\/db-store-indexeddb\//,
+        /live-change-db\/db-store-localstorage\//,
         /live-change-dao\/dao\//,
         /live-change-dao\/dao-sockjs\//,
         /live-change-dao\/dao-websocket\//,
+        /live-change-dao\/dao-message\//,
       ]
     },
   },
@@ -71,17 +79,34 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
+      '@live-change/relations-plugin',
+      '@live-change/db-web',
+      '@live-change/db',
+      '@live-change/db-store-indexeddb',
+      '@live-change/db-store-rbtree',
       'debug',
-      'vite'
+      'vite',
+      'pica'
     ],
     noExternal: [
-      'vue-meta',
       '@live-change/vue3-components',
       '@live-change/dao-vue3',
       '@live-change/vue3-ssr',
       '@live-change/email-service',
       '@live-change/password-authentication-service',
       '@live-change/db-admin',
+      '@live-change/user-frontend',
+      '@live-change/frontend-base',
+      '@live-change/frontend-utils',
+      '@live-change/access-control-frontend',
+      '@live-change/content-frontend',
+      '@live-change/blog-frontend',
+      '@live-change/image-frontend',
+      '@live-change/security-frontend',
+      '@live-change/upload-frontend',
+      '@live-change/url-frontend',
+      '@live-change/user-frontend',
+      '@live-change/wysiwyg-frontend',
       'vue3-scroll-border',
       'pretty-bytes'
     ]
@@ -91,10 +116,23 @@ module.exports = async ({ command, mode }) => ({
       '@live-change/dao',
       '@live-change/dao-sockjs',
       '@live-change/dao-websocket',
+      '@live-change/dao-message',
       '@live-change/uid',
       '@live-change/framework',
       '@live-change/framework/lib/utils/validators.js',
-      'debug'
+      '@live-change/relations-plugin',
+      '@live-change/db-web',
+      '@live-change/db',
+      '@live-change/db-store-indexeddb',
+      '@live-change/db-store-rbtree',
+      'debug',
+      'pica'
+    ],
+    exclude: [
+      'primevue',
+      'primevue/usetoast',
+      'primevue/useconfirm',
+      'primevue/usedialog',
     ]
   },
 

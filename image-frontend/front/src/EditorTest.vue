@@ -14,7 +14,7 @@
 
 <script setup>
 
-  import ImageEditor from "./ImageEditor.vue";
+  import ImageEditor from "./ImageEditor.vue"
   import Image from "./Image.vue"
 
   import { ref } from 'vue'

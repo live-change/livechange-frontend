@@ -1,5 +1,4 @@
-import { createSSRApp } from 'vue'
-import { createMetaManager } from 'vue-meta'
+import { createSSRApp, createApp as createSPAApp } from 'vue'
 
 import { registerComponents } from '@live-change/vue3-components'
 import ReactiveDaoVue from '@live-change/dao-vue3'
@@ -14,23 +13,29 @@ import { PrimeVueDialogSymbol } from 'primevue/usedialog'
 import StyleClass from 'primevue/styleclass'
 import Ripple from 'primevue/ripple'
 import BadgeDirective from 'primevue/badgedirective'
-
-import emailValidator from "@live-change/email-service/clientEmailValidator.js"
-import passwordValidator from "@live-change/password-authentication-service/clientPasswordValidator.js"
+import VueLazyLoad from 'vue3-lazyload'
+import { createI18n } from 'vue-i18n'
+import { createHead } from "@vueuse/head"
 
 // SSR requires a fresh app instance per request, therefore we export a function
 // that creates a fresh app instance. If using Vuex, we'd also be creating a
 // fresh store here.
-export function createApp(api, App, createRouter) {
-  api.validators.email = emailValidator
-  api.validators.password = passwordValidator
+export async function createApp(config, api, App, createRouter, host, headers, response, url) {
+  const isSSR = response !== undefined
+  const isSPA = (typeof window !== 'undefined') && !window.__DAO_CACHE__
+  console.log("IS SPA", isSPA)
+  const app = isSPA ? createSPAApp(App) : createSSRApp(App)
 
-  const app = createSSRApp(App)
+
   app.config.devtools = true
+
+  app.config.globalProperties.$response = response
+  app.config.globalProperties.$host = host
 
   api.installInstanceProperties(app.config.globalProperties)
 
   registerComponents(app)
+
   app.use(ReactiveDaoVue, { dao: api })
 
   const router = createRouter(app)
@@ -66,10 +71,29 @@ export function createApp(api, App, createRouter) {
   app.directive('ripple', Ripple)
   app.directive('badge', BadgeDirective)
 
-  const meta = createMetaManager({
-    isSSR: import.meta.env.SSR
+  app.use(VueLazyLoad, {
+    // options...
   })
-  app.use(meta)
 
-  return { app, router }
+  const head = createHead()
+  app.use(head)
+
+  app.directive("focus", {
+    mounted: (el) => el.focus(),
+    updated: (el, binding) => app.nextTick(() => el.focus())
+  })
+
+  const defaultLocale = config.defaultLocale || 'en'
+  const i18n = createI18n({
+    legacy: false,
+    locale: config.localeSelector   // TODO: read stored language
+      ? await config.localeSelector({ api, host, url, headers })
+      : defaultLocale,
+    fallbackLocale: config.fallbackLocale || defaultLocale,
+    ...config.i18n
+  })
+  console.log("I18N MESSAGES", config.i18nMessages)
+  app.use(i18n)
+
+  return { app, router, head }
 }

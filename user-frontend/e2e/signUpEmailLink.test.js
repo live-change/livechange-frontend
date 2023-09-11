@@ -12,6 +12,7 @@ Scenario('sign up with email link', async ({ I }) => {
   I.amOnPage('/sign-up')
   I.fillField('input#email', user.email)
   I.click('button[type=submit]')
+  pause()
 
   I.seeInCurrentUrl('/sent/')
   const url = await I.grabCurrentUrl()

@@ -42,6 +42,12 @@ export function userRoutes(config = {}) {
   ]
 }
 
+export {
+  messageAuthRoutes, signRoutes, passwordResetRoutes, notificationsRoutes,
+  deleteRoutes, passwordChangeRoutes, connectedRoutes, identificationRoutes,
+  notificationsSettingsRoutes
+}
+
 export async function sitemap(route, api) {
   route({ name: 'SignIn' })
   route({ name: 'SignUp' })

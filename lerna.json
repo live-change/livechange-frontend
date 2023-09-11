@@ -2,16 +2,19 @@
   "packages": [
     "access-control-frontend",
     "frontend-base",
-    "frontend-utils",
+    "frontend-auto-form",
     "image-frontend",
     "peer-connection-frontend",
     "security-frontend",
     "upload-frontend",
     "user-frontend",
-    "wysiwyg-frontend"
+    "wysiwyg-frontend",
+    "url-frontend",
+    "content-frontend",
+    "blog-frontend"
   ],
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.1.5"
+  "version": "0.2.51"
 }

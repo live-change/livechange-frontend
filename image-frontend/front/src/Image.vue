@@ -98,12 +98,18 @@
     const domSize = stableDomSize.value
     if(props.domResize && domSize) {
       console.log("DOM SIZE", domSize)
+      let width = (domSize.width * dpr)|0
+      let height = (domSize.height * dpr)|0
+      if(imageData.value) {
+        width = Math.min(width, imageData.value.width)
+        height = Math.min(height, imageData.value.height)
+      }
       if(props.domResize == 'width') {
-        return `/width-${(domSize.width * dpr)|0}`
+        return `/width-${width}`
       } else if(props.domResize == 'height') {
-        return `/height-${(domSize.height * dpr)|0}`
+        return `/height-${height}`
       } else {
-        return `/rect-${(domSize.width * dpr)|0}-${(domSize.height * dpr)|0}`
+        return `/rect-${width}-${height}`
       }
     }
     if(props.width && props.height) return `/rect-${(props.width*dpr)|0}-${(props.height*dpr)|0}`

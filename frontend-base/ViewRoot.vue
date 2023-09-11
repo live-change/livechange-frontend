@@ -5,7 +5,7 @@
         <component :is="Component" />
       </suspense>
     </template>
-    <loading-zone v-else suspense @isLoading="l => loading = l">
+    <loading-zone v-else suspense @isLoading="l => loading = l" :key="route.href">
       <template v-slot:loading>
         <div class="fixed w-full h-full flex align-items-center justify-content-center top-0 left-0">
           <ProgressSpinner animationDuration=".5s"/>
@@ -23,8 +23,7 @@
               </div>
             </template>
             <template v-slot:default="{ isWorking }">
-              <component :is="Component"
-                         :style="isWorking || isLoading ? 'filter: blur(4px)' : ''"
+              <component :is="Component" :style="isWorking || isLoading ? 'filter: blur(4px)' : ''"
                          class="working-blur" />
             </template>
           </working-zone>
@@ -42,10 +41,10 @@
 
   import ProgressSpinner from 'primevue/progressspinner'
 
-  import { useMeta } from 'vue-meta'
+  import { useHead } from '@vueuse/head'
   import Page from "./Page.vue"
 
-  const { meta } = useMeta({
+  const { meta } = useHead({
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport',

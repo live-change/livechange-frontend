@@ -15,16 +15,18 @@
                   :optionLabel="optionLabel"
                   :modelValue="access.roles?.[0] ?? 'none'"
                   @update:modelValue="newValue => access.roles = [newValue]"
-                  :feedback="false" toggleMask />
+                  :feedback="false" toggleMask
+                  :disabled="disabled" />
         <MultiSelect v-else id="userPublicAccess"
                      style="width: calc(100% - 2.357rem) !important"
                      :options="availableRoles"
                      :optionLabel="optionLabel"
                      v-model="access.roles"
-                     :feedback="false" toggleMask />
+                     :feedback="false" toggleMask
+                     :disabled="disabled" />
         <Button @click="deleteAccess(access)" icon="pi pi-times"
                 class="p-button-rounded p-button-text p-button-plain ml-2 px-3"
-                style="padding-top: 0.77rem" />
+                style="padding-top: 0.77rem" :disabled="disabled" />
       </div>
     </div>
   </div>
@@ -46,7 +48,7 @@
 
   import { computed, watch, ref, onMounted } from 'vue'
 
-  const { object, objectType, availableRoles, multiRole } = defineProps({
+  const { object, objectType, availableRoles, multiRole, disabled } = defineProps({
     object: {
       type: String,
       required: true
@@ -60,6 +62,10 @@
       default: () => ['reader']
     },
     multiRole: {
+      type: Boolean,
+      default: false
+    },
+    disabled: {
       type: Boolean,
       default: false
     }

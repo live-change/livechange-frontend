@@ -22,7 +22,7 @@
       </div>
     </div>
   </div>
-  <div v-else>
+  <div v-else-if="state == 'upload'">
     <DropZone class="w-full relative p-6 md:p-8 lg:p-8" :accept="acceptList" @input="handleFile">
       <div class="w-auto border-dashed border-primary-500 flex align-items-center justify-content-center"
                 :style="`aspect-ratio: ${aspectRatio}`">
@@ -37,6 +37,9 @@
       </div>
     </div>
   </div>
+  <div v-else>
+    <ProgressSpinner />
+  </div>
 </template>
 
 <script setup>
@@ -49,6 +52,7 @@
   import { FileInput, DropZone } from '@live-change/upload-frontend'
   import { uploadImage } from "./imageUploads.js"
   import Button from "primevue/button"
+  import ProgressSpinner from "primevue/progressspinner"
 
   import ImageCrop from "./ImageCrop.vue"
 
@@ -146,12 +150,14 @@
       const { crop, canvas } = await imageCrop.value.crop()
       console.log("CROP RESULT", crop, canvas)
 
+      state.value = 'uploading'
       upload.value = uploadImage(props.purpose, { canvas },
         { preparedPreview: true, appContext, generateId : true, crop,  })
       console.log("START PREPARE!")
       emit('update:modelValue', upload.value.id)
       if(sourceUpload.value) await sourceUpload.value.upload()
       await upload.value.upload()
+      state.value = 'edit'
       emit('close')
     })())
   }
@@ -163,6 +169,7 @@
       sourceUpload.value = uploadImage(props.purpose, { file },
         { preparedPreview: true, appContext, generateId : true, saveCanvas: true })
       console.log("START PREPARE!")
+      state.value = 'uploading'
       await sourceUpload.value.prepare()
       cropReady.value = false
       sourceImage.value = sourceUpload.value.id

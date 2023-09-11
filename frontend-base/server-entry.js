@@ -1,12 +1,14 @@
 import { renderToString } from 'vue/server-renderer'
-import { renderMetaToString } from 'vue-meta/ssr'
 
 import { serverApi } from '@live-change/vue3-ssr/serverApi.js'
 
 import { createApp } from "./main.js"
+import { setTime } from "./time.js"
+
+import { renderHeadToString } from "@vueuse/head"
 
 function escapeHtml(unsafe) {
-  return unsafe
+  return (''+unsafe)
       .replace(/&/g, "&amp;")
       .replace(/</g, "&lt;")
       .replace(/>/g, "&gt;")
@@ -14,14 +16,29 @@ function escapeHtml(unsafe) {
       .replace(/'/g, "&#039;");
 }
 
-export function serverEntry(App, createRouter) {
-  return async function({ url, dao, windowId }) {
+export function serverEntry(App, createRouter, config = {}) {
+  return async function({ url, headers, dao, windowId, now }) {
+    setTime(now)
+
+    const host = headers['host']
+    console.error('URL', host, url)
+
+    const response = {
+      status: 200,
+      headers: {
+        'Content-Type': 'text/html'
+      }
+    }
+
     const api = await serverApi(dao, {
       use: [],
       windowId
     })
 
-    const { app, router } = createApp(api, App, createRouter)
+    const { app, router, head } = await createApp(
+      config, api, App, createRouter, host, headers, response, url
+    )
+
 
     app.directive('shared-element', {})
 
@@ -31,14 +48,12 @@ export function serverEntry(App, createRouter) {
 
     // prefetch data
     await api.preFetchRoute(router.currentRoute, router)
-
     // passing SSR context object which will be available via useSSRContext()
     // @vitejs/plugin-vue injects code into a component's setup() that registers
     // itself on ctx.modules. After the render, ctx.modules would contain all the
     // components that have been instantiated during this render call.
     const ctx = {}
     const html = await renderToString(app, ctx)
-    await renderMetaToString(app, ctx)
 
     const data = api.prerenderCache.cacheData()
 
@@ -46,18 +61,13 @@ export function serverEntry(App, createRouter) {
     // which we can then use to determine what files need to be preloaded for this
     // request.
 
-    const metaManager = app.config.globalProperties.$metaManager
-    const activeMeta = metaManager.target.context.active
-    ctx.teleports.head = [
-      ...(activeMeta.title ? [`<title data-vm-ssr="true">${escapeHtml(activeMeta.title)}</title>`] : []),
-      ...((activeMeta.meta || []).map(meta => `<meta ${Object.keys(meta).map(
-        key => `${escapeHtml(key)}="${escapeHtml(meta[key])}"`
-      ).join(' ')}>`)),
-      ...((activeMeta.link || []).map(meta => `<link ${Object.keys(meta).map(
-        key => `${escapeHtml(key)}="${escapeHtml(meta[key])}"`
-      ).join(' ')}>`))
-    ].join('\n')
+    const renderedHead = await renderHeadToString(head)
 
-    return {html, data, meta: ctx.teleports, modules: ctx.modules}
+/*    const html = 'html'
+    const renderedHead= 'head'
+    const data = {}
+    const ctx = { modules: [] }*/
+
+    return {html, data, meta: renderedHead, modules: ctx.modules, response}
   }
 }

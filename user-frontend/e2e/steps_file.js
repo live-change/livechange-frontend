@@ -6,7 +6,7 @@ const passwordGenerator = require('generate-password')
 
 const steps = {
 
-  async haveUser(name, email, password, user = app.generateUid()) {
+  async haveUser(name, email, password, user = app.generateUid(), roles = []) {
     const I = this
 
     if(!password) password = passwordGenerator.generate({
@@ -26,7 +26,7 @@ const steps = {
     const Identification = await I.haveModel("userIdentification", "Identification")
 
     const passwordHash = PasswordAuthentication.definition.properties.passwordHash.preFilter(password)
-    await User.create({ id: user, roles: [] })
+    await User.create({ id: user, roles })
     await PasswordAuthentication.create({ id: user, user, passwordHash })
     await Email.create({ id: email, email, user })
     await Identification.create({
@@ -41,11 +41,24 @@ const steps = {
     }
   },
 
+  async useEmailLink(email, prefix = '/link/') {
+    const I = this
+    const MessageAuthentication = await I.haveModel('messageAuthentication', 'Authentication')
+    const authentication =
+      await MessageAuthentication.indexObjectGet('byContact', ['email', email], { reverse: true, limit: 1 })
+    const Link = await I.haveModel('secretLink', 'Link')
+    let link = await Link.indexObjectGet('byAuthentication', authentication)
+    I.amOnPage(prefix + link.secretCode)
+    await I.wait(0.1)
+    return { authentication, link }
+  },
+
   async amLoggedIn(user) {
     const I = this
     console.log("USER", user)
     const AuthenticatedUser = await I.haveModel("user", "AuthenticatedUser")
     const session = await I.executeScript(() => window.api.client.value.session)
+    console.log("AUTHENTICATE SESSION", session)
     await AuthenticatedUser.create({ id: session, session, user: user.id })
   },
 
@@ -97,7 +110,7 @@ const steps = {
     await I.wait(0.1)
   },
 
-  async useSecretLink(authentication, happyPath) {
+  async useSecretLink(authentication, happyPath, prefix = '') {
     const I = this
     const Link = await I.haveModel('secretLink', 'Link')
     let linkData = await Link.indexObjectGet('byAuthentication', authentication)
@@ -105,18 +118,18 @@ const steps = {
     I.assert(!!linkData, true, 'link created')
 
     if(!happyPath) {
-      I.amOnPage('/link/[badSecret]')
+      I.amOnPage(prefix + '/link/[badSecret]')
       I.see('Unknown link')
     }
 
     if(!happyPath) {
       await I.wait(0.2)
       await Link.update(linkData.id, { expire: new Date() }) // expire now
-      I.amOnPage('/link/' + linkData.secretCode)
+      I.amOnPage(prefix + '/link/' + linkData.secretCode)
       I.see('Link expired')
 
       I.click('Resend')
-      I.seeInCurrentUrl('/sent/')
+      I.seeInCurrentUrl(prefix + '/sent/')
 
       await I.wait(0.2)
       const newLinksData = await Link.indexRangeGet('byAuthentication', authentication)
@@ -127,8 +140,8 @@ const steps = {
       I.assert(oldLinkData.id != linkData.id, true, 'link is different from previous link')
     }
 
-    console.log("LINK RIGHT", '/link/' + linkData.secretCode)
-    I.amOnPage('/link/'+linkData.secretCode)
+    console.log("LINK RIGHT", prefix + '/link/' + linkData.secretCode)
+    I.amOnPage(prefix + '/link/'+linkData.secretCode)
     await I.wait(0.1)
 
     return linkData

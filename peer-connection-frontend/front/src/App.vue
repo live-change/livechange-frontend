@@ -37,10 +37,11 @@ import 'primeicons/primeicons.css'
 
 import ProgressSpinner from 'primevue/progressspinner'
 
-import { useMeta } from 'vue-meta'
 import Page from "./Page.vue"
 
-const { meta } = useMeta({
+import { computed } from 'vue'
+import { useHead } from '@vueuse/head'
+useHead(computed(() => ({
   title: 'Title',
   meta: [
     { charset: 'utf-8' },
@@ -52,7 +53,7 @@ const { meta } = useMeta({
     lang: 'en',
     amp: true
   }
-})
+})))
 
 import { ref } from 'vue'
 const working = ref(false)

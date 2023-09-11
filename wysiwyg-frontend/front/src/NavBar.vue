@@ -1,7 +1,7 @@
 <template>
   <div class="surface-overlay py-3 px-6 shadow-2 flex align-items-center justify-content-between
-              relative md:sticky top-0 z-5"
-       style="min-height: 80px" key="navbar">
+              relative md:sticky top-0"
+       style="min-height: 80px; z-index: 10" key="navbar">
     <img src="/images/logo.svg" alt="Image" height="40" class="mr-0 lg:mr-6">
     <a v-ripple class="cursor-pointer block lg:hidden text-700 p-ripple"
        v-styleclass="{ selector: '@next', enterClass: 'hidden', leaveToClass: 'hidden', hideOnOutsideClick: true }">
