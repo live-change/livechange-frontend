@@ -1,5 +1,4 @@
 import { createSSRApp, createApp as createSPAApp } from 'vue'
-import { createMetaManager } from 'vue-meta'
 
 import { registerComponents } from '@live-change/vue3-components'
 import ReactiveDaoVue from '@live-change/dao-vue3'
@@ -75,11 +74,6 @@ export async function createApp(config, api, App, createRouter, host, headers, r
   app.use(VueLazyLoad, {
     // options...
   })
-
-  const meta = createMetaManager({ // TODO: remove this after switching to unhead
-    isSSR
-  })
-  app.use(meta)
 
   const head = createHead()
   app.use(head)

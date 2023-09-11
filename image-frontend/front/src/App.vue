@@ -13,14 +13,20 @@
   import ViewRoot from "@live-change/frontend-base/ViewRoot.vue"
   import NavBar from "./NavBar.vue"
 
-  import { useMeta } from 'vue-meta'
-  const { meta } = useMeta({
+  import { useHead } from '@vueuse/head'
+  useHead(computed(() => ({
     title: 'Title',
+    meta: [
+      { charset: 'utf-8' },
+      { name: 'viewport',
+        content: "user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1," +
+            " width=device-width, viewport-fit=cover" }
+    ],
     htmlAttrs: {
       lang: 'en',
       amp: true
     }
-  })
+  })))
 
   import { watch } from 'vue'
   import { client as useClient } from '@live-change/vue3-ssr'

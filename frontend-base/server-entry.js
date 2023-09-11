@@ -1,5 +1,4 @@
 import { renderToString } from 'vue/server-renderer'
-import { renderMetaToString } from 'vue-meta/ssr'
 
 import { serverApi } from '@live-change/vue3-ssr/serverApi.js'
 

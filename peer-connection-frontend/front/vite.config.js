@@ -71,7 +71,6 @@ export default defineConfig(async ({ command, mode }) => {
         'vite'
       ],
       noExternal: [
-        'vue-meta',
         '@live-change/vue3-components',
         '@live-change/dao-vue3',
         '@live-change/vue3-ssr',

@@ -89,7 +89,6 @@ module.exports = async ({ command, mode }) => ({
       'pica'
     ],
     noExternal: [
-      'vue-meta',
       '@live-change/vue3-components',
       '@live-change/dao-vue3',
       '@live-change/vue3-ssr',
