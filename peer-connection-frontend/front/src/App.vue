@@ -37,9 +37,9 @@ import 'primeicons/primeicons.css'
 
 import ProgressSpinner from 'primevue/progressspinner'
 
-import { useMeta } from 'vue-meta'
 import Page from "./Page.vue"
 
+import { computed } from 'vue'
 import { useHead } from '@vueuse/head'
 useHead(computed(() => ({
   title: 'Title',

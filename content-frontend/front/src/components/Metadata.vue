@@ -48,7 +48,8 @@
       }
     })
   }
-  import { useMeta } from 'vue-meta'
+  import { computed } from 'vue'
+  import { useHead } from '@vueuse/head'
   const m = metadata.value
   const canonicalUrlDomain = canonical.value?.domain || host
   const canonicalUrl = `https://${canonicalUrlDomain}/${canonical.value?.path ?? ''}`
@@ -65,7 +66,7 @@
       ]
     }
 
-    useMeta(JSON.parse(JSON.stringify({
+    useHead(computed(() => ({
       title: m.title,
       description: m.description,
       link: [

@@ -12,6 +12,7 @@
 
   import { ViewRoot, NavBar } from "@live-change/frontend-base"
 
+  import { computed } from 'vue'
   import { useHead } from '@vueuse/head'
   useHead(computed(() => ({
     title: 'Title',
