@@ -48,7 +48,6 @@
       }
     })
   }
-  import { computed } from 'vue'
   import { useHead } from '@vueuse/head'
   const m = metadata.value
   const canonicalUrlDomain = canonical.value?.domain || host
