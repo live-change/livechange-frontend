@@ -15,5 +15,8 @@
     "blog-frontend"
   ],
   "license": "BSD-3-Clause",
-  "version": "0.0.1"
+  "version": "0.0.1",
+  "dependencies": {
+    "markdown-it-diagrams": "^1.0.1"
+  }
 }

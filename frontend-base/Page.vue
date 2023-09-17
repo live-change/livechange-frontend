@@ -38,12 +38,12 @@
     }
   })
 
-  console.log("SETUP PAGE!!!")
+  //console.log("SETUP PAGE!!!")
 
   import { computed } from 'vue'
   import { useRoute } from 'vue-router'
   const route = useRoute()
 
-  const pageType = computed(() => route.meta.pageType ?? 'simple' )
+  const pageType = computed(() => route?.meta?.pageType ?? 'simple' )
 
 </script>
