@@ -1,14 +1,24 @@
 import deepmerge from 'deepmerge';
 
-import contentEn from "../locales/en.json"
+import * as exchangeEn from "../locales/en.js"
 import { locales as autoFormLocales } from "@live-change/frontend-auto-form"
 
 export default {
   i18n: {
     messages: {
       en: deepmerge.all([
-        contentEn,
-        autoFormLocales.en
+        autoFormLocales.en,
+        exchangeEn.messages
+      ])
+    },
+    numberFormats: {
+      en: deepmerge.all([
+        exchangeEn.numberFormats
+      ])
+    },
+    datetimeFormats: {
+      en: deepmerge.all([
+        exchangeEn.datetimeFormats
       ])
     }
   }

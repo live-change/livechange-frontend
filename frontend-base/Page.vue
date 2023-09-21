@@ -29,21 +29,24 @@
   const isMounted = ref(false)
   onMounted(() => isMounted.value = true)
 
-  const { working, loading } = defineProps({
+  const { working, loading, pageType } = defineProps({
     working: {
       type: Boolean
     },
     loading: {
       type: Boolean
+    },
+    pageType: {
+      type: String,
+      default: 'simple'
     }
   })
 
   //console.log("SETUP PAGE!!!")
 
   import { computed } from 'vue'
-  import { useRoute } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   const route = useRoute()
-
-  const pageType = computed(() => route?.meta?.pageType ?? 'simple' )
+  const router = useRouter()
 
 </script>

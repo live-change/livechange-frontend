@@ -146,21 +146,18 @@ class CodeBlockView {
   codeMirrorKeymap() {
     let view = this.view
     return [
-      {key: "ArrowUp", run: this.maybeEscape("line", -1)},
-      {key: "ArrowLeft", run: this.maybeEscape("char", -1)},
-      {key: "ArrowDown", run: this.maybeEscape("line", 1)},
-      {key: "ArrowRight", run: this.maybeEscape("char", 1)},
-      {key: "Ctrl-Enter", run: () => {
+      { key: "ArrowUp", run: this.maybeEscape("line", -1)},
+      { key: "ArrowLeft", run: this.maybeEscape("char", -1)},
+      { key: "ArrowDown", run: this.maybeEscape("line", 1)},
+      { key: "ArrowRight", run: this.maybeEscape("char", 1)},
+      { key: "Ctrl-Enter", run: () => {
           if (!exitCode(view.state, view.dispatch)) return false
           view.focus()
           return true
         }},
-      {key: "Ctrl-z", mac: "Cmd-z",
-        run: () => undo(view.state, view.dispatch)},
-      {key: "Shift-Ctrl-z", mac: "Shift-Cmd-z",
-        run: () => redo(view.state, view.dispatch)},
-      {key: "Ctrl-y", mac: "Cmd-y",
-        run: () => redo(view.state, view.dispatch)}
+      { key: "Ctrl-z", mac: "Cmd-z", run: () => undo(view.state, view.dispatch) },
+      { key: "Shift-Ctrl-z", mac: "Shift-Cmd-z", run: () => redo(view.state, view.dispatch) },
+      { key: "Ctrl-y", mac: "Cmd-y", run: () => redo(view.state, view.dispatch) }
     ]
   }
 

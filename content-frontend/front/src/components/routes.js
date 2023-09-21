@@ -31,14 +31,13 @@ export function catchAllPagesRoute(config = {}) {
   ]
 }
 
-
 export function routes(config = {}) {
   const { prefix = '/', route = (r) => r } = config
 
   return [
 
-      ...contentEditRoutes(config),
-      ...catchAllPagesRoute({ ...config, prefix: config.pagePrefix ?? '/' })
+    ...contentEditRoutes(config),
+    ...catchAllPagesRoute({ ...config, prefix: config.pagePrefix ?? '/' })
 
   ]
 }

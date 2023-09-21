@@ -12,7 +12,7 @@
         </div>
       </template>
       <template v-slot:default="{ isLoading }">
-        <page :loading="loading" :working="working">
+        <page :loading="loading" :working="working" :route="route" :pageType="route?.meta?.pageType">
           <template #navbar>
             <slot name="navbar"></slot>
           </template>
@@ -53,7 +53,7 @@
     ]
   })
 
-  import { ref } from 'vue'
+  import { computed, onMounted, ref } from 'vue'
   const working = ref(false)
   const loading = ref(false)
 

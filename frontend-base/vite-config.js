@@ -15,11 +15,13 @@ const MarkdownItTaskLists = require('markdown-it-task-lists')
 const MarkdownItTableOfContents = require('markdown-it-table-of-contents')
 const MarkdownItMermaid = require('markdown-it-mermaid').default
 
-const { parser: javascriptParser } = require("@lezer/javascript")
-const { highlightTree } = require("@lezer/highlight")
-const { defaultHighlightStyle } = require("@codemirror/language")
+const { highlight } = require('@live-change/frontend-base/lezer.js')
 
 const Components = require('unplugin-vue-components/vite')
+const {
+  PrimeVueResolver
+} = require('unplugin-vue-components/resolvers')
+
 const { visualizer } = require('rollup-plugin-visualizer')
 const viteImages = require('vite-plugin-vue-images')
 const viteCompression = require('vite-plugin-compression')
@@ -33,8 +35,7 @@ const ssrTransformCustomDir = () => {
 }
 
 module.exports = async ({ command, mode }) => {
-  console.log("VITE CONFIG", command, mode)
-  //const MarkdownItEcharts = await import('markdown-it-echarts')
+  //console.log("VITE CONFIG", command, mode)
   return {
     define: {
       ENV_BASE_HREF: JSON.stringify(process.env.BASE_HREF || 'http://localhost:8001')
@@ -73,26 +74,7 @@ module.exports = async ({ command, mode }) => {
           html: true,
           linkify: true,
           typographer: true,
-          highlight: function (code, lang) {
-            //console.log("HIGHLIGHT", lang, str)
-            const tree = javascriptParser.parse(code)
-            let pos = 0
-            const output = []
-            highlightTree(tree, defaultHighlightStyle, (from, to, classes) => {
-              if(from > pos) output.push(`<span>${
-                code.slice(pos, from).replace(/</g, "&lt;").replace(/>/g, "&gt;")
-              }</span>`)
-              console.log("HIGHLIGHT", from, to, classes, code.slice(from, to))
-              output.push(`<span class="${classes}">${
-                  code.slice(from, to).replace(/</g, "&lt;").replace(/>/g, "&gt;")
-              }</span>`)
-              pos = to
-            })
-            if(code.length > pos) output.push(`<span>${
-                code.slice(pos).replace(/</g, "&lt;").replace(/>/g, "&gt;")
-            }</span>`)
-            return `<pre>${output.join('')}</pre>`
-          },
+          highlight,
         },
         markdownItSetup(md) {
           md.use(MarkdownItSub)
@@ -103,15 +85,12 @@ module.exports = async ({ command, mode }) => {
           md.use(MarkdownItMark)
           md.use(MarkdownItKatex)
           md.use(MarkdownItTaskLists)
-          //md.use(MarkdownItEcharts)
           md.use(MarkdownItMermaid)
           md.use(MarkdownItAnchor)
           md.use(MarkdownItTableOfContents, {
             includeLevel: [1, 2, 3],
             containerClass: 'table-of-contents',
           })
-
-          console.log('MDO', md.options.highlight.toString())
         },
         wrapperClasses: 'markdown-body'
       }),
@@ -120,13 +99,18 @@ module.exports = async ({ command, mode }) => {
           from: 'vue-router',
           names: ['RouterLink', 'RouterView'],
         }],
+        resolvers: [
+          PrimeVueResolver({
+          })
+        ],
         // allow auto load markdown components under `./src/components/`
         dirs: ['src/components'],
         // search for subdirectories
         deep: true,
         extensions: ['vue', 'md'],
+        dts: true,
         // allow auto import and register components used in markdown
-        customLoaderMatcher: path => path.endsWith('.md'),
+        include: [/\.vue$/, /\.vue\?vue/, /\.md$/],
       }),
       viteImages({ extensions: ['jpg', 'jpeg', 'png', 'svg', 'webp'] }),
       viteCompression({ algorithm: 'brotliCompress', ext: '.br' }),

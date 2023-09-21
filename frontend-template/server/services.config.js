@@ -79,6 +79,10 @@ module.exports = {
       name: 'content',
       path: '@live-change/content-service',
     },
-
+    {
+      name: 'backup',
+      path: '@live-change/backup-server',
+      port: 8007
+    }
   ]
 }

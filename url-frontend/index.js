@@ -24,3 +24,6 @@ export { NotAuthorized }
 
 import sitemap from "./front/src/sitemap.js"
 export { sitemap }
+
+import { catchAllNotFoundRoute } from "./front/src/components/routes";
+export { catchAllNotFoundRoute }

@@ -32,11 +32,12 @@
         <div class="flex flex-row flex-shrink-0">
           <label class="my-2 flex-grow-1">Style:</label>
         </div>
-        <prism-editor v-if="isMounted"
+        <div class="style-editor p-inputtext flex-grow-1" ref="codeMirrorWrapper"></div>
+<!--        <prism-editor v-if="isMounted"
                       class="style-editor p-inputtext flex-grow-1" :highlight="highlightCss"
                       :style="{ height: (nodeStyleLines * 1.35 + 1.1) + 'em' }"
                       :modelValue="nodeStyle" @update:modelValue="handleStyleUpdate"
-                      :readonly="false" :line-numbers="nodeStyleLines > 1" />
+                      :readonly="false" :line-numbers="nodeStyleLines > 1" />-->
       </div>
     </div>
   </div>
@@ -48,15 +49,15 @@
 
   import PaddingEditor from "./PaddingEditor.vue"
 
-  import 'vue-prism-editor/dist/prismeditor.min.css'
-  import 'prismjs/themes/prism-coy.css'
-  import * as Prism from 'prismjs/components/prism-core'
-  import 'prismjs/components/prism-css'
+  import { EditorState as CMState } from '@codemirror/state'
+  import { EditorView as CMView, keymap as cmKeymap, drawSelection } from '@codemirror/view'
+  import {css} from "@codemirror/lang-css"
 
-  import { PrismEditor } from 'vue-prism-editor'
-
-  import {ref, computed, watch, provide, defineEmits, defineProps, onMounted} from 'vue'
-  import { toRefs } from '@vueuse/core'
+  import { ref, computed, watch, provide, defineEmits, defineProps, onMounted, toRefs } from 'vue'
+  import {defaultKeymap} from "@codemirror/commands";
+  import {defaultHighlightStyle, syntaxHighlighting} from "@codemirror/language";
+  import {exitCode} from "@tiptap/pm/commands";
+  import {redo, undo} from "@tiptap/pm/history";
 
   const isMounted = ref(false)
   onMounted(() => isMounted.value = true)
@@ -151,9 +152,7 @@
     return nodeControl.value.attrs.style
   })
   const nodeStyleLines = computed(() => (nodeStyle.value || '').split('\n').length)
-  function highlightCss(code) {
-    return Prism.highlight(code, Prism.languages.css, "css")
-  }
+
   function handleStyleUpdate(style) {
     console.log("NC", nodeControl.value)
     nodeControl.value.updateAttributes({ attrs: {
@@ -162,18 +161,63 @@
     }})
   }
 
+
+  const codeMirrorWrapper = ref()
+
+  let cmView, cmState
+
+  const dispatch = (tr) => {
+    console.log("TR", tr)
+    cmView.setState(tr.state)
+    if(tr.docChanged) handleStyleUpdate(tr.newDoc.toString())
+  }
+
+  onMounted(() => {
+    //console.log("WRAPPER", codeMirrorWrapper.value)
+    cmView = new CMView({
+      dispatch,
+      parent: codeMirrorWrapper.value,
+    })
+    cmState = CMState.create({
+      doc: nodeStyle.value || '',
+      extensions: [
+        cmKeymap.of([
+          ...defaultKeymap,
+          ...[
+            { key: "Ctrl-z", mac: "Cmd-z", run: () => undo(view.state, view.dispatch) },
+            { key: "Shift-Ctrl-z", mac: "Shift-Cmd-z", run: () => redo(view.state, view.dispatch) },
+            { key: "Ctrl-y", mac: "Cmd-y", run: () => redo(view.state, view.dispatch) }
+          ]
+        ]),
+        drawSelection(),
+        syntaxHighlighting(defaultHighlightStyle),
+        css(),
+      ],
+    })
+  })
+
 </script>
 
 <style lang="scss">
   .autocomplete-w-full > ul {
     width: 100%;
   }
-  .prism-editor__textarea {
-    outline: 0 none;
-    outline-offset: 0;
-  }
   .style-editor:focus-within {
     box-shadow: 0 0 0 0.2rem #b7e0b8;
     border-color: #4CAF50;
   }
+  .style-editor {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0;
+    & > .cm-editor {
+      margin: 0;
+      padding: 0.5em;
+    }
+    .cm-focused {
+      outline: none;
+    }
+  }
+
 </style>
