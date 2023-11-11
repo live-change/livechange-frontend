@@ -14,8 +14,7 @@
 <script setup>
   import AutoField from "./AutoField.vue"
 
-  import { computed, inject, getCurrentInstance } from 'vue'
-  import { toRefs } from '@vueuse/core'
+  import { computed, inject, getCurrentInstance, toRefs } from 'vue'
 
   const props = defineProps({
     modelValue: {},
@@ -46,7 +45,7 @@
   function updateModelProperty(property, value) {
     const data = modelValue.value || {}
     data[property] = value
-    console.log("UPDATE MODEL", data)
+    //console.log("UPDATE MODEL", data)
     emit('update:modelValue', data)
   }
 

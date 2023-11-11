@@ -9,6 +9,7 @@ const { parser: javaParser } = require("@lezer/java")
 const { parser: pythonParser } = require("@lezer/python")
 const { parser: phpParser } = require("@lezer/php")
 const { parser: rustParser } = require("@lezer/rust")
+const { parser: xmlParser } = require("@lezer/xml")
 
 const { highlightTree } = require("@lezer/highlight")
 const { defaultHighlightStyle } = require("@codemirror/language")
@@ -32,6 +33,7 @@ const parsers = {
   tsx: javascriptParser,
   jsx: javascriptParser,
   vue: htmlParser,
+  xml: xmlParser,
 }
 
 function hightlight(code, language) {

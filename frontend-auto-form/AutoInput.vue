@@ -3,14 +3,14 @@
              @update:modelValue="updateValue" :class="inputClass" :style="inputStyle" />
   <div v-else-if="visible" class="font-bold text-red-600">
     No input found for definition:
-    <pre style="white-space: pre-wrap; word-wrap: break-word;">{{ JSON.stringify(definition, null, "  ") }}</pre>
+    <pre style="white-space: pre-wrap; word-wrap: break-word;"
+      >{{propName}}: {{ JSON.stringify(definition, null, "  ") }}</pre>
   </div>
 </template>
 
 <script setup>
   import { inputs, types } from './config.js'
-  import { computed, inject } from 'vue'
-  import { toRefs } from '@vueuse/core'
+  import { computed, inject, toRefs } from 'vue'
 
   const props = defineProps({
     modelValue: {
@@ -42,10 +42,14 @@
 
   const { definition, modelValue, propName } = toRefs(props)
 
+  const config = inject('auto-form', {
+    inputs: {},
+    types: {}
+  })
   const inputConfig = computed(() => {
-    if(definition.value.input) return inputs[definition.value.input]
-    if(definition.value.type) return types[definition.value.type]
-    return inputs.default
+    if(definition.value.input) return config.inputs?.[definition.value.input] ?? inputs[definition.value.input]
+    if(definition.value.type) return config.types?.[definition.value.type] ?? types[definition.value.type]
+    return config.inputs?.default ?? inputs.default
   })
 
   const definitionIf = computed(() => {
@@ -60,7 +64,7 @@
   const visible = computed(() => {
     if(!definition.value) return false
     if(definitionIf.value) {
-      console.log("DIF", propName.value, definitionIf.value, 'IN', props.rootValue)
+      //console.log("DIF", propName.value, definitionIf.value, 'IN', props.rootValue)
       return definitionIf.value({
         source: definition.value,
         props: props.rootValue,
@@ -71,21 +75,22 @@
   })
 
   import { useI18n } from 'vue-i18n'
-  const { t, d, n } = useI18n()
+  const { rt, t, d, n, te } = useI18n()
 
   const configAttributes = computed(() => {
     const attributes = inputConfig.value?.attributes
     if(!attributes) return attributes
     if(typeof attributes == 'function') {
       const fieldName = props.propName.split('.').pop()
-      console.log("PROPS", JSON.stringify(props))
-      console.log("PROPNAME", propName.value)
+      //console.log("PROPS", JSON.stringify(props))
+      //console.log("PROPNAME", propName.value)
       return attributes({
         definition: definition.value,
         i18n: props.i18n + fieldName,
         propName: props.propName,
         fieldName,
-        t, d, n
+        rootValue: props.rootValue,
+        t, d, n, rt, te
       })
     }
     return attributes

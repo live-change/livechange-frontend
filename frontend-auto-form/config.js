@@ -1,5 +1,6 @@
 import { defineAsyncComponent } from 'vue'
 
+
 export const inputs = {
 }
 export const types = {
@@ -36,11 +37,30 @@ types.Date = inputs.datetime = input(() => import('primevue/calendar'), { attrib
 
 inputs.select = input(() => import('primevue/dropdown'), {
   attributes: (config) => {
-    const { definition, i18n, t } = config
-    console.log("SELECT", config)
+    const { definition, i18n, t, te } = config
+   // console.log("SELECT", config)
     return {
       options: definition.options,
-      optionLabel: option => t(i18n + ':options.' + option)
+      optionLabel: option => {
+        const i18nId = i18n + ':options.' + option
+        if(te(i18nId)) return t(i18nId)
+        return t(option)
+      }
+    }
+  }
+})
+
+inputs.multiselect = input(() => import('primevue/multiselect'), {
+  attributes: (config) => {
+    const { definition, i18n, t, te } = config
+    console.log("MULTISELECT", config)
+    return {
+      options: definition.of.options ?? definition.options,
+      optionLabel: option => {
+        const i18nId = i18n + ':options.' + option
+        if(te(i18nId)) return t(i18nId)
+        return t(option)
+      }
     }
   }
 })

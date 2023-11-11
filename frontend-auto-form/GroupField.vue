@@ -7,14 +7,14 @@
                  :rootValue="props.rootValue" :propName="props.propName"
                  @update:modelValue="value => emit('update:modelValue', value)"
                 :i18n="props.i18n + props.propName.split('.').pop() + '.'" />
+    <small v-if="typeof validationResult == 'string'" class="p-error">{{ t( 'errors.' + validationResult ) }}</small>
   </div>
 </template>
 
 <script setup>
   import AutoInput from "./AutoInput.vue"
-  import {inputs, types} from "./config";
-  import { computed, inject } from 'vue'
-  import { toRefs } from '@vueuse/core'
+  import { inputs, types } from "./config";
+  import { computed, inject, toRefs, getCurrentInstance } from 'vue'
 
   import { useI18n } from 'vue-i18n'
   const { t } = useI18n()
@@ -88,6 +88,18 @@
     if(definition.value?.input) return inputs[definition.value.input]
     if(definition.value?.type) return types[definition.value.type]
     return inputs.default
+  })
+
+  import { validateData } from "@live-change/vue3-components"
+
+  const appContext = getCurrentInstance().appContext
+
+  const validationResult = computed(() => {
+    console.log('validation', definition.value, modelValue.value)
+    const validationResult = validateData(definition.value, modelValue.value, 'validation', appContext)
+    const softValidationResult = validateData(definition.value, modelValue.value, 'softValidation', appContext)
+    console.log('validationResult', validationResult, softValidationResult, error.value)
+    return validationResult || softValidationResult || error.value
   })
 
   const label = computed(() => props.label || definition.value?.label || props.name)

@@ -15,18 +15,20 @@
                   :i18n="i18n" />
     </div>
     <div>
-      <Button label="Add item" icon="pi pi-plus" @click="insertItem" />
+      <Button class="w-10rem" :label="t('autoform.addItem')" icon="pi pi-plus" @click="insertItem" />
     </div>
   </div>
 </template>
 
 <script setup>
+  import { useI18n } from 'vue-i18n'
+  const { t, n, d } = useI18n()
+
   import Button from "primevue/button";
   import AutoInput from "./AutoInput.vue"
 
   import { inputs, types } from './config.js'
-  import { computed, getCurrentInstance } from 'vue'
-  import { toRefs } from '@vueuse/core'
+  import { computed, getCurrentInstance, toRefs } from 'vue'
 
   const props = defineProps({
     modelValue: {

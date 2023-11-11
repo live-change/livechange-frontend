@@ -22,11 +22,10 @@
   import AutoInput from "./AutoInput.vue"
 
   import { inputs, types } from './config.js'
-  import { computed, getCurrentInstance } from 'vue'
-  import { toRefs } from '@vueuse/core'
+  import { computed, getCurrentInstance, inject, toRefs } from 'vue'
 
   import { useI18n } from 'vue-i18n'
-  const { t } = useI18n()
+  const { t, rt } = useI18n()
 
   const props = defineProps({
     modelValue: {},
@@ -96,17 +95,21 @@
   })
 
   import { validateData } from "@live-change/vue3-components"
-
+  const appContext = getCurrentInstance().appContext
   const validationResult = computed(() => {
-    const validationResult = validateData(definition.value, modelValue.value, 'validation')
-    const softValidationResult = validateData(definition.value, modelValue.value, 'softValidation')
+    const validationResult = validateData(definition.value, modelValue.value, 'validation', appContext)
+    const softValidationResult = validateData(definition.value, modelValue.value, 'softValidation', appContext)
     return validationResult || softValidationResult || error.value
   })
 
+  const config = inject('auto-form', {
+    inputs: {},
+    types: {}
+  })
   const inputConfig = computed(() => {
-    if(definition.value.input) return inputs[definition.value.input]
-    if(definition.value.type) return types[definition.value.type]
-    return inputs.default
+    if(definition.value.input) return config.inputs?.[definition.value.input] ?? inputs[definition.value.input]
+    if(definition.value.type) return config.types?.[definition.value.type] ?? types[definition.value.type]
+    return config.inputs?.default ?? inputs.default
   })
 
   const label = computed(() => props.i18n + (props.label || definition.value.label || props.name))

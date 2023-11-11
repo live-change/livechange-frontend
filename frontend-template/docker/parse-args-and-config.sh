@@ -7,5 +7,5 @@ echo "DEPLOYMENT=${DEPLOYMENT}"
 PROJECT_NAME=${NAME}
 
 if [ "$DEPLOYMENT" == "master" ]; then
-
+echo ok
 fi

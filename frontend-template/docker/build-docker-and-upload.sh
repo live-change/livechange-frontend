@@ -1,19 +1,19 @@
 #!/usr/bin/env bash
 set -e
 
-REPO=docker.ipicoin.net
+REPO=docker.chaosu.pl
 
 DIR="$( dirname -- "$( readlink -f -- "$0"; )"; )"
 
 pushd "$DIR/.."
 
-  source ./scripts/parse-args-and-config.sh
+  source ./docker/parse-args-and-config.sh
 
   echo "Building ${NAME}:${VERSION}-${DEPLOYMENT}"
 
   set -ex
 
-  ../scripts/onlyDependencies.js > package-deps.json
+  ./docker/onlyDependencies.js > package-deps.json
 
   docker build \
     -t ${NAME}:${VERSION}-${DEPLOYMENT}\
