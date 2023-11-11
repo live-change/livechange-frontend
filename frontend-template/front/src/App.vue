@@ -15,7 +15,7 @@
   import { computed } from 'vue'
   import { useHead } from '@vueuse/head'
   useHead(computed(() => ({
-    title: 'Title',
+    title: ENV_BRAND_NAME,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport',

@@ -46,7 +46,7 @@
     Let us know in case it's not you.
 
     See you soon
-    Live Change Team
+    {{ brandName }} Team
   </pre>
 </template>
 
@@ -75,9 +75,9 @@
 
   const secretCode = secrets.find(secret => secret.type == 'code')
 
-
+  const brandName = ENV_BRAND_NAME
   const metadata = {
-    from: 'admin@flipchart.live',
+    from: 'admin@' + ENV_BRAND_DOMAIN,
     subject: 'Confirm your email address.',
     to: contact
   }

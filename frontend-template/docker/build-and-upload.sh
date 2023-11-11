@@ -3,7 +3,7 @@
 DIR="$( dirname -- "$( readlink -f -- "$0"; )"; )"
 pushd "$DIR/.."
 
-  source ./scripts/parse-args-and-config.sh
+  source ./docker/parse-args-and-config.sh
 
   POD_NAME="${POD_NAME="$DEPLOYMENT-$PROJECT_NAME"}"
   echo POD_NAME=$POD_NAME

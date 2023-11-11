@@ -38,7 +38,9 @@ module.exports = async ({ command, mode }) => {
   //console.log("VITE CONFIG", command, mode)
   return {
     define: {
-      ENV_BASE_HREF: JSON.stringify(process.env.BASE_HREF || 'http://localhost:8001')
+      ENV_BASE_HREF: JSON.stringify(process.env.BASE_HREF || 'http://localhost:8001'),
+      ENV_BRAND_NAME: JSON.stringify("Example"),
+      ENV_BRAND_DOMAIN: JSON.stringify("example.com"),
     },
     server: {
       hmr: {

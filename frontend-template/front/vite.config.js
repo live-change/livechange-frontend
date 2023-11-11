@@ -12,7 +12,9 @@ export default defineConfig(async ({ command, mode }) => {
 
     define: {
       ...baseConfig.define,
-      ENV_VERSION: JSON.stringify(version)
+      ENV_VERSION: JSON.stringify(version),
+      ENV_BRAND_NAME: JSON.stringify("Example"),
+      ENV_BRAND_DOMAIN: JSON.stringify("example.com"),
     },
 
     plugins: [

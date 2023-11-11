@@ -63,6 +63,14 @@ module.exports = {
       path: '@live-change/secret-link-service'
     },
     {
+      name: 'messageAuthentication',
+      path: '@live-change/message-authentication-service',
+      contactTypes,
+      signUp: true,
+      signIn: true,
+      connect: true
+    },
+    {
       name: 'url',
       path: '@live-change/url-service'
     },
