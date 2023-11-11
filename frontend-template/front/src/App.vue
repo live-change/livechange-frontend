@@ -2,6 +2,7 @@
   <view-root>
     <template #navbar>
       <NavBar />
+      <UpdateBanner />
     </template>
   </view-root>
 </template>
@@ -10,10 +11,14 @@
   import 'primevue/resources/themes/saga-green/theme.css'
   import "@fortawesome/fontawesome-free/css/all.min.css"
 
-  import { ViewRoot, NavBar } from "@live-change/frontend-base"
+  import { ViewRoot, NavBar, UpdateBanner } from "@live-change/frontend-base"
 
   import { computed } from 'vue'
   import { useHead } from '@vueuse/head'
+
+  import { useI18n } from 'vue-i18n'
+  const i18n = useI18n()
+
   useHead(computed(() => ({
     title: ENV_BRAND_NAME,
     meta: [
@@ -23,9 +28,9 @@
             " width=device-width, viewport-fit=cover" }
     ],
     htmlAttrs: {
-      lang: 'en',
+      lang: i18n.locale.value,
       amp: true
-    }
+    },
   })))
 
   import { watch } from 'vue'
