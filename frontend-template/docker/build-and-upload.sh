@@ -23,7 +23,7 @@ pushd "$DIR/.."
 
   echo Restarting
 
-  kubectl exec $POD_NAME -- /etc/init.d/app start
+  kubectl exec $POD_NAME -- /etc/init.d/app restart
 
   echo Done
 

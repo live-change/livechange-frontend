@@ -29,7 +29,7 @@
   const { t } = useI18n()
 
   const updateAvailable = computed(
-      () => api.metadata.version.value && api.metadata.version.value != ENV_VERSION
+      () => ENV_VERSION != 'unknown' && api.metadata.version.value && api.metadata.version.value != ENV_VERSION
   )
   const updateBannerHidden = ref(false)
   function hideUpdateBanner() {

@@ -5,7 +5,7 @@
       Hello!
     </p>
     <p>
-      You are trying to connect this email address to your DEMO account.
+      You are trying to connect this email address to your account.
       In order to confirm that, please enter secret code:
     </p>
     <p class="text-3xl font-medium">{{ code }}</p>
@@ -28,14 +28,14 @@
     </p>
     <p>
       See you soon<br>
-      {{ company }} Team
+      {{ brandName }} Team
     </p>
     <img src="/images/logo128.png">
   </div>
   <pre class="message" data-text>
     Hello!
 
-    You are trying to connect this email address to your DEMO account.
+    You are trying to connect this email address to your account.
     In order to confirm that, please enter secret code:
     {{ code }}
 

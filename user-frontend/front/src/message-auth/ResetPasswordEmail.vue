@@ -5,7 +5,7 @@
       Hello!
     </p>
     <p>
-      You are trying to reset password to your DEMO account.
+      You are trying to reset password to your account.
       In order to confirm that, please enter secret code:
     </p>
     <p class="text-3xl font-medium">{{ code }}</p>
@@ -28,14 +28,14 @@
     </p>
     <p>
       See you soon<br>
-      Live Change Team
+      {{ brandName }} Team
     </p>
     <img src="/images/logo128.png">
   </div>
   <pre class="message" data-text>
     Hello!
 
-    You are trying to reset password to your DEMO account.
+    You are trying to reset password to your account.
     In order to confirm that, please enter secret code:
     {{ code }}
 

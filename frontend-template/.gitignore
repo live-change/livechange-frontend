@@ -7,3 +7,5 @@ stats.html
 *.db
 storage
 backups
+kubeconfig
+package-deps
