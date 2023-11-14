@@ -1,6 +1,6 @@
 {
   "name": "@live-change/peer-connection-frontend",
-  "version": "0.3.8",
+  "version": "0.3.9",
   "scripts": {
     "memDev": "lcli memDev --enableSessions --initScript ./init.js",
     "localDevInit": "rm tmp.db; lcli localDev --enableSessions --initScript ./init.js",
@@ -29,7 +29,7 @@
     "@live-change/secret-code-service": "0.3.34",
     "@live-change/secret-link-service": "0.3.34",
     "@live-change/session-service": "0.3.34",
-    "@live-change/user-frontend": "0.3.8",
+    "@live-change/user-frontend": "^0.3.9",
     "@live-change/user-service": "0.3.34",
     "@live-change/vue3-components": "0.2.30",
     "@live-change/vue3-ssr": "0.2.30",
