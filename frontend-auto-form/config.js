@@ -42,7 +42,7 @@ inputs.select = input(() => import('primevue/dropdown'), {
     return {
       options: definition.options,
       optionLabel: option => {
-        const i18nId = i18n + ':options.' + option
+        const i18nId = (definition.i18n ?? i18n + ':options') + '.' + option
         if(te(i18nId)) return t(i18nId)
         return t(option)
       }
@@ -57,7 +57,7 @@ inputs.multiselect = input(() => import('primevue/multiselect'), {
     return {
       options: definition.of.options ?? definition.options,
       optionLabel: option => {
-        const i18nId = i18n + ':options.' + option
+        const i18nId = (definition.i18n ?? i18n + ':options') + '.' + option
         if(te(i18nId)) return t(i18nId)
         return t(option)
       }

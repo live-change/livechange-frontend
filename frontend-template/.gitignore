@@ -9,3 +9,4 @@ storage
 backups
 kubeconfig
 package-deps
+front/components.d.ts

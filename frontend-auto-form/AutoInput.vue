@@ -49,7 +49,10 @@
   const inputConfig = computed(() => {
     if(definition.value.input) return config.inputs?.[definition.value.input] ?? inputs[definition.value.input]
     if(definition.value.type) return config.types?.[definition.value.type] ?? types[definition.value.type]
-    return config.inputs?.default ?? inputs.default
+    return {
+      ...(config.inputs?.default ?? inputs.default),
+      ...definition?.autoForm?.config, // possible to modify config per input
+    }
   })
 
   const definitionIf = computed(() => {
@@ -85,6 +88,7 @@
       //console.log("PROPS", JSON.stringify(props))
       //console.log("PROPNAME", propName.value)
       return attributes({
+        config: inputConfig.value,
         definition: definition.value,
         i18n: props.i18n + fieldName,
         propName: props.propName,
