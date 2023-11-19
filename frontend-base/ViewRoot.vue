@@ -1,4 +1,5 @@
 <template>
+  <Toast v-if="isMounted" />
   <router-view v-slot="{ route, Component }">
     <template v-if="route?.meta?.raw">
       <suspense>
@@ -35,6 +36,8 @@
 
 <script setup>
 
+  import Toast from 'primevue/toast'
+
   import 'primevue/resources/primevue.min.css'
   import 'primeflex/primeflex.css'
   import 'primeicons/primeicons.css'
@@ -54,6 +57,10 @@
   })
 
   import { computed, onMounted, ref } from 'vue'
+
+  const isMounted = ref(false)
+  onMounted(() => isMounted.value = true)
+
   const working = ref(false)
   const loading = ref(false)
 
