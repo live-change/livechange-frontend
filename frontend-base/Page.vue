@@ -24,7 +24,7 @@
 
   import ProgressBar from "primevue/progressbar"
 
-  import { onMounted, ref } from 'vue'
+  import { onMounted, ref, computed } from 'vue'
   const isMounted = ref(false)
   onMounted(() => isMounted.value = true)
 
@@ -43,7 +43,6 @@
 
   //console.log("SETUP PAGE!!!")
 
-  import { computed } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   const route = useRoute()
   const router = useRouter()
