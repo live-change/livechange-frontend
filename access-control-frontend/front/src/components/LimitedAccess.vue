@@ -2,7 +2,7 @@
   <slot v-if="!hidden && !authorized" name="blocked" :authorized="authorized" :roles="accessRoles" :accesses="accesses">
     <InsufficientAccess />
   </slot>
-  <BlockUI v-if="!hidden" :blocked="!authorized">
+  <BlockUI v-if="!hidden && !(contentHidden && !authorized)" :blocked="!authorized">
     <slot :authorized="authorized" :roles="accessRoles" :accesses="accesses"></slot>
   </BlockUI>
   <slot v-if="authorized && hidden" :roles="accessRoles" :accesses="accesses"></slot>
@@ -36,6 +36,10 @@
       type: Boolean,
       default: false
     },
+    contentHidden: {
+      type: Boolean,
+      default: false
+    }
   })
 
   import { toRefs } from '@vueuse/core'

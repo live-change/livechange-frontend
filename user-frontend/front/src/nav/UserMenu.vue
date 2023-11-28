@@ -11,6 +11,16 @@
       </router-link>
     </li>
     <li v-if="!client.user">
+      <router-link :to="{ name: 'user:signUp' }"
+                   v-ripple
+                   class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100
+               font-medium border-round cursor-pointer transition-colors transition-duration-150 p-ripple no-underline"
+      >
+        <i class="pi pi-user-plus mr-2"></i>
+        <span>Sign Up</span>
+      </router-link>
+    </li>
+    <li v-if="!client.user">
       <router-link :to="{ name: 'user:signIn' }"
                    v-ripple
                    class="flex px-6 p-3 lg:px-3 lg:py-2 align-items-center text-600 hover:text-900 hover:surface-100
