@@ -11,7 +11,8 @@
     "wysiwyg-frontend",
     "url-frontend",
     "content-frontend",
-    "blog-frontend"
+    "blog-frontend",
+    "flow-frontend"
   ],
   "publishConfig": {
     "access": "public"
