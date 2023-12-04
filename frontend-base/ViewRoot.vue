@@ -28,6 +28,9 @@
                          class="working-blur" />
             </template>
           </working-zone>
+          <template #footer>
+            <slot name="footer"></slot>
+          </template>
         </page>
       </template>
     </loading-zone>
