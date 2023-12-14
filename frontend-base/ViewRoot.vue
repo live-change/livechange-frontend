@@ -15,7 +15,7 @@
       <template v-slot:default="{ isLoading }">
         <page :loading="loading" :working="working" :route="route" :pageType="route?.meta?.pageType">
           <template #navbar>
-            <slot name="navbar"></slot>
+            <slot name="navbar">&nbsp;</slot>
           </template>
           <working-zone @isWorking="w => working = w">
             <template v-slot:working>
@@ -29,7 +29,7 @@
             </template>
           </working-zone>
           <template #footer>
-            <slot name="footer"></slot>
+            <slot name="footer">&nbsp;</slot>
           </template>
         </page>
       </template>
