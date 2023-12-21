@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -e
 
-REPO=docker.chaosu.pl
-
 DIR="$( dirname -- "$( readlink -f -- "$0"; )"; )"
 
 pushd "$DIR/.."
@@ -22,10 +20,7 @@ pushd "$DIR/.."
     -t ${REPO}/${NAME}:${DEPLOYMENT}\
     --secret id=npmrc,src=$HOME/.npmrc\
     --build-arg VERSION=${VERSION}-${DEPLOYMENT}\
-    --build-arg RPC=${RPC}\
-    --build-arg SCAN_BASE=${SCAN_BASE}\
-    --build-arg WALLET_BASE=${WALLET_BASE}\
-    --build-arg EXCHANGE_BASE=${EXCHANGE_BASE}\
+    --build-arg BASE_HREF=${BASE_HREF}\
     .
 
   docker push ${REPO}/${NAME}:${VERSION}-${DEPLOYMENT}

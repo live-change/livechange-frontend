@@ -8,5 +8,5 @@ stats.html
 storage
 backups
 kubeconfig
-package-deps
+package-deps.json
 front/components.d.ts

@@ -15,7 +15,7 @@
                   :i18n="i18n" />
     </div>
     <div>
-      <Button class="w-10rem" :label="t('autoform.addItem')" icon="pi pi-plus" @click="insertItem" />
+      <Button class="w-10rem" :label="t('autoform.addItem')" icon="pi pi-plus" @click="ev => insertItem()" />
     </div>
   </div>
 </template>
