@@ -39,7 +39,6 @@ export function serverEntry(App, createRouter, config = {}) {
       config, api, App, createRouter, host, headers, response, url
     )
 
-
     app.directive('shared-element', {})
 
     // set the router to the desired URL before rendering
