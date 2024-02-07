@@ -16,7 +16,8 @@
 
           <div class="p-field mb-3" v-if="passwordExists">
             <label for="currentPassword" class="block text-900 font-medium mb-2">Current password</label>
-            <Password id="currentPassword" class="w-full" inputClass="w-full" toggleMask
+            <Password id="currentPassword" class="w-full" inputClass="w-full"
+                      v-model:masked="masked"
                       :class="{ 'p-invalid': data.currentPasswordHashError }"
                       v-model="data.currentPasswordHash" />
             <small id="currentPassword-help" class="p-error">{{ data.currentPasswordHashError }}</small>
@@ -24,7 +25,8 @@
 
           <div class="p-field mb-3">
             <label for="newPassword" class="block text-900 font-medium mb-2">New password</label>
-            <Password id="newPassword" class="w-full" inputClass="w-full" toggleMask
+            <Password id="newPassword" class="w-full" inputClass="w-full"
+                      v-model:masked="masked"
                       :class="{ 'p-invalid': data.passwordHashError }"
                       v-model="data.passwordHash">
               <template #footer>
@@ -44,8 +46,9 @@
           <div class="p-field mb-3">
             <label for="reenterPassword" class="block text-900 font-medium mb-2">Re-enter password</label>
             <Password id="reenterPassword" class="w-full" inputClass="w-full"
+                      v-model:masked="masked"
                       v-model="secondPassword"
-                      :feedback="false" toggleMask />
+                      :feedback="false" />
           </div>
 
         </template>
@@ -62,42 +65,44 @@
 
 <script setup>
 
-import InputText from "primevue/inputtext"
-import Checkbox from "primevue/checkbox"
-import Button from "primevue/button"
-import Divider from "primevue/divider"
-import Password from "primevue/password"
-import SettingsTabs from "../SettingsTabs.vue"
+  import InputText from "primevue/inputtext"
+  import Checkbox from "primevue/checkbox"
+  import Button from "primevue/button"
+  import Divider from "primevue/divider"
+  import Password from "primevue/password"
+  import SettingsTabs from "../SettingsTabs.vue"
 
-import { live, path } from '@live-change/vue3-ssr'
-import { computed, ref, onMounted } from 'vue'
+  import { live, path } from '@live-change/vue3-ssr'
+  import { computed, ref, onMounted } from 'vue'
 
-import { useRouter } from 'vue-router'
-const router = useRouter()
+  import { useRouter } from 'vue-router'
+  const router = useRouter()
 
-const isMounted = ref(false)
-onMounted(() => isMounted.value = true)
+  const isMounted = ref(false)
+  onMounted(() => isMounted.value = true)
 
-const secondPassword = ref('')
-const form = ref()
+  const secondPassword = ref('')
+  const form = ref()
 
-onMounted(() => {
-  form.value.addValidator('passwordHash', () => {
-    const value = form.value.getFieldValue('passwordHash')
-    console.log("PASSWORDS MATCH?", secondPassword.value, value)
-    if(value != secondPassword.value) return "passwordsNotMatch"
+  const masked = ref(true)
+
+  onMounted(() => {
+    form.value.addValidator('passwordHash', () => {
+      const value = form.value.getFieldValue('passwordHash')
+      console.log("PASSWORDS MATCH?", secondPassword.value, value)
+      if(value != secondPassword.value) return "passwordsNotMatch"
+    })
   })
-})
 
 
-const passwordExists = await live(path().passwordAuthentication.myUserPasswordAuthenticationExists())
+  const passwordExists = await live(path().passwordAuthentication.myUserPasswordAuthenticationExists())
 
-function handleDone({ parameters, result }) {
-  console.log("FORM DONE", parameters, result)
-  router.push({
-    name: 'user:changePasswordFinished',
-  })
-}
+  function handleDone({ parameters, result }) {
+    console.log("FORM DONE", parameters, result)
+    router.push({
+      name: 'user:changePasswordFinished',
+    })
+  }
 
 </script>
 

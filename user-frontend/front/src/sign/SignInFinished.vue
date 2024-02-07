@@ -11,6 +11,8 @@
           Redirect in {{ pluralize('second', Math.ceil((redirectTime - currentTime) / 1000), true) }}...
         </p>
       </div>
+      <div v-else>
+        Return to <router-link to="/">index page</router-link>.
     </div>
   </div>
 </template>

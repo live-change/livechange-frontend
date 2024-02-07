@@ -36,13 +36,16 @@ const ssrTransformCustomDir = () => {
 
 let version = process.env.VERSION ?? 'unknown'
 
-module.exports = async ({ command, mode }) => {
+module.exports = async ({ command, mode }, options = {
+  ssrDisabledDirectives: ['ripple', 'styleclass', 'badge', 'shared-element', 'lazy']
+
+}) => {
   //console.log("VITE CONFIG", command, mode)
   return {
     define: {
       ENV_BASE_HREF: JSON.stringify(process.env.BASE_HREF || 'http://localhost:8001'),
-      ENV_BRAND_NAME: JSON.stringify("Example"),
-      ENV_BRAND_DOMAIN: JSON.stringify("example.com"),
+      ENV_BRAND_NAME: JSON.stringify(process.env.BRAND_NAME || "Example"),
+      ENV_BRAND_DOMAIN: JSON.stringify(process.env.BRAND_DOMAIN || "example.com"),
       ENV_MODE: JSON.stringify(mode),
       ENV_VERSION: JSON.stringify(version),
     },
@@ -65,11 +68,7 @@ module.exports = async ({ command, mode }) => {
           compilerOptions: {
             //   whitespace: "preserve",
             directiveTransforms: {
-              'ripple': ssrTransformCustomDir,
-              'styleclass': ssrTransformCustomDir,
-              'badge': ssrTransformCustomDir,
-              'shared-element': ssrTransformCustomDir,
-              'lazy': ssrTransformCustomDir
+              ...(Object.fromEntries(options.ssrDisabledDirectives.map(d => [d, ssrTransformCustomDir]))),
             }
           }
         },
@@ -230,7 +229,21 @@ module.exports = async ({ command, mode }) => {
         { find: 'universal-websocket-client', replacement: 'universal-websocket-client/browser.js' },
         { find: 'sockjs-client', replacement: 'sockjs-client/dist/sockjs.min.js' }
       ],
-    }
+    },
+
+    resolvers: [{
+      fileToRequest (filePath) {
+        console.log('@@@', filePath);
+        if (filePath.startsWith(srcPath)) {
+          return `/@/${path.relative(srcPath, filePath)}`;
+        }
+      },
+      requestToFile (publicPath) {
+        if (publicPath.startsWith('/@/')) {
+          return path.join(srcPath, publicPath.replace(/^\/@\//, ''));
+        }
+      },
+    }],
   }
 }
 

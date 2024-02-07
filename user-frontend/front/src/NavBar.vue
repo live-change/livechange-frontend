@@ -2,13 +2,15 @@
   <div class="surface-overlay py-3 px-6 shadow-2 flex align-items-center justify-content-between
               relative md:sticky top-0 z-5"
        style="min-height: 80px" key="navbar">
-    <img src="/images/logo.svg" alt="Image" height="40" class="mr-0 lg:mr-6">
+
+    <router-link to="/">
+      <img src="/images/logo.svg" alt="Image" height="40" class="mr-0 lg:mr-6">
+    </router-link>
     <div class="hidden lg:flex">
       <!-- place for desktop menu -->
     </div>
     <div class="flex flex-grow-1"></div>
     <UserIcon />
-
 
     <div class="static w-auto w-full surface-overlay left-0 top-100 z-1 shadow-none hidden">
       <ul class="list-none p-0 m-0 flex align-items-center select-none flex-row border-top-none">
@@ -27,11 +29,11 @@
       </ul>
     </div>
 
-
     <a v-ripple class="cursor-pointer block lg:hidden text-700 p-ripple ml-2 hover:surface-100 p-2"
        v-styleclass="{ selector: '@next', enterClass: 'hidden', leaveToClass: 'hidden', hideOnOutsideClick: true }">
       <i class="pi pi-bars text-4xl"></i>
     </a>
+
     <div class="align-items-center flex-grow-1 justify-content-between hidden absolute lg:static w-full surface-overlay left-0 top-100 z-1 shadow-2 lg:shadow-none">
       <ul class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row">
         <li>
@@ -109,6 +111,7 @@
         </li>
       </ul>
     </div>
+
   </div>
 </template>
 

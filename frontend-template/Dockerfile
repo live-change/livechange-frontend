@@ -27,6 +27,9 @@ WORKDIR /app
 COPY package-deps.json package.json
 RUN --mount=type=secret,id=npmrc,target=/root/.npmrc yarn install
 
+RUN mkdir -p /app/docker
+COPY docker/restore-backup-with-service.sh /app/docker/restore-backup-with-service.sh
+COPY docker/restore-backup.sh /app/docker/restore-backup.sh
 COPY /front front
 COPY /server server
 COPY package.json package.json

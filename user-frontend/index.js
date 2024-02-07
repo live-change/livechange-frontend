@@ -10,4 +10,7 @@ export { NotificationsIcon, SimpleNotification, notificationTypes }
 import UserIcon from "./front/src/nav/UserIcon.vue"
 export { UserIcon }
 
+import Password from "./front/src/password/Password.vue"
+export { Password }
+
 export * from "./front/src/router.js"
