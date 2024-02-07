@@ -6,12 +6,12 @@ export function routes(config = {}) {
     route({ name: 'user:signIn', path: prefix + 'sign-in',
       component: () => import("./SignIn.vue") }),
     route({ name: 'user:signInFinished', path: prefix + 'sign-in-finished',
-      component: () => import("./SignInFinished.vue") }),
+      component: () => import("./SignInFinished.vue"), meta: { signedIn: true } }),
 
     route({ name: 'user:signUp', path: prefix + 'sign-up',
       component: () => import("./SignUp.vue") }),
     route({ name: 'user:signUpFinished', path: prefix + 'sign-up-finished',
-      component: () => import("./SignUpFinished.vue") }),
+      component: () => import("./SignUpFinished.vue"), meta: { signedIn: true } }),
 
     route({ name: 'user:signOut', path: prefix + 'sign-out',
       component: () => import("./SignOut.vue") }),

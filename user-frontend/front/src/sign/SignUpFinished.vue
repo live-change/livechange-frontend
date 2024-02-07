@@ -8,7 +8,7 @@
       </div>
       <p class="mt-0 p-0 line-height-3">
         Congratulations! You have successfully created your account.
-        <span v-if="!passwordExists">
+        <span v-if="!needPassword">
           You can now set password to secure your account.
         </span>
         <p v-else>
@@ -19,7 +19,7 @@
       </p>
     </div>
 
-    <div class="surface-card p-4 shadow-2 border-round mt-2" v-if="!passwordExists">
+    <div class="surface-card p-4 shadow-2 border-round mt-2" v-if="needPassword">
       <div class="text-center mb-5">
         <div class="text-900 text-3xl font-medium mb-3">
           {{ passwordExists ? 'Change password' : 'Set password' }}
@@ -104,7 +104,12 @@
     })
   })
 
-  const passwordExists = await live(path().passwordAuthentication.myUserPasswordAuthenticationExists())
+  const [passwordExists, emails] = await Promise.all([
+    live(path().passwordAuthentication.myUserPasswordAuthenticationExists()),
+    live(path().email.myUserEmails())
+  ])
+
+  const needPassword = computed(() => (!passwordExists.value && emails.value?.length > 0))
 
   function handleDone({ parameters, result }) {
     console.log("FORM DONE", parameters, result)
