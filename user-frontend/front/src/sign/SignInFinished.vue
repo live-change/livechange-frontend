@@ -13,6 +13,7 @@
       </div>
       <div v-else>
         Return to <router-link to="/">index page</router-link>.
+      </div>
     </div>
   </div>
 </template>
