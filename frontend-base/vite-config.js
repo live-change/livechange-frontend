@@ -1,31 +1,30 @@
-const { findFreePorts } = require("find-free-ports")
-const path = require('path')
-const vuePlugin = require('@vitejs/plugin-vue')
+import { findFreePorts } from 'find-free-ports'
+import path from 'path'
+import vuePlugin from '@vitejs/plugin-vue'
 
-const Markdown = require('unplugin-vue-markdown/vite')
-const MarkdownItAnchor = require('markdown-it-anchor')
-const MarkdownItSub = require('markdown-it-sub')
-const MarkdownItSup = require('markdown-it-sup')
-const MarkdownItFootnote = require('markdown-it-footnote')
-const MarkdownItDefList = require('markdown-it-deflist')
-const MarkdownItAbbr = require('markdown-it-abbr')
-const MarkdownItMark = require('markdown-it-mark')
-const MarkdownItKatex = require('markdown-it-katex')
-const MarkdownItTaskLists = require('markdown-it-task-lists')
-const MarkdownItTableOfContents = require('markdown-it-table-of-contents')
-const MarkdownItMermaid = require('markdown-it-mermaid').default
+import Markdown from 'unplugin-vue-markdown/vite'
+import MarkdownItAnchor from 'markdown-it-anchor'
+import MarkdownItSub from 'markdown-it-sub'
+import MarkdownItSup from 'markdown-it-sup'
+import MarkdownItFootnote from 'markdown-it-footnote'
+import MarkdownItDefList from 'markdown-it-deflist'
+import MarkdownItAbbr from 'markdown-it-abbr'
+import MarkdownItMark from 'markdown-it-mark'
+import MarkdownItKatex from 'markdown-it-katex'
+import MarkdownItTaskLists from 'markdown-it-task-lists'
+import MarkdownItTableOfContents from 'markdown-it-table-of-contents'
+//import MarkdownItMermaid from 'markdown-it-mermaid'
 
-const { highlight } = require('@live-change/frontend-base/lezer.js')
+import { highlight } from '@live-change/frontend-base/lezer.js'
 
-const Components = require('unplugin-vue-components/vite')
-const {
-  PrimeVueResolver
-} = require('unplugin-vue-components/resolvers')
+import Components from 'unplugin-vue-components/vite'
+import { PrimeVueResolver } from 'unplugin-vue-components/resolvers'
 
-const { visualizer } = require('rollup-plugin-visualizer')
-const viteImages = require('vite-plugin-vue-images')
-const viteCompression = require('vite-plugin-compression')
-const { searchForWorkspaceRoot } = require('vite')
+import { visualizer } from 'rollup-plugin-visualizer'
+import viteImages from 'vite-plugin-vue-images'
+import viteCompression from 'vite-plugin-compression'
+import { searchForWorkspaceRoot } from 'vite'
+import { fileURLToPath } from 'url'
 
 const ssrTransformCustomDir = () => {
   return {
@@ -36,9 +35,8 @@ const ssrTransformCustomDir = () => {
 
 let version = process.env.VERSION ?? 'unknown'
 
-module.exports = async ({ command, mode }, options = {
+export default async ({ command, mode }, options = {
   ssrDisabledDirectives: ['ripple', 'styleclass', 'badge', 'shared-element', 'lazy']
-
 }) => {
   //console.log("VITE CONFIG", command, mode)
   return {
@@ -56,8 +54,8 @@ module.exports = async ({ command, mode }, options = {
       fs: {
         allow: [
           searchForWorkspaceRoot(process.cwd()),
-          path.dirname(require.resolve('primeicons/package.json')),
-          path.dirname(require.resolve('@fortawesome/fontawesome-free/package.json'))
+          path.dirname(fileURLToPath(import.meta.resolve('primeicons/package.json'))),
+          path.dirname(fileURLToPath(import.meta.resolve('@fortawesome/fontawesome-free/package.json'))),
         ]
       }
     },
@@ -90,7 +88,7 @@ module.exports = async ({ command, mode }, options = {
           md.use(MarkdownItMark)
           md.use(MarkdownItKatex)
           md.use(MarkdownItTaskLists)
-          md.use(MarkdownItMermaid)
+          //md.use(MarkdownItMermaid)
           md.use(MarkdownItAnchor)
           md.use(MarkdownItTableOfContents, {
             includeLevel: [1, 2, 3],

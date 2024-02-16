@@ -73,7 +73,6 @@
 
   const identiconUrl = computed( () => `/api/identicon/jdenticon/${ownerType.value}:${owner.value}/28.svg` )
 
-
   const [ myIdentification ] = await Promise.all([
     live(path().userIdentification.myIdentification())
   ])

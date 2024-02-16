@@ -1,18 +1,18 @@
-const { parser: javascriptParser } = require("@lezer/javascript")
-const { parser: htmlParser } = require("@lezer/html")
-const { parser: markdownParser } = require("@lezer/markdown")
-const { parser: cssParser } = require("@lezer/css")
-const { parser: jsonParser } = require("@lezer/json")
-const { parser: cppParser } = require("@lezer/cpp")
-const { parser: sassParser } = require("@lezer/sass")
-const { parser: javaParser } = require("@lezer/java")
-const { parser: pythonParser } = require("@lezer/python")
-const { parser: phpParser } = require("@lezer/php")
-const { parser: rustParser } = require("@lezer/rust")
-const { parser: xmlParser } = require("@lezer/xml")
+import { parser as javascriptParser } from "@lezer/javascript"
+import { parser as htmlParser } from "@lezer/html"
+import { parser as markdownParser } from "@lezer/markdown"
+import { parser as cssParser } from "@lezer/css"
+import { parser as jsonParser } from "@lezer/json"
+import { parser as cppParser } from "@lezer/cpp"
+import { parser as sassParser } from "@lezer/sass"
+import { parser as javaParser } from "@lezer/java"
+import { parser as pythonParser } from "@lezer/python"
+import { parser as phpParser } from "@lezer/php"
+import { parser as rustParser } from "@lezer/rust"
+import { parser as xmlParser } from "@lezer/xml"
 
-const { highlightTree } = require("@lezer/highlight")
-const { defaultHighlightStyle } = require("@codemirror/language")
+import { highlightTree } from "@lezer/highlight"
+import { defaultHighlightStyle } from "@codemirror/language"
 
 const parsers = {
   javascript: javascriptParser,
@@ -36,7 +36,7 @@ const parsers = {
   xml: xmlParser,
 }
 
-function hightlight(code, language) {
+function highlight(code, language) {
   //console.log("HIGHLIGHT", language, code)
   const parser = parsers[language]
   if(parser) {
@@ -60,6 +60,6 @@ function hightlight(code, language) {
   }
 }
 
-module.exports = {
-  parsers, hightlight
+export {
+  parsers, highlight
 }

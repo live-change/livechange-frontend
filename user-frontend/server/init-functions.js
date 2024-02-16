@@ -1,4 +1,4 @@
-const App = require('@live-change/framework')
+import App from '@live-change/framework'
 const app = App.app()
 
 async function createUser(services, name, email, password, user = app.generateUid(), roles = []) {
@@ -21,4 +21,4 @@ async function createUser(services, name, email, password, user = app.generateUi
 
 }
 
-module.exports = { createUser }
+export { createUser }

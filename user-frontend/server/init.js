@@ -1,7 +1,7 @@
-const App = require('@live-change/framework')
+import App from '@live-change/framework'
 const app = App.app()
 
-module.exports = async function(services) {
+export default async function(services) {
 
   const user = '[testUser]'
   const email = 'tester@test.com'
