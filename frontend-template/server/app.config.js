@@ -79,7 +79,14 @@ app.config = {
     {
       name: 'backup',
       port: 8007
-    }
+    },
+    {
+      name: 'contactForm',
+      targetEmail: 'convers8@em8.pl',
+      targetName: 'Convers8',
+      fromEmail: 'formularz@convers8.pl',
+      subject: 'Convers8 - Wiadomość z formularza kontaktowego',
+    },
   ]
 }
 

@@ -41,3 +41,6 @@ export {
   backup,
   init
 }
+
+import contactForm from "./contactForm.js"
+export { contactForm }
