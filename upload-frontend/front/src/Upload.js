@@ -1,4 +1,4 @@
-import { ref, onUnmounted, watch } from 'vue'
+import { ref, onUnmounted, watch, unref } from 'vue'
 import { api as useApi } from '@live-change/vue3-ssr'
 
 class Upload {
@@ -79,6 +79,10 @@ class Upload {
       this.serverObservable.unbindProperty(this.serverUpload, 'value')
       this.serverObservable = null
     }
+  }
+
+  isDone() {
+    return unref(this.state) == 'done'
   }
 }
 

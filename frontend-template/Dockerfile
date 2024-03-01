@@ -15,7 +15,7 @@ RUN echo "LANG=en_US.UTF-8" > /etc/locale.conf
 RUN locale-gen en_US.UTF-8
 
 # NODE
-RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash -
 RUN apt-get install -y nodejs
 
 #NPM, PM2
@@ -49,4 +49,4 @@ COPY docker/start-service.sh /start-service.sh
 COPY docker/app.initd.sh /etc/init.d/app
 
 #CMD /start-service.sh
-CMD node_modules/.bin/lcli ssrServer --withApi --withServices --updateServices --enableSessions --createDb
+CMD node server/start.js ssrServer --withApi --withServices --updateServices --enableSessions --createDb

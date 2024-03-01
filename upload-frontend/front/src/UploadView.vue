@@ -13,8 +13,10 @@
         eta: {{ Duration.fromMillis(uploadProgress.eta).toHuman({  unitDisplay: "short" }) }}
       </div>
     </div>
-    <div v-else class="text-center">
-      Uploaded {{ prettyBytes(uploadProgress.length) }}
+    <div v-else class="flex flex-row justify-content-center">
+      <div class="mr-1">Uploaded</div>
+      <div v-if="upload.serverUpload" class="mr-1 font-semibold">{{ upload.serverUpload.fileName }}</div>
+      <div>{{ prettyBytes(uploadProgress.length) }}</div>
     </div>
   </div>
 </template>

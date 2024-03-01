@@ -128,19 +128,7 @@ export default async ({ command, mode }, options = {
       commonjsOptions: {
         transformMixedEsModules: true,
         include: [
-          /node_modules/,
-          /live-change-framework\/framework\//,
-          /live-change-framework\/relations-plugin\//,
-          /live-change-framework\/uid\//,
-          /live-change-db\/db-web\//,
-          /live-change-db\/db\//,
-          /live-change-db\/db-store-rbtree\//,
-          /live-change-db\/db-store-indexeddb\//,
-          /live-change-db\/db-store-localstorage\//,
-          /live-change-dao\/dao\//,
-          /live-change-dao\/dao-sockjs\//,
-          /live-change-dao\/dao-websocket\//,
-          /live-change-dao\/dao-message\//,
+          /node_modules/
         ]
       },
     },
@@ -154,10 +142,10 @@ export default async ({ command, mode }, options = {
         '@live-change/framework',
         '@live-change/framework/lib/utils/validators.js',
         '@live-change/relations-plugin',
-        '@live-change/db-web',
+/*        '@live-change/db-web',
         '@live-change/db',
         '@live-change/db-store-indexeddb',
-        '@live-change/db-store-rbtree',
+        '@live-change/db-store-rbtree',*/
         'debug',
         'vite',
         'pica'
@@ -188,6 +176,10 @@ export default async ({ command, mode }, options = {
         '@live-change/wysiwyg-frontend',
         '@live-change/flow-frontend',
         '@live-change/frontend-auto-form',
+        '@live-change/db-web',
+        '@live-change/db',
+        '@live-change/db-store-indexeddb',
+        '@live-change/db-store-rbtree',
         'vue3-scroll-border',
         'pretty-bytes',
         'primevue',
