@@ -24,7 +24,7 @@
     "@fortawesome/fontawesome-free": "^6.4.2",
     "@live-change/blog-service": "0.4.4",
     "@live-change/cli": "0.8.1",
-    "@live-change/content-frontend": "^0.4.4",
+    "@live-change/content-frontend": "0.4.4",
     "@live-change/dao": "0.6.0",
     "@live-change/dao-vue3": "0.6.0",
     "@live-change/dao-websocket": "0.6.0",
